@@ -7,7 +7,7 @@
     "classnames": "^2.5.1",
     "core-js": "^3.36.0",
     "graphql": "^16.8.1",
-    "meteor-node-stubs": "^1.2.7",
+    "meteor-node-stubs": "^1.2.9",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",

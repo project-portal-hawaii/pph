@@ -26,13 +26,13 @@ const MakeCard = ({ project }) => (
   <Col>
     <Card className="h-100">
       <Card.Body>
-        <Card.Img src={project.picture} width={50} />
+        <Image src={project.picture} width={100} rounded center />
         <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
         <Card.Subtitle>
           <span className="date">{project.title}</span>
         </Card.Subtitle>
         <Card.Text>
-          {project.description}
+          {`${project.description.slice(0, 100)}...`}
         </Card.Text>
       </Card.Body>
       <Card.Body>
@@ -57,7 +57,7 @@ MakeCard.propTypes = {
 };
 
 /* Renders the Project Collection as a set of Cards. */
-const ProjectsPage = () => {
+const AvailableProjectsPage = () => {
   const { ready } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
@@ -79,4 +79,4 @@ const ProjectsPage = () => {
   ) : <LoadingSpinner />;
 };
 
-export default ProjectsPage;
+export default AvailableProjectsPage;

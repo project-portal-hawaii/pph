@@ -12,7 +12,7 @@ import SignIn from '../pages/SignIn';
 import NotAuthorized from '../pages/NotAuthorized';
 import Profiles from '../pages/Profiles';
 import Interests from '../pages/Interests';
-import Home from '../pages/Home';
+import EditProfile from '../pages/EditProfile';
 import Filter from '../pages/Filter';
 import AddProject from '../pages/AddProject';
 import AvailableProjects from '../pages/AvailableProjects';
@@ -32,7 +32,7 @@ const App = () => (
         <Route path="/profiles" element={<Profiles />} />
         <Route path="/singleproject" element={<SingleProject />} />
         <Route path="/availableprojects" element={<AvailableProjects />} />
-        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
         <Route path="/filter" element={<ProtectedRoute><Filter /></ProtectedRoute>} />
         <Route path="/addproject" element={<ProtectedRoute><AddProject /></ProtectedRoute>} />
         <Route path="/notauthorized" element={<NotAuthorized />} />
@@ -59,7 +59,7 @@ ProtectedRoute.propTypes = {
 };
 
 ProtectedRoute.defaultProps = {
-  children: <Home />,
+  children: <Landing />,
 };
 
 export default App;

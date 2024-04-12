@@ -35,7 +35,7 @@ const SignUp = () => {
 
   // if correct authentication, redirect to from: page instead of signup screen
   if (redirectToReferer) {
-    return (<Navigate to="/home" />);
+    return (<Navigate to="/editprofile" />);
   }
   return (
     <Container id={PageIDs.signUpPage}>

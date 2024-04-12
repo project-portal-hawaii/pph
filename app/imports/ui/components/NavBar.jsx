@@ -23,15 +23,16 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls={ComponentIDs.basicNavbarNav} />
         <Navbar.Collapse id={ComponentIDs.basicNavbarNav}>
           <Nav className="me-auto justify-content-start">
-            {currentUser ? (
-              <Nav.Link as={NavLink} id={ComponentIDs.homeMenuItem} to="/home" key="home">Home</Nav.Link>
-            ) : ''}
+            <Nav.Link as={NavLink} id={ComponentIDs.landingMenuItem} to="/" key="landing">Home</Nav.Link>
             {/* <Nav.Link as={NavLink} id={ComponentIDs.profilesMenuItem} to="/profiles" key="profiles">Profiles</Nav.Link> */}
             <Nav.Link as={NavLink} id={ComponentIDs.projectsMenuItem} to="/availableprojects" key="availableprojects">Available Projects</Nav.Link>
             {/* <Nav.Link as={NavLink} id={ComponentIDs.interestsMenuItem} to="/interests" key="interests">Interests</Nav.Link> */}
             {currentUser ? ([<Nav.Link as={NavLink} id={ComponentIDs.addProjectMenuItem} to="/addProject" key="addP">Add Project</Nav.Link>]) : ''}
+            {currentUser ? ([<Nav.Link as={NavLink} id={ComponentIDs.singleProjectMenuItem} to="/singleProject" key="singleProject">View A Random Project</Nav.Link>]) : ''}
             { /* <Nav.Link as={NavLink} id={ComponentIDs.filterMenuItem} to="/filter" key="filter">Filter</Nav.Link>] */ }
-
+            {currentUser ? (
+              <Nav.Link as={NavLink} id={ComponentIDs.homeMenuItem} to="/editprofile" key="editprofile">Edit Profile</Nav.Link>
+            ) : ''}
           </Nav>
           <Nav className="justify-content-end">
             {currentUser === '' ? (

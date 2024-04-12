@@ -19,6 +19,7 @@ export const ComponentIDs = {
   homeFormSubmit: 'homeFormSubmit',
   homeMenuItem: 'homeMenuItem',
   interestsMenuItem: 'interestsMenuItem',
+  landingMenuItem: 'landingMenuItem',
   loginDropdown: 'loginDropdown',
   loginDropdownSignIn: 'loginDropdownSignIn',
   loginDropdownSignUp: 'loginDropdownSignUp',
@@ -30,6 +31,7 @@ export const ComponentIDs = {
   signUpFormEmail: 'signUpFormEmail',
   signUpFormPassword: 'signUpFormPassword',
   signUpFormSubmit: 'signUpFormSubmit',
+  singleProjectMenuItem: 'singleProjectMenuItem',
 };
 
 export const PageIDs = {

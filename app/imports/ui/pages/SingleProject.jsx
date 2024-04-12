@@ -26,7 +26,7 @@ const MakeCard = ({ project }) => (
   <Col>
     <Card className="my-2">
       <Card.Body>
-        <Card.Img src={project.picture} />
+        <Card.Img src={project.picture} style={{ width: '450px', height: '450px' }} />
         <Card.Title tag="h5" style={{ marginTop: '0px' }}>{project.name}</Card.Title>
         <p><i>FULL DESCRIPTION:</i></p>
         <Card.Subtitle>

@@ -31,8 +31,8 @@ const makeSchema = (allInterests, allProjects) => new SimpleSchema({
   'projects.$': { type: String, allowedValues: allProjects },
 });
 
-/* Renders the Home Page: what appears after the user logs in. */
-const Home = () => {
+/* Renders the EditProfile Page: what appears after the user logs in. */
+const EditProfile = () => {
 
   /* On submit, insert the data. */
   const submit = (data) => {
@@ -97,4 +97,4 @@ const Home = () => {
   ) : <LoadingSpinner />;
 };
 
-export default Home;
+export default EditProfile;

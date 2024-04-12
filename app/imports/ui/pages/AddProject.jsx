@@ -78,6 +78,7 @@ const AddProject = () => {
                   <Col xs={4}><TextField id={ComponentIDs.addProjectFormHomePage} name="homepage" showInlineError placeholder="Homepage URL" /></Col>
                 </Row>
                 <LongTextField id={ComponentIDs.addProjectFormDescription} name="description" placeholder="Describe the project here" />
+                {/* // We will want to do something similar to this.
                 <Row>
                   <Col xs={6} id={ComponentIDs.addProjectFormInterests}>
                     <SelectField name="interests" showInlineError placeholder="Interests" multiple checkboxes transform={transform} />
@@ -85,7 +86,7 @@ const AddProject = () => {
                   <Col xs={6} id={ComponentIDs.addProjectFormParticipants}>
                     <SelectField name="participants" showInlineError placeholder="Participants" multiple checkboxes transform={transform} />
                   </Col>
-                </Row>
+                </Row> */}
                 <SubmitField id={ComponentIDs.addProjectFormSubmit} value="Submit" />
                 <ErrorsField />
               </Card.Body>

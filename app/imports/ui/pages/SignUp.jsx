@@ -41,12 +41,12 @@ const SignUp = () => {
     <Container id={PageIDs.signUpPage}>
       <Row className="justify-content-center">
         <Col xs={9}>
-          <Col className="text-center">
-            <h2>Register your account</h2>
+          <Col className="text-center py-4">
+            <h2 style={{ color: '#376551' }}>Create a new account</h2>
           </Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
-              <Card.Body>
+              <Card.Body id={ComponentIDs.signUpCardBody}>
                 <TextField id={ComponentIDs.signUpFormEmail} name="email" placeholder="E-mail address" />
                 <TextField id={ComponentIDs.signUpFormPassword} name="password" placeholder="Password" type="password" />
                 <ErrorsField />
@@ -54,7 +54,7 @@ const SignUp = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          <Alert variant="secondary">
+          <Alert id={ComponentIDs.signUpFormAlert}>
             Already have an account? Login
             {' '}
             <Link to="/signin">here</Link>

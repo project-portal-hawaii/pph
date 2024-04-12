@@ -71,7 +71,7 @@ const AddProject = () => {
           <Col className="text-center"><h2>Add Project</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
-              <Card.Body>
+              <Card.Body id={ComponentIDs.addProjectCardBody}>
                 <Row>
                   <Col xs={4}><TextField id={ComponentIDs.addProjectFormName} name="name" showInlineError placeholder="Project name" /></Col>
                   <Col xs={4}><TextField id={ComponentIDs.addProjectFormPicture} name="picture" showInlineError placeholder="Project picture URL" /></Col>

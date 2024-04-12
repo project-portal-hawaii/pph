@@ -68,27 +68,27 @@ const EditProfile = () => {
   const profile = Profiles.collection.findOne({ email });
   const model = _.extend({}, profile, { interests, projects });
   return ready ? (
-    <Container id={PageIDs.homePage} className="justify-content-center" style={pageStyle}>
+    <Container id={PageIDs.editProfilePage} className="justify-content-center" style={pageStyle}>
       <Col>
         <Col className="justify-content-center text-center"><h2>Your Profile</h2></Col>
         <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
           <Card>
-            <Card.Body>
+            <Card.Body id={ComponentIDs.editProfileCardBody}>
               <Row>
-                <Col xs={4}><TextField id={ComponentIDs.homeFormFirstName} name="firstName" showInlineError placeholder="First Name" /></Col>
-                <Col xs={4}><TextField id={ComponentIDs.homeFormLastName} name="lastName" showInlineError placeholder="Last Name" /></Col>
+                <Col xs={4}><TextField id={ComponentIDs.editProfileFormFirstName} name="firstName" showInlineError placeholder="First Name" /></Col>
+                <Col xs={4}><TextField id={ComponentIDs.editProfileFormLastName} name="lastName" showInlineError placeholder="Last Name" /></Col>
                 <Col xs={4}><TextField name="email" showInlineError placeholder="email" disabled /></Col>
               </Row>
-              <LongTextField id={ComponentIDs.homeFormBio} name="bio" placeholder="Write a little bit about yourself." />
+              <LongTextField id={ComponentIDs.editProfileFormBio} name="bio" placeholder="Write a little bit about yourself." />
               <Row>
                 <Col xs={6}><TextField name="title" showInlineError placeholder="Title" /></Col>
                 <Col xs={6}><TextField name="picture" showInlineError placeholder="URL to picture" /></Col>
-              </Row>
+              </Row>{ /*
               <Row>
                 <Col xs={6}><SelectField name="interests" showInlineError multiple /></Col>
                 <Col xs={6}><SelectField name="projects" showInlineError multiple /></Col>
-              </Row>
-              <SubmitField id={ComponentIDs.homeFormSubmit} value="Update" />
+              </Row> */ }
+              <SubmitField id={ComponentIDs.editProfileFormSubmit} value="Update" />
             </Card.Body>
           </Card>
         </AutoForm>

@@ -45,12 +45,12 @@ const SignIn = () => {
     <Container id={PageIDs.signInPage}>
       <Row className="justify-content-center">
         <Col xs={9}>
-          <Col className="text-center">
-            <h2>Login to your account</h2>
+          <Col className="text-center py-4">
+            <h2 style={{ color: '#376551' }}>Sign in to your account</h2>
           </Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card>
-              <Card.Body>
+              <Card.Body id={ComponentIDs.signInCardBody}>
                 <TextField id={ComponentIDs.signInFormEmail} name="email" placeholder="E-mail address" />
                 <TextField id={ComponentIDs.signInFormPassword} name="password" placeholder="Password" type="password" />
                 <ErrorsField />
@@ -58,8 +58,10 @@ const SignIn = () => {
               </Card.Body>
             </Card>
           </AutoForm>
-          <Alert variant="secondary">
-            <Link to="/signup">Click here to Register</Link>
+          <Alert id={ComponentIDs.signInFormAlert}>
+            Click {' '}
+            <Link to="/signup">here</Link>
+            {' '} to register.
           </Alert>
           {error === '' ? (
             ''

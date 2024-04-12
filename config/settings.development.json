@@ -1,4 +1,8 @@
 {
+  "monti": {
+    "appId": "pkjQKTRWcc4dvQCvm",
+    "appSecret": "1c5a7288-85f9-4c66-8990-978d96646857"
+  },
   "defaultProfiles": [
     {
       "firstName": "Philip",

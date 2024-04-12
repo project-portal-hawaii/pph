@@ -1,55 +1,82 @@
 /* Use Open Sans as the default sans serif font. */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700|Source+Code+Pro:300,400,500,700");
 
-/* Create some Bowfolio CSS variables. */
+/* Create some pph CSS variables. */
 :root {
-  --bowfolio-navbar-bg: #376551;
-  --bowfolio-navbar-bg-rgb: 55, 101, 81;
-  --bowfolio-navbar-text: white;
-  --bowfolio-navbar-highlight-text: var(--bs-gray-500);
+  --pph-navbar-bg: #376551;
+  --pph-navbar-bg-rgb: 55, 101, 81;
+  --pph-navbar-text: white;
+  --pph-navbar-highlight-text: var(--bs-gray-500);
 }
 /* Change bootstrap variable values.
  See https://getbootstrap.com/docs/5.2/customize/css-variables/
  */
 body {
-  --bs-dark: var(--bowfolio-navbar-bg);
-  --bs-dark-rgb: var(--bowfolio-navbar-bg-rgb);
+  --bs-dark: var(--pph-navbar-bg);
+  --bs-dark-rgb: var(--pph-navbar-bg-rgb);
 }
 
 /* Color the light Brand and links with dark color */
 .bg-light span, .bg-light a {
-  color:  var(--bowfolio-navbar-bg);
+  color:  var(--pph-navbar-bg);
 }
 
 /* When logged in we switch the NavBar to bg-dark so we need to override the styles to give light text. */
 .bg-dark span, .bg-dark a {
-  color: var(--bowfolio-navbar-text);
+  color: var(--pph-navbar-text);
 }
 
 /* When logged in we highlight the selected route. */
 .bg-dark a.nav-link.active {
-  color: var(--bowfolio-navbar-highlight-text);
+  color: var(--pph-navbar-highlight-text);
 }
 
 /* Override the color on the dropdown when logged in. */
 .bg-dark a.dropdown-item {
-  color: var(--bowfolio-navbar-bg);
+  color: var(--pph-navbar-bg);
 }
 
 /* Landing page color blocking */
 .landing-green-background {
-  background-color: var(--bowfolio-navbar-bg);
-  color: var(--bowfolio-navbar-text);
+  background-color: var(--pph-navbar-bg);
+  color: var(--pph-navbar-text);
   padding-top: 20px;
 }
 
 .landing-white-background {
-  background-color: var(--bowfolio-navbar-text);
-  color: var(--bowfolio-navbar-bg);
+  background-color: var(--pph-navbar-text);
+  color: var(--pph-navbar-bg);
   padding-top: 20px;
 }
 
 .reset-margins {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+/* Sign Up and Sign In Pages CSS */
+#signUpFormSubmit input,
+#signInFormSubmit input,
+#addProjectFormSubmit input,
+#editProfileFormSubmit input,
+#singleProjectAddButton {
+  border-color: var(--pph-navbar-bg);
+  background-color: var(--pph-navbar-bg);
+}
+
+#signUpFormAlert, #signInFormAlert {
+  border: 2px solid var(--pph-navbar-bg);
+  border-radius: 0.375rem;
+  background-color: #f0f0f0;
+}
+
+#signUpCardBody, #signInCardBody {
+  border: 2px solid var(--pph-navbar-bg);
+  border-radius: 0.375rem;
+  margin-bottom: 5px;
+}
+
+#addProjectCardBody, #editProfileCardBody {
+  border: 2px solid var(--pph-navbar-bg);
+  border-radius: 0.375rem;
 }

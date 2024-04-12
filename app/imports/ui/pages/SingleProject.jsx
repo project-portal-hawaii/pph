@@ -10,7 +10,7 @@ import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
-import { PageIDs } from '../utilities/ids';
+import { ComponentIDs, PageIDs } from '../utilities/ids';
 
 /* Gets the Project data as well as Profiles and Interests associated with the passed Project name. */
 function getProjectData(name) {
@@ -74,7 +74,7 @@ const SingleProjectPage = () => {
       <Row className="g-2">
         <MakeCard project={singleProject} />
       </Row>
-      <Button>Add Project</Button>
+      <Button id={ComponentIDs.singleProjectAddButton}>Add Project</Button>
     </Container>
   ) : <LoadingSpinner />;
 };

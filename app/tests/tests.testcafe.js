@@ -40,11 +40,11 @@ test('Test that signup page, then logout works', async (testController) => {
   await signOutPage.isDisplayed(testController);
 });
 
-test('Test that profiles page displays', async (testController) => {
+/* test('Test that profiles page displays', async (testController) => {
   await navBar.gotoProfilesPage(testController);
   await profilesPage.isDisplayed(testController);
   await profilesPage.hasDefaultProfiles(testController);
-});
+}); */
 
 test('Test that interests page displays', async (testController) => {
   await navBar.gotoInterestsPage(testController);

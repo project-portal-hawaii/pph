@@ -4,7 +4,7 @@ import { signOutPage } from './signout.page';
 import { signupPage } from './signup.page';
 // import { profilesPage } from './profiles.page';
 import { projectsPage } from './projects.page';
-import { interestsPage } from './interests.page';
+// import { interestsPage } from './interests.page';
 import { homePage } from './home.page';
 import { addProjectPage } from './addproject.page';
 import { filterPage } from './filter.page';
@@ -39,19 +39,18 @@ test('Test that signup page, then logout works', async (testController) => {
   await navBar.logout(testController);
   await signOutPage.isDisplayed(testController);
 });
-
-/* test('Test that profiles page displays', async (testController) => {
+/** test('Test that profiles page displays', async(testController) => {
   await navBar.gotoProfilesPage(testController);
   await profilesPage.isDisplayed(testController);
   await profilesPage.hasDefaultProfiles(testController);
-}); */
+});
 
-test('Test that interests page displays', async (testController) => {
+test('Test that interests page displays', async(testController) => {
   await navBar.gotoInterestsPage(testController);
   await interestsPage.isDisplayed(testController);
   await interestsPage.hasDefaultInterests(testController);
 });
-
+*/
 test('Test that projects page displays', async (testController) => {
   await navBar.gotoProjectsPage(testController);
   await projectsPage.isDisplayed(testController);

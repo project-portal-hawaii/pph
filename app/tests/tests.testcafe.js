@@ -1,6 +1,7 @@
 import { landingPage } from './landing.page';
 import { signInPage } from './signin.page';
 import { signOutPage } from './signout.page';
+/** muted for now, will be used later in M3
 import { signupPage } from './signup.page';
 // import { profilesPage } from './profiles.page';
 import { projectsPage } from './projects.page';
@@ -8,11 +9,13 @@ import { projectsPage } from './projects.page';
 import { homePage } from './home.page';
 import { addProjectPage } from './addproject.page';
 import { filterPage } from './filter.page';
+ */
 import { navBar } from './navbar.component';
 
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
+
 const credentials = { username: 'johnson@hawaii.edu', password: 'foo', firstName: 'Philip', lastName: 'Johnson' };
 
 fixture('Bowfolios localhost test with default db')
@@ -28,7 +31,7 @@ test('Test that signin and signout work', async (testController) => {
   await navBar.logout(testController);
   await signOutPage.isDisplayed(testController);
 });
-
+/**
 test('Test that signup page, then logout works', async (testController) => {
   // Create a new user email address that's guaranteed to be unique.
   const newUser = `user-${new Date().getTime()}@foo.com`;
@@ -39,7 +42,7 @@ test('Test that signup page, then logout works', async (testController) => {
   await navBar.logout(testController);
   await signOutPage.isDisplayed(testController);
 });
-/** test('Test that profiles page displays', async(testController) => {
+test('Test that profiles page displays', async(testController) => {
   await navBar.gotoProfilesPage(testController);
   await profilesPage.isDisplayed(testController);
   await profilesPage.hasDefaultProfiles(testController);
@@ -50,7 +53,7 @@ test('Test that interests page displays', async(testController) => {
   await interestsPage.isDisplayed(testController);
   await interestsPage.hasDefaultInterests(testController);
 });
-*/
+
 test('Test that projects page displays', async (testController) => {
   await navBar.gotoProjectsPage(testController);
   await projectsPage.isDisplayed(testController);
@@ -83,3 +86,4 @@ test('Test that filter page works', async (testController) => {
   await filterPage.isDisplayed(testController);
   await filterPage.filter(testController);
 });
+*/

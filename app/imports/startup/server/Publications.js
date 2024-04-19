@@ -5,6 +5,14 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { Sponsors } from '../../api/sponsors/Sponsors';
+import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
+
+/** Define a publication to publish all sponsors. */
+Meteor.publish(Sponsors.userPublicationName, () => Sponsors.collection.find());
+
+/** Define a publication to publish all ProjectsSponsors. */
+Meteor.publish(ProjectsSponsors.userPublicationName, () => ProjectsSponsors.collection.find());
 
 /** Define a publication to publish all interests. */
 Meteor.publish(Interests.userPublicationName, () => Interests.collection.find());

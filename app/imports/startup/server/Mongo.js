@@ -7,6 +7,8 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
+import { Sponsors } from '../../api/sponsors/Sponsors';
+import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 
 /* eslint-disable no-console */
 
@@ -24,6 +26,12 @@ function addInterest(interest) {
   Interests.collection.update({ name: interest }, { $set: { name: interest } }, { upsert: true });
 }
 
+/** Define a sponsor. */
+function addSponsor({ name, email, logo }) {
+  const sponsorQuery = { name, email, logo };
+  Sponsors.collection.update(sponsorQuery, { $set: sponsorQuery }, { upsert: true });
+}
+
 /** Defines a new user and associated profile. Error if user already exists. */
 function addProfile({ firstName, lastName, bio, title, interests, projects, picture, email, role }) {
   console.log(`Defining profile ${email}`);
@@ -39,12 +47,18 @@ function addProfile({ firstName, lastName, bio, title, interests, projects, pict
 }
 
 /** Define a new project. Error if project already exists.  */
-function addProject({ name, homepage, description, interests, picture }) {
+function addProject({ name, homepage, description, interests, sponsors, picture }) {
   console.log(`Defining project ${name}`);
   Projects.collection.insert({ name, homepage, description, picture });
   interests.map(interest => ProjectsInterests.collection.insert({ project: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
+  /* sponsors.forEach(sponsor => {
+    const sponsorId = addSponsor(sponsor);
+    ProjectsSponsors.collection.insert({ project: name, sponsorId });
+  }); */
+  sponsors.map(sponsor => ProjectsSponsors.collection.insert({ project: name, sponsor }));
+  sponsors.map(sponsor => addSponsor({ sponsor }));
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

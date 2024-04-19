@@ -51,23 +51,25 @@ const addProjectMethod = 'Projects.add';
 
 /** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
 Meteor.methods({
-  'Projects.add'({ name, description, picture, interests, participants, homepage, statuses }) {
+  'Projects.add'({ name, description, picture, interests, participants, homepage, status }) {
     Projects.collection.insert({ name, description, picture, homepage });
     ProfilesProjects.collection.remove({ project: name });
     ProjectsInterests.collection.remove({ project: name });
     if (interests) {
       interests.map((interest) => ProjectsInterests.collection.insert({ project: name, interest }));
     } else {
-      throw new Meteor.Error('At least one interest is required.');
+    //  throw new Meteor.Error('At least one interest is required.');
     }
     if (participants) {
       participants.map((participant) => ProfilesProjects.collection.insert({ project: name, profile: participant }));
     }
     ProjectsStatuses.collection.remove({ project: name });
-    if (statuses) {
-      statuses.map((status) => ProjectsStatuses.collection.insert({ project: name, status }));
+    if (status) {
+    //  status.map((statusItem) => ProjectsStatuses.collection.insert({ project: name, statusItem }));
+      ProjectsStatuses.collection.insert({ project: name, status });
     } else {
-      throw new Meteor.Error('At least one project status is required.');
+    //  throw new Meteor.Error('At least one project status is required.');
+      ProjectsStatuses.collection.insert({ project: name, status: 'Proposed' });
     }
   },
 });

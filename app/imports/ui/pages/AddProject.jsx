@@ -17,10 +17,10 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
-import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
+// import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* Create a schema to specify the structure of the data to appear in the form. */
-const makeSchema = (allInterests, allParticipants) => new SimpleSchema({
+const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSchema({
   name: String,
   description: String,
   homepage: String,
@@ -29,6 +29,7 @@ const makeSchema = (allInterests, allParticipants) => new SimpleSchema({
   'interests.$': { type: String, allowedValues: allInterests },
   participants: { type: Array, label: 'Participants', optional: true },
   'participants.$': { type: String, allowedValues: allParticipants },
+  status: { type: String, allowedValues: allStatuses, optional: false, autoValue: () => 'Proposed' },
 });
 
 /* Renders the Page for adding a project. */

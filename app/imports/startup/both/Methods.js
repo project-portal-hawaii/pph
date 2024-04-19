@@ -4,6 +4,7 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -50,7 +51,7 @@ const addProjectMethod = 'Projects.add';
 
 /** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
 Meteor.methods({
-  'Projects.add'({ name, description, picture, interests, participants, homepage }) {
+  'Projects.add'({ name, description, picture, interests, participants, homepage, statuses }) {
     Projects.collection.insert({ name, description, picture, homepage });
     ProfilesProjects.collection.remove({ project: name });
     ProjectsInterests.collection.remove({ project: name });
@@ -61,6 +62,12 @@ Meteor.methods({
     }
     if (participants) {
       participants.map((participant) => ProfilesProjects.collection.insert({ project: name, profile: participant }));
+    }
+    ProjectsStatuses.collection.remove({ project: name });
+    if (statuses) {
+      statuses.map((status) => ProjectsStatuses.collection.insert({ project: name, status }));
+    } else {
+      throw new Meteor.Error('At least one project status is required.');
     }
   },
 });

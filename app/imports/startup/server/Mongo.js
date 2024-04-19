@@ -7,6 +7,8 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
+import { Statuses } from '../../api/statuses/Statuses';
+import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* eslint-disable no-console */
 
@@ -24,6 +26,11 @@ function addInterest(interest) {
   Interests.collection.update({ name: interest }, { $set: { name: interest } }, { upsert: true });
 }
 
+/** Define a status. Has no effect if status already exists. */
+function addStatus(status) {
+  Statuses.collection.update({ name: status }, { $set: { name: status } }, { upsert: true });
+}
+
 /** Defines a new user and associated profile. Error if user already exists. */
 function addProfile({ firstName, lastName, bio, title, interests, projects, picture, email, role }) {
   console.log(`Defining profile ${email}`);
@@ -39,12 +46,15 @@ function addProfile({ firstName, lastName, bio, title, interests, projects, pict
 }
 
 /** Define a new project. Error if project already exists.  */
-function addProject({ name, homepage, description, interests, picture }) {
+function addProject({ name, homepage, description, interests, picture, status }) {
   console.log(`Defining project ${name}`);
   Projects.collection.insert({ name, homepage, description, picture });
   interests.map(interest => ProjectsInterests.collection.insert({ project: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
+  // Add statuses
+  ProjectsStatuses.collection.insert({ project: name, status });
+  addStatus(status);
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

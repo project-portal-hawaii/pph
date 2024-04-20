@@ -53,6 +53,14 @@ MakeCard.propTypes = {
     picture: PropTypes.string,
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
+    date: PropTypes.string,
+    students: PropTypes.string,
+    video: PropTypes.string,
+    testimonials: PropTypes.string,
+    techStack: PropTypes.string,
+    instructor: PropTypes.string,
+    image: PropTypes.string,
+    poster: PropTypes.string,
   }).isRequired,
 };
 

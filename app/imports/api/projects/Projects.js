@@ -13,7 +13,17 @@ class ProjectsCollection {
       name: { type: String, index: true, unique: true },
       homepage: { type: String, optional: true },
       description: { type: String, optional: true },
+      // This will be the Thumbnail Image
       picture: { type: String, optional: true },
+      // Everything after this point are added fields
+      date: { type: String, optional: true },
+      students: { type: String, optional: true },
+      video: { type: String, optional: true },
+      testimonials: { type: String, optional: true },
+      techStack: { type: String, optional: true },
+      instructor: { type: String, optional: true },
+      image: { type: String, optional: true },
+      poster: { type: String, optional: true },
     });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);

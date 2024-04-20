@@ -23,10 +23,19 @@ const makeSchema = (allInterests, allParticipants) => new SimpleSchema({
   description: String,
   homepage: String,
   picture: String,
-  interests: { type: Array, label: 'Interests', optional: false },
+  interests: { type: Array, label: 'Interests', optional: true },
   'interests.$': { type: String, allowedValues: allInterests },
   participants: { type: Array, label: 'Participants', optional: true },
   'participants.$': { type: String, allowedValues: allParticipants },
+  // Added fields after this point
+  date: { type: String, optional: true },
+  students: { type: String, optional: true },
+  video: { type: String, optional: true },
+  testimonials: { type: String, optional: true },
+  techStack: { type: String, optional: true },
+  instructor: { type: String, optional: true },
+  image: { type: String, optional: true },
+  poster: { type: String, optional: true },
 });
 
 /* Renders the Page for adding a project. */
@@ -78,6 +87,14 @@ const AddProject = () => {
                   <Col xs={4}><TextField id={ComponentIDs.addProjectFormHomePage} name="homepage" showInlineError placeholder="Homepage URL" /></Col>
                 </Row>
                 <LongTextField id={ComponentIDs.addProjectFormDescription} name="description" placeholder="Describe the project here" />
+                <TextField id={ComponentIDs.addProjectFormDate} name="date" placeholder="Enter the semester and year" />
+                <TextField id={ComponentIDs.addProjectFormStudents} name="students" placeholder="Enter the names of the students" />
+                <TextField id={ComponentIDs.addProjectFormVideo} name="video" placeholder="Video URL" />
+                <TextField id={ComponentIDs.addProjectFormTestimonials} name="testimonials" placeholder="Enter testimonials" />
+                <TextField id={ComponentIDs.addProjectFormTechStack} name="techStack" placeholder="List tech stacks" />
+                <TextField id={ComponentIDs.addProjectFormInstructor} name="instructor" placeholder="Enter instructor name" />
+                <TextField id={ComponentIDs.addProjectFormImage} name="image" placeholder="Image URL" />
+                <TextField id={ComponentIDs.addProjectFormPoster} name="poster" placeholder="Poster URL" />
                 {/* // We will want to do something similar to this.
                 <Row>
                   <Col xs={6} id={ComponentIDs.addProjectFormInterests}>

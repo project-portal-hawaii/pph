@@ -36,6 +36,7 @@ const makeSchema = (allInterests, allParticipants) => new SimpleSchema({
   instructor: { type: String, optional: true },
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
+  // Status
 });
 
 /* Renders the Page for adding a project. */

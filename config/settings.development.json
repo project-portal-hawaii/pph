@@ -99,7 +99,8 @@
         "Software Engineering",
         "Renewable Energy"
       ],
-      "picture": "https://avatars0.githubusercontent.com/u/4641939"
+      "picture": "https://avatars0.githubusercontent.com/u/4641939",
+      "status": "Not Approved"
     },
     {
       "name": "RadGrad",
@@ -108,7 +109,8 @@
       "interests": [
         "Educational Technology"
       ],
-      "picture": "https://www.radgrad.org/img/radgrad_logo.png"
+      "picture": "https://www.radgrad.org/img/radgrad_logo.png",
+      "status": "Showcase"
     },
     {
       "name": "WRENCH",
@@ -117,7 +119,8 @@
       "interests": [
         "Distributed computing"
       ],
-      "picture": "https://wrench-project.org/images/logo-vertical.png"
+      "picture": "https://wrench-project.org/images/logo-vertical.png",
+      "status": "Published"
     },
     {
       "name": "Cyber Canoe",
@@ -127,7 +130,8 @@
         "Unity",
         "Visualization"
       ],
-      "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png"
+      "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png",
+      "status": "Proposed"
     }
   ],
   "loadAssetsFile":  false

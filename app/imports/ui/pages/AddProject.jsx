@@ -16,9 +16,11 @@ import { Projects } from '../../api/projects/Projects';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { Statuses } from '../../api/statuses/Statuses';
+// import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* Create a schema to specify the structure of the data to appear in the form. */
-const makeSchema = (allInterests, allParticipants) => new SimpleSchema({
+const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSchema({
   name: String,
   description: String,
   homepage: String,
@@ -37,6 +39,7 @@ const makeSchema = (allInterests, allParticipants) => new SimpleSchema({
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status
+  status: { type: String, allowedValues: allStatuses, optional: false, autoValue: () => 'Proposed' },
 });
 
 /* Renders the Page for adding a project. */
@@ -53,24 +56,27 @@ const AddProject = () => {
     });
   };
 
-  const { ready, interests, profiles } = useTracker(() => {
+  const { ready, interests, profiles, statuses } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(Interests.userPublicationName);
     const sub2 = Meteor.subscribe(Profiles.userPublicationName);
     const sub3 = Meteor.subscribe(ProfilesInterests.userPublicationName);
     const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
     const sub5 = Meteor.subscribe(Projects.userPublicationName);
+    const subStatuses = Meteor.subscribe(Statuses.userPublicationName);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && subStatuses.ready(),
       interests: Interests.collection.find().fetch(),
       profiles: Profiles.collection.find().fetch(),
+      statuses: Statuses.collection.find().fetch(),
     };
   }, []);
 
   let fRef = null;
   const allInterests = _.pluck(interests, 'name');
   const allParticipants = _.pluck(profiles, 'email');
-  const formSchema = makeSchema(allInterests, allParticipants);
+  const allStatuses = _.pluck(statuses, 'name');
+  const formSchema = makeSchema(allInterests, allParticipants, allStatuses);
   const bridge = new SimpleSchema2Bridge(formSchema);
   // const transform = (label) => ` ${label}`;
   /* Render the form. Use Uniforms: https://github.com/vazco/uniforms */

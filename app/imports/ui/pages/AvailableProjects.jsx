@@ -68,7 +68,7 @@ MakeCard.propTypes = {
     instructor: PropTypes.string,
     image: PropTypes.string,
     poster: PropTypes.string,
-    statuses: PropTypes.arrayOf(PropTypes.string)
+    statuses: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 

@@ -11,14 +11,17 @@ import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { PageIDs } from '../utilities/ids';
+import { Statuses } from '../../api/statuses/Statuses';
+import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* Gets the Project data as well as Profiles and Interests associated with the passed Project name. */
 function getProjectData(name) {
   const data = Projects.collection.findOne({ name });
   const interests = _.pluck(ProjectsInterests.collection.find({ project: name }).fetch(), 'interest');
+  const statuses = _.pluck(ProjectsStatuses.collection.find({ project: name }).fetch(), 'status');
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile })?.picture);
-  return _.extend({}, data, { interests, participants: profilePictures });
+  return _.extend({}, data, { interests, statuses, participants: profilePictures });
 }
 
 /* Component for layout out a Project Card. */
@@ -33,6 +36,10 @@ const MakeCard = ({ project }) => (
         </Card.Subtitle>
         <Card.Text>
           {`${project.description.slice(0, 100)}...`}
+        </Card.Text>
+        <Card.Text>
+          {`status: ${project.status}`}
+          {`\ninstructor: ${project.instructor}`}
         </Card.Text>
       </Card.Body>
       <Card.Body>
@@ -61,6 +68,7 @@ MakeCard.propTypes = {
     instructor: PropTypes.string,
     image: PropTypes.string,
     poster: PropTypes.string,
+    status: PropTypes.string,
   }).isRequired,
 };
 
@@ -72,8 +80,9 @@ const AvailableProjectsPage = () => {
     const sub2 = Meteor.subscribe(Projects.userPublicationName);
     const sub3 = Meteor.subscribe(ProjectsInterests.userPublicationName);
     const sub4 = Meteor.subscribe(Profiles.userPublicationName);
+    const sub5 = Meteor.subscribe(Statuses.userPublicationName);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
     };
   }, []);
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
@@ -81,7 +90,14 @@ const AvailableProjectsPage = () => {
   return ready ? (
     <Container id={PageIDs.projectsPage} style={pageStyle}>
       <Row xs={1} md={2} lg={4} className="g-2">
-        {projectData.map((project, index) => <MakeCard key={index} project={project} />)}
+        {
+          projectData.map((project, index) => {
+            if (project.status !== 'Proposed') {
+              return (<MakeCard key={index} project={project} />);
+            }
+            return false;
+          })
+        }
       </Row>
     </Container>
   ) : <LoadingSpinner />;

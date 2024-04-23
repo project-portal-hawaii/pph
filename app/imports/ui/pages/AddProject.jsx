@@ -35,7 +35,7 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   video: { type: String, optional: true },
   testimonials: { type: String, optional: true },
   techStack: { type: String, optional: true },
-  instructor: { type: String, optional: true },
+  instructor: { type: String, optional: false, defaultValue: 'Dan Port' },
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status

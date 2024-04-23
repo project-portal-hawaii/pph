@@ -26,7 +26,7 @@ import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
  * even when prototyping. It turns out that we can remove insecure mode if we want, as we use Meteor methods to update
  * the database.
  *
- * Note that it would be even better if each method was wrapped in a transaction so that the database would be rolled
+ * Comment that it would be even better if each method was wrapped in a transaction so that the database would be rolled
  * back if any of the intermediate updates failed. Left as an exercise to the reader.
  */
 

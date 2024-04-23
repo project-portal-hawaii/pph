@@ -7,6 +7,7 @@ import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
+import { Comments } from '../../api/comment/Comments';
 
 /** Define a publication to publish all interests. */
 Meteor.publish(Interests.userPublicationName, () => Interests.collection.find());
@@ -37,6 +38,14 @@ Meteor.publish(ProjectsStatuses.userPublicationName, () => ProjectsStatuses.coll
 Meteor.publish(null, function () {
   if (this.userId) {
     return Meteor.roleAssignment.find({ 'user._id': this.userId });
+  }
+  return this.ready();
+});
+
+Meteor.publish(Comments.userPublicationName, function () {
+  if (this.userId) {
+    const username = Meteor.users.findOne(this.userId).username;
+    return Comments.collection.find({ owner: username });
   }
   return this.ready();
 });

@@ -38,7 +38,7 @@ const MakeCard = ({ project }) => (
           {`${project.description.slice(0, 100)}...`}
         </Card.Text>
         <Card.Text>
-          {`status: ${project.status}`}
+          {`status: ${project.statuses}` }
           {`\ninstructor: ${project.instructor}`}
         </Card.Text>
       </Card.Body>
@@ -68,7 +68,7 @@ MakeCard.propTypes = {
     instructor: PropTypes.string,
     image: PropTypes.string,
     poster: PropTypes.string,
-    status: PropTypes.string,
+    statuses: PropTypes.arrayOf(PropTypes.string)
   }).isRequired,
 };
 

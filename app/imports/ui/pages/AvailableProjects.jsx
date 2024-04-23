@@ -81,8 +81,9 @@ const AvailableProjectsPage = () => {
     const sub3 = Meteor.subscribe(ProjectsInterests.userPublicationName);
     const sub4 = Meteor.subscribe(Profiles.userPublicationName);
     const sub5 = Meteor.subscribe(Statuses.userPublicationName);
+    const sub6 = Meteor.subscribe(ProjectsStatuses.userPublicationName);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
     };
   }, []);
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');

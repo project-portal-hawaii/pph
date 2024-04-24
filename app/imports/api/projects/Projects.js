@@ -13,7 +13,9 @@ class ProjectsCollection {
       name: { type: String, index: true, unique: true },
       homepage: { type: String, optional: true },
       description: { type: String, optional: true },
+      interests: { type: String, optional: true },
       picture: { type: String, optional: true },
+      sponsors: { type: String, optional: true },
     });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);

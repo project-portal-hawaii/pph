@@ -19,7 +19,7 @@ function getProjectData(name) {
   const data = Projects.collection.findOne({ name });
   const interests = _.pluck(ProjectsInterests.collection.find({ project: name }).fetch(), 'interest');
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
-  const sponsors = _.pluck(ProjectsSponsors.collection.find({ project: name }).fetch(), 'sponsorId');
+  const sponsors = _.pluck(ProjectsSponsors.collection.find({ project: name }).fetch(), 'sponsor');
   const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile })?.picture);
   return _.extend({}, data, { interests, sponsors, participants: profilePictures });
 }
@@ -38,15 +38,7 @@ const MakeCard = ({ project }) => (
           {`${project.description.slice(0, 100)}...`}
         </Card.Text>
         <Card.Body>
-          {project.sponsors.map((sponsorId, index) => (
-            <Figure key={index} className="mb-3">
-              <Figure.Image width={32} height={32} alt="Sponsor Logo" src={sponsorId.logo} rounded />
-              <Figure.Caption>
-                <h5>{sponsorId.name}</h5>
-                <p>{sponsorId.email}</p>
-              </Figure.Caption>
-            </Figure>
-          ))}
+          {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
         </Card.Body>
         <Card.Body>
           {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}

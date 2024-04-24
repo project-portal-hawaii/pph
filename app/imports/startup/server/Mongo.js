@@ -27,9 +27,8 @@ function addInterest(interest) {
 }
 
 /** Define a sponsor. */
-function addSponsor({ name, email, logo }) {
-  const sponsorQuery = { name, email, logo };
-  Sponsors.collection.update(sponsorQuery, { $set: sponsorQuery }, { upsert: true });
+function addSponsor(sponsor) {
+  Sponsors.collection.update({ name: sponsor }, { $set: { name: sponsor } }, { upsert: true });
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
@@ -58,7 +57,7 @@ function addProject({ name, homepage, description, interests, sponsors, picture 
     ProjectsSponsors.collection.insert({ project: name, sponsorId });
   }); */
   sponsors.map(sponsor => ProjectsSponsors.collection.insert({ project: name, sponsor }));
-  sponsors.map(sponsor => addSponsor({ sponsor }));
+  sponsors.map(sponsor => addSponsor(sponsor));
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

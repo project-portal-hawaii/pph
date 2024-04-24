@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import { Sponsors } from '../sponsors/Sponsors';
 
 /** Encapsulates state and variable values for this collection. */
 class ProjectsSponsorsCollection {
@@ -11,7 +12,7 @@ class ProjectsSponsorsCollection {
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
       project: String,
-      sponsorId: String,
+      sponsor: String,
     });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);

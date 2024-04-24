@@ -101,16 +101,8 @@
       ],
       "picture": "https://avatars0.githubusercontent.com/u/4641939",
       "sponsors": [
-        {
-          "name": "ICSatKCC",
-          "email": "ljmiller@hawaii.edu",
-          "logo": "https://avatars.githubusercontent.com/u/19316485?s=200&v=4"
-        },
-        {
-          "name": "ACM@MANOA",
-          "email": "communications@acmmanoa.org",
-          "logo": "https://avatars.githubusercontent.com/u/123935500?s=200&v=4"
-        }
+        "ICSatKCC",
+        "ACM@MANOA"
       ]
     },
     {
@@ -120,7 +112,11 @@
       "interests": [
         "Educational Technology"
       ],
-      "picture": "https://www.radgrad.org/img/radgrad_logo.png"
+      "picture": "https://www.radgrad.org/img/radgrad_logo.png",
+      "sponsors": [
+        "ACM@MANOA",
+        "Daniel Port"
+      ]
     },
     {
       "name": "WRENCH",
@@ -130,16 +126,8 @@
         "Distributed computing"
       ],
       "sponsors": [
-        {
-          "name": "ACM@MANOA",
-          "email": "communications@acmmanoa.org",
-          "logo": "https://avatars.githubusercontent.com/u/123935500?s=200&v=4"
-        },
-        {
-          "name": "ICS Department, UH",
-          "email": "icsinfo@hawaii.edu",
-          "logo": "https://www.ics.hawaii.edu/wp-content/uploads/2021/04/ICS-Logo-for-dark-150x150-1.png"
-        }
+        "ACM@MANOA",
+        "ICS Department, UH"
       ],
       "picture": "https://wrench-project.org/images/logo-vertical.png"
     },
@@ -152,18 +140,32 @@
         "Visualization"
       ],
       "sponsors": [
-        {
-          "name": "Daniel Port",
-          "email": "dport@hawaii.edu",
-          "logo": "https://avatars.githubusercontent.com/u/7742134?v=4"
-        },
-        {
-          "name": "ICS Department, UH",
-          "email": "icsinfo@hawaii.edu",
-          "logo": "https://www.ics.hawaii.edu/wp-content/uploads/2021/04/ICS-Logo-for-dark-150x150-1.png"
-        }
+        "Daniel Port",
+        "ICS Department, UH"
       ],
       "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png"
+    }
+  ],
+  "defaultSponsors": [
+    {
+      "name": "Daniel Port",
+      "email": "dport@hawaii.edu",
+      "logo": "https://avatars.githubusercontent.com/u/7742134?v=4"
+    },
+    {
+      "name": "ICS Department, UH",
+      "email": "icsinfo@hawaii.edu",
+      "logo": "https://www.ics.hawaii.edu/wp-content/uploads/2021/04/ICS-Logo-for-dark-150x150-1.png"
+    },
+    {
+      "name": "ACM@MANOA",
+      "email": "communications@acmmanoa.org",
+      "logo": "https://avatars.githubusercontent.com/u/123935500?s=200&v=4"
+    },
+    {
+      "name": "ICSatKCC",
+      "email": "ljmiller@hawaii.edu",
+      "logo": "https://avatars.githubusercontent.com/u/19316485?s=200&v=4"
     }
   ],
   "loadAssetsFile":  false

@@ -11,8 +11,6 @@ class SponsorsCollection {
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
       name: { type: String, index: true, unique: true },
-      logo: String,
-      email: String,
     });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);

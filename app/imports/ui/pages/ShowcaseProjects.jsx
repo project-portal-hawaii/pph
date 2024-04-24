@@ -32,7 +32,7 @@ const MakeCard = ({ project }) => (
           <span className="date">{project.title}</span>
         </Card.Subtitle>
         <Card.Text>
-          {`${project.description.slice(0, 100)}...`}
+          {project.description}
         </Card.Text>
       </Card.Body>
       <Card.Body>
@@ -73,7 +73,7 @@ const ShowcaseProjectsPage = () => {
   return ready ? (
     <Container id={PageIDs.showcaseProjectsPage} style={pageStyle}>
       <h1>test</h1>
-      <Row xs={1} md={2} lg={4} className="g-2">
+      <Row xs={1} md={2} lg={1} className="g-2">
         {projectData.map((project, index) => <MakeCard key={index} project={project} />)}
       </Row>
     </Container>

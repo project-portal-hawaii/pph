@@ -166,14 +166,14 @@
       "logo": "https://www.ics.hawaii.edu/wp-content/uploads/2021/04/ICS-Logo-for-dark-150x150-1.png"
     },
     {
-      "name": "ACM@MANOA",
-      "email": "communications@acmmanoa.org",
-      "logo": "https://avatars.githubusercontent.com/u/123935500?s=200&v=4"
-    },
-    {
       "name": "ICSatKCC",
       "email": "ljmiller@hawaii.edu",
       "logo": "https://avatars.githubusercontent.com/u/19316485?s=200&v=4"
+    },
+    {
+      "name": "ACM@MANOA",
+      "email": "communications@acmmanoa.org",
+      "logo": "https://avatars.githubusercontent.com/u/123935500?s=200&v=4"
     }
   ],
   "loadAssetsFile":  false

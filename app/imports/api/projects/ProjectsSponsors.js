@@ -1,6 +1,5 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
-import { Sponsors } from '../sponsors/Sponsors';
 
 /** Encapsulates state and variable values for this collection. */
 class ProjectsSponsorsCollection {

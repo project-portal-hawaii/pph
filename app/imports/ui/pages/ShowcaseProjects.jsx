@@ -9,7 +9,7 @@ import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import { Sponsors } from '../../api/sponsors/Sponsors';
-import { ProjectsSponsors} from '../../api/projects/ProjectsSponsors';
+import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { PageIDs } from '../utilities/ids';

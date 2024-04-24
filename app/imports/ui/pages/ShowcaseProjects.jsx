@@ -81,7 +81,6 @@ const ShowcaseProjectsPage = () => {
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
     <Container id={PageIDs.showcaseProjectsPage} style={pageStyle}>
-      <h1>test</h1>
       <Row xs={1} md={2} lg={1} className="g-2">
         {projectData.map((project, index) => <MakeCard key={index} project={project} />)}
       </Row>

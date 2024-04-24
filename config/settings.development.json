@@ -103,8 +103,7 @@
       "sponsors": [
         "ICSatKCC",
         "ACM@MANOA"
-      ]
-      "picture": "https://avatars0.githubusercontent.com/u/4641939",
+      ],
       "status": "Not Approved"
     },
     {
@@ -118,8 +117,7 @@
       "sponsors": [
         "ACM@MANOA",
         "Daniel Port"
-      ]
-      "picture": "https://www.radgrad.org/img/radgrad_logo.png",
+      ],
       "status": "Showcase"
     },
     {
@@ -130,12 +128,11 @@
         "Distributed computing"
       ],
       "picture": "https://wrench-project.org/images/logo-vertical.png",
-      "status": "Published"
+      "status": "Published",
       "sponsors": [
         "ACM@MANOA",
         "ICS Department, UH"
-      ],
-      "picture": "https://wrench-project.org/images/logo-vertical.png"
+      ]
     },
     {
       "name": "Cyber Canoe",
@@ -149,7 +146,6 @@
         "Daniel Port",
         "ICS Department, UH"
       ],
-      "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png"
       "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png",
       "status": "Proposed"
     }

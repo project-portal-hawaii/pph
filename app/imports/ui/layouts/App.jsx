@@ -18,7 +18,8 @@ import AddProject from '../pages/AddProject';
 import AvailableProjects from '../pages/AvailableProjects';
 import SingleProject from '../pages/SingleProject';
 import ShowcaseProjectsPage from '../pages/ShowcaseProjects';
-
+import ProjectsAdmin from '../pages/ProjectsAdmin';
+import EditProject from '../pages/EditProject';
 /* Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => (
   <Router>
@@ -34,7 +35,9 @@ const App = () => (
         <Route path="/singleproject" element={<SingleProject />} />
         <Route path="/availableprojects" element={<AvailableProjects />} />
         <Route path="/showcaseprojects" element={<ShowcaseProjectsPage />} />
+        <Route path="/allprojects" element={<ProjectsAdmin />} />
         <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+        <Route path="/editproject" element={<ProtectedRoute><EditProject /></ProtectedRoute>} />
         <Route path="/filter" element={<ProtectedRoute><Filter /></ProtectedRoute>} />
         <Route path="/addproject" element={<ProtectedRoute><AddProject /></ProtectedRoute>} />
         <Route path="/notauthorized" element={<NotAuthorized />} />

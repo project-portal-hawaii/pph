@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Row, Col, Button } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -10,7 +10,7 @@ import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
-import { PageIDs } from '../utilities/ids';
+import { ComponentIDs, PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
@@ -38,8 +38,10 @@ const MakeCard = ({ project }) => (
           {`${project.description.slice(0, 100)}...`}
         </Card.Text>
         <Card.Text>
-          {`status: ${project.statuses}` }
-          {`\ninstructor: ${project.instructor}`}
+          {`status: ${project.statuses}`}
+        </Card.Text>
+        <Card.Text>
+          {`instructor: ${project.instructor}`}
         </Card.Text>
       </Card.Body>
       <Card.Body>
@@ -47,6 +49,9 @@ const MakeCard = ({ project }) => (
       </Card.Body>
       <Card.Body>
         {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
+      </Card.Body>
+      <Card.Body>
+        <Button href={`/editproject/${project._id}`} id={ComponentIDs.editProjectButton} variant="success">Edit</Button>
       </Card.Body>
     </Card>
   </Col>
@@ -73,7 +78,7 @@ MakeCard.propTypes = {
 };
 
 /* Renders the Project Collection as a set of Cards. */
-const AvailableProjectsPage = () => {
+const ProjectsAdminPage = () => {
   const { ready } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
@@ -90,18 +95,13 @@ const AvailableProjectsPage = () => {
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
     <Container id={PageIDs.projectsPage} style={pageStyle}>
-      <Row xs={1} md={2} lg={4} className="g-2">
+      <Row xs={1} md={1} lg={1} className="g-2">
         {
-          projectData.map((project, index) => {
-            if (project.statuses.includes('Published')) {
-              return (<MakeCard key={index} project={project} />);
-            }
-            return false;
-          })
+          projectData.map((project, index) => (<MakeCard key={index} project={project} />))
         }
       </Row>
     </Container>
   ) : <LoadingSpinner />;
 };
 
-export default AvailableProjectsPage;
+export default ProjectsAdminPage;

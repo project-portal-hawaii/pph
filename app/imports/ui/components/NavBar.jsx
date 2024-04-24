@@ -25,11 +25,12 @@ const NavBar = () => {
           <Nav className="me-auto justify-content-start">
             <Nav.Link as={NavLink} id={ComponentIDs.landingMenuItem} to="/" key="landing">Home</Nav.Link>
             {/* <Nav.Link as={NavLink} id={ComponentIDs.profilesMenuItem} to="/profiles" key="profiles">Profiles</Nav.Link> */}
+            {currentUser ? ([<Nav.Link as={NavLink} id={ComponentIDs.allProjectsMenuItem} to="/allprojects" key="allP">All Projects</Nav.Link>]) : ''}
             <Nav.Link as={NavLink} id={ComponentIDs.projectsMenuItem} to="/availableprojects" key="availableprojects">Available Projects</Nav.Link>
             {/* <Nav.Link as={NavLink} id={ComponentIDs.interestsMenuItem} to="/interests" key="interests">Interests</Nav.Link> */}
-            <Nav.Link as={NavLink} id={ComponentIDs.showcaseMenuItem} to="/showcaseprojects" key="showcaseprojects">Project Showcase</Nav.Link>
+            <Nav.Link as={NavLink} id={ComponentIDs.showcaseMenuItem} to="/showcaseprojects" key="showcaseprojects">Showcase</Nav.Link>
+            {currentUser ? ([<Nav.Link as={NavLink} id={ComponentIDs.singleProjectMenuItem} to="/singleProject" key="singleProject">Random Project</Nav.Link>]) : ''}
             {currentUser ? ([<Nav.Link as={NavLink} id={ComponentIDs.addProjectMenuItem} to="/addProject" key="addP">Add Project</Nav.Link>]) : ''}
-            {currentUser ? ([<Nav.Link as={NavLink} id={ComponentIDs.singleProjectMenuItem} to="/singleProject" key="singleProject">View A Random Project</Nav.Link>]) : ''}
             { /* <Nav.Link as={NavLink} id={ComponentIDs.filterMenuItem} to="/filter" key="filter">Filter</Nav.Link>] */ }
             {currentUser ? (
               <Nav.Link as={NavLink} id={ComponentIDs.homeMenuItem} to="/editprofile" key="editprofile">Edit Profile</Nav.Link>

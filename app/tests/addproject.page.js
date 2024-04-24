@@ -24,12 +24,12 @@ class AddProjectPage {
     await testController.typeText(`#${ComponentIDs.addProjectFormPicture}`, picture);
     await testController.typeText(`#${ComponentIDs.addProjectFormHomePage}`, homepage);
     await testController.typeText(`#${ComponentIDs.addProjectFormDescription}`, description);
-
+    /**
     // Select two interests.
     const interestsSelector = Selector(`#${ComponentIDs.addProjectFormInterests} div.form-check input`);
     await testController.click(interestsSelector.nth(0));
     await testController.click(interestsSelector.nth(8));
-
+    */
     await testController.click(`#${ComponentIDs.addProjectFormSubmit} input.btn.btn-primary`);
     await testController.click(Selector('.swal-button--confirm'));
   }

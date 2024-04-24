@@ -5,6 +5,16 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { Statuses } from '../../api/statuses/Statuses';
+import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
+import { Sponsors } from '../../api/sponsors/Sponsors';
+import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
+
+/** Define a publication to publish all sponsors. */
+Meteor.publish(Sponsors.userPublicationName, () => Sponsors.collection.find());
+
+/** Define a publication to publish all ProjectsSponsors. */
+Meteor.publish(ProjectsSponsors.userPublicationName, () => ProjectsSponsors.collection.find());
 
 /** Define a publication to publish all interests. */
 Meteor.publish(Interests.userPublicationName, () => Interests.collection.find());
@@ -23,6 +33,12 @@ Meteor.publish(Projects.userPublicationName, () => Projects.collection.find());
 
 /** Define a publication to publish this collection. */
 Meteor.publish(ProjectsInterests.userPublicationName, () => ProjectsInterests.collection.find());
+
+/** Define a publication to publish all interests. */
+Meteor.publish(Statuses.userPublicationName, () => Statuses.collection.find());
+
+/** Define a publication to publish this collection. */
+Meteor.publish(ProjectsStatuses.userPublicationName, () => ProjectsStatuses.collection.find());
 
 // alanning:roles publication
 // Recommended code to publish roles for each user.

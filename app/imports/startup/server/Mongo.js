@@ -9,6 +9,7 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
+import { Comments } from '../../api/comment/Comments';
 
 /* eslint-disable no-console */
 
@@ -57,6 +58,10 @@ function addProject({ name, homepage, description, interests, picture, status })
   addStatus(status);
 }
 
+function addComment({ name, comment, userId, createdAt }) {
+  Comments.collection.insert({ name, comment, userId, createdAt });
+}
+
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles) {
@@ -83,4 +88,5 @@ if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() < 7)) {
   const jsonData = JSON.parse(Assets.getText(assetsFileName));
   jsonData.profiles.map(profile => addProfile(profile));
   jsonData.projects.map(project => addProject(project));
+  jsonData.comments.map(comment => addComment(comment));
 }

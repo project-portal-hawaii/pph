@@ -15,10 +15,10 @@ const Project = ({ project, comments }) => (
     <Card.Body>
       <Card.Text>{project.description}</Card.Text>
       <ListGroup variant="flush">
-        {comments.map((note) => <Comment key={note._id} note={note} />)}
+        {comments.map((comment) => <Comment key={comment._id} comment={comment} />)}
       </ListGroup>
       {/* <AddComment owner={project.owner} projectId={project._id} />  */}
-      <AddComment owner={project.owner} projectId={project} />
+      <AddComment owner={project.name} projectId={project._id} />
       {/* <Link to={`/edit/${project._id}`}>Edit</Link> */}
     </Card.Body>
   </Card>

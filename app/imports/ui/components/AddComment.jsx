@@ -9,8 +9,8 @@ import { Comments } from '../../api/comment/Comments';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema({
+  name: String,
   comment: String,
-  owner: String,
   projectId: String,
   createdAt: Date,
 });
@@ -18,13 +18,13 @@ const formSchema = new SimpleSchema({
 const bridge = new SimpleSchema2Bridge(formSchema);
 
 /* Renders the AddContact page for adding a document. */
-const AddComment = ({ owner, projectId }) => {
+const AddComment = ({ name, projectId }) => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const { comment, createdAt } = data;
     Comments.collection.insert(
-      { comment, projectId, createdAt, owner },
+      { comment, projectId, createdAt, name },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -49,7 +49,7 @@ const AddComment = ({ owner, projectId }) => {
                 <TextField name="comment" />
                 <SubmitField />
                 <ErrorsField />
-                <HiddenField name="owner" value={owner} />
+                <HiddenField name="name" value={name} />
                 <HiddenField name="projectId" value={projectId} />
                 <HiddenField name="createdAt" value={new Date()} />
               </Card.Body>
@@ -62,7 +62,6 @@ const AddComment = ({ owner, projectId }) => {
 };
 
 AddComment.propTypes = {
-  owner: PropTypes.string.isRequired,
-  projectId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 export default AddComment;

@@ -44,8 +44,8 @@ Meteor.publish(null, function () {
 
 Meteor.publish(Comments.userPublicationName, function () {
   if (this.userId) {
-    const username = Meteor.users.findOne(this.userId).username;
-    return Comments.collection.find({ owner: username });
+    const name = Meteor.users.findOne(this.userId).name;
+    return Comments.collection.find({ owner: name });
   }
   return this.ready();
 });

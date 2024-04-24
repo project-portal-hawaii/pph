@@ -62,8 +62,8 @@ function addProject({ name, homepage, description, interests, picture, status, s
   sponsors.map(sponsor => ProjectsSponsors.collection.insert({ project: name, sponsor }));
   sponsors.map(sponsor => addSponsor(sponsor));
   // Add statuses
-  ProjectsStatuses.collection.insert({ project: name, status });
   addStatus(status);
+  ProjectsStatuses.collection.insert({ project: name, status });
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

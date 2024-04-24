@@ -37,10 +37,6 @@ const MakeCard = ({ project }) => (
         <Card.Text>
           {`${project.description.slice(0, 100)}...`}
         </Card.Text>
-        <Card.Text>
-          {`status: ${project.status}`}
-          {`\ninstructor: ${project.instructor}`}
-        </Card.Text>
       </Card.Body>
       <Card.Body>
         {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
@@ -68,7 +64,7 @@ MakeCard.propTypes = {
     instructor: PropTypes.string,
     image: PropTypes.string,
     poster: PropTypes.string,
-    status: PropTypes.string,
+    statuses: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 
@@ -93,7 +89,7 @@ const AvailableProjectsPage = () => {
       <Row xs={1} md={2} lg={4} className="g-2">
         {
           projectData.map((project, index) => {
-            if (project.status !== 'Proposed') {
+            if (project.statuses.includes('Published')) {
               return (<MakeCard key={index} project={project} />);
             }
             return false;

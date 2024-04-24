@@ -40,15 +40,15 @@ const MakeCard = ({ project }) => (
         <Card.Text>
           {`${project.description.slice(0, 100)}...`}
         </Card.Text>
-        <Card.Body>
-          {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
-        </Card.Body>
-        <Card.Body>
-          {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
-        </Card.Body>
-        <Card.Body>
-          {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
-        </Card.Body>
+      </Card.Body>
+      <Card.Body>
+        {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
+      </Card.Body>
+      <Card.Body>
+        {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
+      </Card.Body>
+      <Card.Body>
+        {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
       </Card.Body>
     </Card>
   </Col>

@@ -8,6 +8,8 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { Sponsors } from '../../api/sponsors/Sponsors';
+import { ProjectsSponsors} from '../../api/projects/ProjectsSponsors';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { PageIDs } from '../utilities/ids';
@@ -17,8 +19,9 @@ function getProjectData(name) {
   const data = Projects.collection.findOne({ name });
   const interests = _.pluck(ProjectsInterests.collection.find({ project: name }).fetch(), 'interest');
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
+  const sponsors = _.pluck(ProjectsSponsors.collection.find({ project: name }).fetch(), 'sponsor');
   const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile })?.picture);
-  return _.extend({}, data, { interests, participants: profilePictures });
+  return _.extend({}, data, { interests, sponsors, participants: profilePictures });
 }
 
 /* Need to modify to be showcase version */
@@ -34,6 +37,9 @@ const MakeCard = ({ project }) => (
         <Card.Text>
           {project.description}
         </Card.Text>
+      </Card.Body>
+      <Card.Body>
+        {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
       </Card.Body>
       <Card.Body>
         {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
@@ -53,6 +59,7 @@ MakeCard.propTypes = {
     picture: PropTypes.string,
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
+    sponsors: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 
@@ -64,8 +71,10 @@ const ShowcaseProjectsPage = () => {
     const sub2 = Meteor.subscribe(Projects.userPublicationName);
     const sub3 = Meteor.subscribe(ProjectsInterests.userPublicationName);
     const sub4 = Meteor.subscribe(Profiles.userPublicationName);
+    const sub5 = Meteor.subscribe(Sponsors.userPublicationName);
+    const sub6 = Meteor.subscribe(ProjectsSponsors.userPublicationName);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
     };
   }, []);
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');

@@ -67,4 +67,5 @@ export const PageIDs = {
   signOutPage: 'signOutPage',
   signUpPage: 'signUpPage',
   showcaseProjectsPage: 'showcaseProjectsPage',
+  homePage: 'projectsPage',
 };

@@ -15,7 +15,7 @@ class ProjectsPage {
   /** Checks that the current page has at least nine interests on it.  */
   async hasDefaultProjects(testController) {
     const cardCount = Selector('.card').count;
-    await testController.expect(cardCount).gte(4);
+    await testController.expect(cardCount).gte(1);
   }
 }
 

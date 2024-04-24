@@ -96,7 +96,7 @@ const ProjectsAdminPage = () => {
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
     <Container id={PageIDs.projectsPage} style={pageStyle}>
-      <Row xs={1} md={1} lg={1} className="g-2">
+      <Row xs={1} md={2} lg={3} className="g-2">
         {
           projectData.map((project, index) => (<MakeCard key={index} project={project} />))
         }

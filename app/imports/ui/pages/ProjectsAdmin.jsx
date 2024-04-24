@@ -59,6 +59,7 @@ const MakeCard = ({ project }) => (
 
 MakeCard.propTypes = {
   project: PropTypes.shape({
+    _id: PropTypes.string,
     description: PropTypes.string,
     name: PropTypes.string,
     participants: PropTypes.arrayOf(PropTypes.string),

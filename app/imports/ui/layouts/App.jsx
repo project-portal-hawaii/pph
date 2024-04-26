@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
@@ -35,7 +36,7 @@ const App = () => (
         <Route path="/singleproject" element={<SingleProject />} />
         <Route path="/availableprojects" element={<AvailableProjects />} />
         <Route path="/showcaseprojects" element={<ShowcaseProjectsPage />} />
-        <Route path="/allprojects" element={<ProjectsAdmin />} />
+        <Route path="/allprojects" element={<AdminProtectedRoute><ProjectsAdmin /></AdminProtectedRoute>} />
         <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
         <Route path="/editproject" element={<ProtectedRoute><EditProject /></ProtectedRoute>} />
         <Route path="/filter" element={<ProtectedRoute><Filter /></ProtectedRoute>} />
@@ -58,6 +59,19 @@ const ProtectedRoute = ({ children }) => {
   return isLogged ? children : <Navigate to="/signin" />;
 };
 
+/**
+ * AdminProtectedRoute (see React Router v6 sample)
+ * Checks for Meteor login and admin role before routing to the requested page, otherwise goes to signin page.
+ * @param {any} { component: Component, ...rest }
+ */
+const AdminProtectedRoute = ({ children }) => {
+  const isLogged = Meteor.userId() !== null;
+  if (!isLogged) {
+    return <Navigate to="/signin" />;
+  }
+  const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
+  return (isLogged && isAdmin) ? children : <Navigate to="/notauthorized" />;
+};
 // Require a component and location to be passed to each ProtectedRoute.
 ProtectedRoute.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
@@ -67,4 +81,12 @@ ProtectedRoute.defaultProps = {
   children: <Landing />,
 };
 
+// Require a component and location to be passed to each AdminProtectedRoute.
+AdminProtectedRoute.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+};
+
+AdminProtectedRoute.defaultProps = {
+  children: <Landing />,
+};
 export default App;

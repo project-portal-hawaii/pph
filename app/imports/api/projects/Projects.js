@@ -15,6 +15,7 @@ class ProjectsCollection {
       description: { type: String, optional: true },
       // This will be the Thumbnail Image
       picture: { type: String, optional: true },
+      sponsors: { type: String, optional: true },
       // Everything after this point are added fields
       date: { type: String, optional: true },
       students: { type: String, optional: true },

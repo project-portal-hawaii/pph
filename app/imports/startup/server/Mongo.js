@@ -7,6 +7,8 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
+import { Sponsors } from '../../api/sponsors/Sponsors';
+import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 import { Comments } from '../../api/comment/Comments';
@@ -32,6 +34,11 @@ function addStatus(status) {
   Statuses.collection.update({ name: status }, { $set: { name: status } }, { upsert: true });
 }
 
+/** Define a sponsor. */
+function addSponsor(sponsor) {
+  Sponsors.collection.update({ name: sponsor }, { $set: { name: sponsor } }, { upsert: true });
+}
+
 /** Defines a new user and associated profile. Error if user already exists. */
 function addProfile({ firstName, lastName, bio, title, interests, projects, picture, email, role }) {
   console.log(`Defining profile ${email}`);
@@ -47,15 +54,17 @@ function addProfile({ firstName, lastName, bio, title, interests, projects, pict
 }
 
 /** Define a new project. Error if project already exists.  */
-function addProject({ name, homepage, description, interests, picture, status }) {
+function addProject({ name, homepage, description, interests, picture, status, sponsors }) {
   console.log(`Defining project ${name}`);
   Projects.collection.insert({ name, homepage, description, picture });
   interests.map(interest => ProjectsInterests.collection.insert({ project: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
+  sponsors.map(sponsor => ProjectsSponsors.collection.insert({ project: name, sponsor }));
+  sponsors.map(sponsor => addSponsor(sponsor));
   // Add statuses
-  ProjectsStatuses.collection.insert({ project: name, status });
   addStatus(status);
+  ProjectsStatuses.collection.insert({ project: name, status });
 }
 
 function addComment({ name, comment, userId, createdAt }) {

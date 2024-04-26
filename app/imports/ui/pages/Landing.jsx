@@ -43,14 +43,19 @@ const Landing = () => (
       </Container>
     </div>
     <div className="landing-white-background text-center">
-      <h4 style={{ paddingBottom: '20px', color: '#376551' }}>View all available projects, or view a random one:</h4>
-      <Container>
+      <Container className="justify-content-center text-center">
+        <h4 style={{ paddingBottom: '20px', color: '#376551' }}>View all available projects, a random one, or the completed Showcase projects:</h4>
         <Row md={1} lg={2} style={{ paddingBottom: '20px' }}>
           <Col xs={6}>
             <Image src="/images/available-projects.png" width={500} style={{ border: '5px solid black' }} />
           </Col>
           <Col xs={6}>
             <Image src="/images/single-project.png" width={500} style={{ border: '5px solid black' }} />
+          </Col>
+        </Row>
+        <Row md={1} lg={2} style={{ paddingBottom: '20px' }}>
+          <Col xs={6}>
+            <Image src="/images/showcase.png" width={500} style={{ border: '5px solid black' }} />
           </Col>
         </Row>
       </Container>

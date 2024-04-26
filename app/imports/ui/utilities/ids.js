@@ -36,6 +36,7 @@ export const ComponentIDs = {
   profilesMenuItem: 'profilesMenuItem',
   projectsMenuItem: 'projectsMenuItem',
   showcaseMenuItem: 'showcaseMenuItem',
+  allProjectsMenuItem: 'allProjectsMenuItem',
   signInCardBody: 'signInCardBody',
   signInFormAlert: 'signInFormAlert',
   signInFormEmail: 'signInFormEmail',
@@ -48,10 +49,12 @@ export const ComponentIDs = {
   signUpFormSubmit: 'signUpFormSubmit',
   singleProjectAddButton: 'singleProjectAddButton',
   singleProjectMenuItem: 'singleProjectMenuItem',
+  editProjectListFormSubmit: 'editProjectListFormSubmit',
 };
 
 export const PageIDs = {
   addProjectPage: 'addProjectPage',
+  allProjectsPage: 'allProjectsPage',
   filterPage: 'filterPage',
   editProfilePage: 'editProfilePage',
   interestsPage: 'interestsPage',
@@ -64,4 +67,5 @@ export const PageIDs = {
   signOutPage: 'signOutPage',
   signUpPage: 'signUpPage',
   showcaseProjectsPage: 'showcaseProjectsPage',
+  homePage: 'projectsPage',
 };

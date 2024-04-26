@@ -43,7 +43,7 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
 });
 
 /* Renders the Page for adding a project. */
-const AddProject = () => {
+const EditProject = () => {
 
   /* On submit, insert the data. */
   const submit = (data, formRef) => {
@@ -84,7 +84,7 @@ const AddProject = () => {
     <Container style={pageStyle}>
       <Row id={PageIDs.addProjectPage} className="justify-content-center">
         <Col xs={10}>
-          <Col className="text-center"><h2>Add Project</h2></Col>
+          <Col className="text-center"><h2>Edit Project</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body id={ComponentIDs.addProjectCardBody}>
@@ -122,4 +122,4 @@ const AddProject = () => {
   ) : <LoadingSpinner />;
 };
 
-export default AddProject;
+export default EditProject;

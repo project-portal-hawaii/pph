@@ -11,6 +11,7 @@ import { Sponsors } from '../../api/sponsors/Sponsors';
 import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
+import { Comments } from '../../api/comment/Comments';
 
 /* eslint-disable no-console */
 
@@ -66,6 +67,10 @@ function addProject({ name, homepage, description, interests, picture, status, s
   ProjectsStatuses.collection.insert({ project: name, status });
 }
 
+function addComment({ name, comment, userId, createdAt }) {
+  Comments.collection.insert({ name, comment, userId, createdAt });
+}
+
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles) {
@@ -81,7 +86,7 @@ if (Meteor.users.find().count() === 0) {
 /**
  * If the loadAssetsFile field in settings.development.json is true, then load the data in private/data.json.
  * This approach allows you to initialize your system with large amounts of data.
- * Note that settings.development.json is limited to 64,000 characters.
+ * Comment that settings.development.json is limited to 64,000 characters.
  * We use the "Assets" capability in Meteor.
  * For more info on assets, see https://docs.meteor.com/api/assets.html
  * User count check is to make sure we don't load the file twice, which would generate errors due to duplicate info.
@@ -92,4 +97,5 @@ if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() < 7)) {
   const jsonData = JSON.parse(Assets.getText(assetsFileName));
   jsonData.profiles.map(profile => addProfile(profile));
   jsonData.projects.map(project => addProject(project));
+  jsonData.comments.map(comment => addComment(comment));
 }

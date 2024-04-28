@@ -7,6 +7,7 @@ import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
+import { Comments } from '../../api/comment/Comments';
 import { Sponsors } from '../../api/sponsors/Sponsors';
 import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 
@@ -45,6 +46,14 @@ Meteor.publish(ProjectsStatuses.userPublicationName, () => ProjectsStatuses.coll
 Meteor.publish(null, function () {
   if (this.userId) {
     return Meteor.roleAssignment.find({ 'user._id': this.userId });
+  }
+  return this.ready();
+});
+
+Meteor.publish(Comments.userPublicationName, function () {
+  if (this.userId) {
+    const name = Meteor.users.findOne(this.userId).name;
+    return Comments.collection.find({ owner: name });
   }
   return this.ready();
 });

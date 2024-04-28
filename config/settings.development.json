@@ -153,6 +153,92 @@
       ],
       "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png",
       "status": "Proposed"
+    },
+    {
+      "name": "CodeWave Hawaii",
+      "homepage": "https://codewavehawaii.org",
+      "description": "A program focused on providing intensive training in software engineering and web development for Hawaii's aspiring developers through the development of full-stack web applications.",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "../public/images/logos/codewave.png",
+      "status": "Proposed",
+      "sponsors": [
+        "ICSatKCC",
+        "ACM@MANOA"
+      ]
+    },
+    {
+      "name": "EcoTech Innovators",
+      "homepage": "https://ecotechinnovators.com",
+      "description": "A startup incubator program supporting entrepreneurs in developing renewable energy and environmentally sustainable technologies in Hawaii.",
+      "interests": [
+        "Renewable Energy"
+      ],
+      "picture": "../public/images/logos/ecotech.png",
+      "status": "Showcase",
+      "sponsors": [
+        "ACM@MANOA"
+      ]
+    },
+    {
+      "name": "UnityVis Hawaii",
+      "homepage": "https://unityvishawaii.org",
+      "description": "A research project exploring the use of Unity for data visualization applications, with a focus on showcasing Hawaii's unique landscapes and cultural heritage.",
+      "interests": [
+        "Unity",
+        "Visualization"
+      ],
+      "picture": "../public/images/logos/unityvis.jpg",
+      "status": "Showcase",
+      "sponsors": [
+        "Daniel Port",
+        "ICS Department, UH"
+      ]
+    },
+    {
+      "name": "OceanAI: Marine Data Analysis",
+      "homepage": "https://oceanaihawaii.org",
+      "description": "OceanAI aims to develop AI algorithms for analyzing marine data collected around the Hawaiian islands, contributing to ocean conservation and research efforts.",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "../public/images/logos/oceanai.png",
+      "status": "Published",
+      "sponsors": [
+        "ICSatKCC",
+        "ACM@MANOA"
+      ]
+    },
+    {
+      "name": "RenewGrid: Renewable Energy Grid Simulation",
+      "homepage": "https://renewgrid.org",
+      "description": "RenewGrid is a project focused on developing simulation software for analyzing and optimizing Hawaii's renewable energy grid infrastructure.",
+      "interests": [
+        "Renewable Energy",
+        "Distributed computing"
+      ],
+      "picture": "../public/images/logos/renewgrid.jpg",
+      "status": "Showcase",
+      "sponsors": [
+        "ACM@MANOA",
+        "ICS Department, UH"
+      ]
+    },
+    {
+      "name": "VirtualTourHawaii: VR Exploration",
+      "homepage": "https://virtualtourhawaii.com",
+      "description": "VirtualTourHawaii is a virtual reality project offering immersive tours of Hawaii's iconic landmarks and natural wonders, developed using Unity.",
+      "interests": [
+        "Unity",
+        "Visualization"
+      ],
+      "picture": "../public/images/logos/virtualtourhawaii.jpg",
+      "status": "Proposed",
+      "sponsors": [
+        "Daniel Port",
+        "ICS Department, UH"
+      ]
     }
   ],
   "defaultSponsors": [

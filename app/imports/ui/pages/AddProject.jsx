@@ -17,6 +17,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
+import ProjectForm from '../components/ProjectForm';
 // import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* Create a schema to specify the structure of the data to appear in the form. */
@@ -39,9 +40,8 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status
-  status: { type: String, allowedValues: allStatuses, optional: false, autoValue: () => 'Proposed' },
+  status: { type: String, allowedValues: allStatuses, optional: false, autoValue: () => 'Proposed', defaultValue: 'Proposed' },
 });
-
 /* Renders the Page for adding a project. */
 const AddProject = () => {
 
@@ -86,35 +86,7 @@ const AddProject = () => {
         <Col xs={10}>
           <Col className="text-center"><h2>Add Project</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
-            <Card>
-              <Card.Body id={ComponentIDs.addProjectCardBody}>
-                <Row>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormName} name="name" showInlineError placeholder="Project name" /></Col>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormPicture} name="picture" showInlineError placeholder="Project picture URL" /></Col>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormHomePage} name="homepage" showInlineError placeholder="Homepage URL" /></Col>
-                </Row>
-                <LongTextField id={ComponentIDs.addProjectFormDescription} name="description" placeholder="Describe the project here" />
-                <TextField id={ComponentIDs.addProjectFormDate} name="date" placeholder="Enter the semester and year" />
-                <TextField id={ComponentIDs.addProjectFormStudents} name="students" placeholder="Enter the names of the students" />
-                <TextField id={ComponentIDs.addProjectFormVideo} name="video" placeholder="Video URL" />
-                <TextField id={ComponentIDs.addProjectFormTestimonials} name="testimonials" placeholder="Enter testimonials" />
-                <TextField id={ComponentIDs.addProjectFormTechStack} name="techStack" placeholder="List tech stacks" />
-                <TextField id={ComponentIDs.addProjectFormInstructor} name="instructor" placeholder="Enter instructor name" />
-                <TextField id={ComponentIDs.addProjectFormImage} name="image" placeholder="Image URL" />
-                <TextField id={ComponentIDs.addProjectFormPoster} name="poster" placeholder="Poster URL" />
-                {/* // We will want to do something similar to this.
-                <Row>
-                  <Col xs={6} id={ComponentIDs.addProjectFormInterests}>
-                    <SelectField name="interests" showInlineError placeholder="Interests" multiple checkboxes transform={transform} />
-                  </Col>
-                  <Col xs={6} id={ComponentIDs.addProjectFormParticipants}>
-                    <SelectField name="participants" showInlineError placeholder="Participants" multiple checkboxes transform={transform} />
-                  </Col>
-                </Row> */}
-                <SubmitField id={ComponentIDs.addProjectFormSubmit} value="Submit" />
-                <ErrorsField />
-              </Card.Body>
-            </Card>
+            <ProjectForm />
           </AutoForm>
         </Col>
       </Row>

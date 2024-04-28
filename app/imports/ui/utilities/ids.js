@@ -28,6 +28,7 @@ export const ComponentIDs = {
   editProfileFormBio: 'editProfileFormBio',
   editProfileFormSubmit: 'editProfileFormSubmit',
   editProfileMenuItem: 'editProfileMenuItem',
+  editProjectFormStatus: 'editProjectFormStatus',
   interestsMenuItem: 'interestsMenuItem',
   landingMenuItem: 'landingMenuItem',
   loginDropdown: 'loginDropdown',

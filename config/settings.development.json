@@ -161,7 +161,7 @@
       "interests": [
         "Software Engineering"
       ],
-      "picture": "../public/images/logos/codewave.png",
+      "picture": "/images/logos/codewave.png",
       "status": "Proposed",
       "sponsors": [
         "ICSatKCC",
@@ -175,7 +175,7 @@
       "interests": [
         "Renewable Energy"
       ],
-      "picture": "../public/images/logos/ecotech.png",
+      "picture": "/images/logos/ecotech.png",
       "status": "Showcase",
       "sponsors": [
         "ACM@MANOA"
@@ -189,7 +189,7 @@
         "Unity",
         "Visualization"
       ],
-      "picture": "../public/images/logos/unityvis.jpg",
+      "picture": "/images/logos/unityvis.jpg",
       "status": "Showcase",
       "sponsors": [
         "Daniel Port",
@@ -203,7 +203,7 @@
       "interests": [
         "Software Engineering"
       ],
-      "picture": "../public/images/logos/oceanai.png",
+      "picture": "/images/logos/oceanai.png",
       "status": "Published",
       "sponsors": [
         "ICSatKCC",
@@ -218,7 +218,7 @@
         "Renewable Energy",
         "Distributed computing"
       ],
-      "picture": "../public/images/logos/renewgrid.jpg",
+      "picture": "/images/logos/renewgrid.jpg",
       "status": "Showcase",
       "sponsors": [
         "ACM@MANOA",
@@ -233,7 +233,7 @@
         "Unity",
         "Visualization"
       ],
-      "picture": "../public/images/logos/virtualtourhawaii.jpg",
+      "picture": "/images/logos/virtualtourhawaii.jpg",
       "status": "Proposed",
       "sponsors": [
         "Daniel Port",

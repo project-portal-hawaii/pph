@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { Projects } from '../../api/projects/Projects';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
@@ -38,12 +39,20 @@ const updateProfileMethod = 'Profiles.update';
  * updated situation specified by the user.
  */
 Meteor.methods({
-  'Profiles.update'({ email, firstName, lastName, bio, title, picture, interests, projects }) {
+  'Profiles.update'({ email, firstName, lastName, bio, title, picture, interests, projects, roleAdmin }) {
     Profiles.collection.update({ email }, { $set: { email, firstName, lastName, bio, title, picture } });
     ProfilesInterests.collection.remove({ profile: email });
     ProfilesProjects.collection.remove({ profile: email });
     interests.map((interest) => ProfilesInterests.collection.insert({ profile: email, interest }));
     projects.map((project) => ProfilesProjects.collection.insert({ profile: email, project }));
+    // Update the role if it has changed
+    const userId = Meteor.users.findOne({ username: email })._id;
+    if (roleAdmin) {
+      // TODO: Move to server-side method
+      Roles.addUsersToRoles(userId, 'admin');
+    } else {
+      Roles.removeUsersFromRoles(userId, 'admin');
+    }
   },
 });
 

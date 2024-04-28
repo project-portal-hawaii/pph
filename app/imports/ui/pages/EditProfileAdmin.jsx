@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/underscore';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Interests } from '../../api/interests/Interests';
@@ -16,7 +17,6 @@ import { updateProfileMethod } from '../../startup/both/Methods';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { PageIDs } from '../utilities/ids';
-import Profile from '../components/Profile';
 
 /* Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allInterests, allProjects) => new SimpleSchema({
@@ -30,6 +30,7 @@ const makeSchema = (allInterests, allProjects) => new SimpleSchema({
   'interests.$': { type: String, allowedValues: allInterests },
   projects: { type: Array, label: 'Projects', optional: true },
   'projects.$': { type: String, allowedValues: allProjects },
+  roleAdmin: { type: Boolean },
 });
 /* Renders the Profile Page: what appears after the user logs in. */
 const EditProfile = () => {
@@ -66,14 +67,13 @@ const EditProfile = () => {
   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const profile = Profiles.collection.findOne({ email });
-  const model = _.extend({}, profile, { interests, projects });
+  const roleAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
+  const model = _.extend({}, profile, { interests, projects, roleAdmin });
   return (ready ? (
     <Container id={PageIDs.editProfilePage} className="justify-content-center" style={pageStyle}>
       <Col>
-        <Col className="justify-content-center text-center"><h2>Your Profile</h2></Col>
-        <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
-          <Profile />
-        </AutoForm>
+        <Col className="justify-content-center text-center"><h2>Profile</h2></Col>
+        <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)} />
       </Col>
     </Container>
   ) : <LoadingSpinner />);

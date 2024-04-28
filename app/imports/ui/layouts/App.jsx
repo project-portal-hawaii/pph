@@ -21,6 +21,7 @@ import SingleProject from '../pages/SingleProject';
 import ShowcaseProjectsPage from '../pages/ShowcaseProjects';
 import ProjectsAdmin from '../pages/ProjectsAdmin';
 import EditProject from '../pages/EditProject';
+import EditProfileAdmin from '../pages/EditProfileAdmin';
 /* Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => (
   <Router>
@@ -38,6 +39,7 @@ const App = () => (
         <Route path="/showcaseprojects" element={<ShowcaseProjectsPage />} />
         <Route path="/allprojects" element={<AdminProtectedRoute><ProjectsAdmin /></AdminProtectedRoute>} />
         <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+        <Route path="/editprofileadmin" element={<AdminProtectedRoute><EditProfileAdmin /></AdminProtectedRoute>} />
         <Route path="/editproject" element={<ProtectedRoute><EditProject /></ProtectedRoute>} />
         <Route path="/filter" element={<ProtectedRoute><Filter /></ProtectedRoute>} />
         <Route path="/addproject" element={<ProtectedRoute><AddProject /></ProtectedRoute>} />

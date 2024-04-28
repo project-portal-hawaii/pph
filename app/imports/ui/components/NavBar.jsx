@@ -35,7 +35,7 @@ const NavBar = () => {
             {currentUser ? ([<Nav.Link as={NavLink} id={ComponentIDs.addProjectMenuItem} to="/addProject" key="addP">Add Project</Nav.Link>]) : ''}
             { /* <Nav.Link as={NavLink} id={ComponentIDs.filterMenuItem} to="/filter" key="filter">Filter</Nav.Link>] */ }
             {currentUser ? (
-              <Nav.Link as={NavLink} id={ComponentIDs.homeMenuItem} to="/editprofile" key="editprofile">Edit Profile</Nav.Link>
+              <Nav.Link as={NavLink} id={ComponentIDs.homeMenuItem} to={isAdmin ? '/editprofileadmin' : '/editprofile'} key="editprofile">Edit Profile</Nav.Link>
             ) : ''}
           </Nav>
           <Nav className="justify-content-end">

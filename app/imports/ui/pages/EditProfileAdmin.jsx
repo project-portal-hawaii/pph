@@ -8,6 +8,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { _ } from 'meteor/underscore';
 import { useTracker } from 'meteor/react-meteor-data';
+import { useParams } from 'react-router';
 import { Interests } from '../../api/interests/Interests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
@@ -33,8 +34,9 @@ const makeSchema = (allInterests, allProjects) => new SimpleSchema({
   roleAdmin: { type: Boolean },
 });
 /* Renders the Profile Page: what appears after the user logs in. */
-const EditProfile = () => {
-
+const EditProfileAdmin = () => {
+  const { _id: profileEmail } = useParams();
+  // const profileEmail = _id;
   /* On submit, insert the data. */
   const submit = (data) => {
     Meteor.call(updateProfileMethod, data, (error) => {
@@ -46,16 +48,19 @@ const EditProfile = () => {
     });
   };
 
-  const { ready, email } = useTracker(() => {
+  const { ready, email, roleAdmin } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(Interests.userPublicationName);
     const sub2 = Meteor.subscribe(Profiles.userPublicationName);
     const sub3 = Meteor.subscribe(ProfilesInterests.userPublicationName);
     const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
     const sub5 = Meteor.subscribe(Projects.userPublicationName);
+    const sub6 = Meteor.subscribe('allUsers');
+    // console.log(id);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
-      email: Meteor.user()?.username,
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
+      email: profileEmail, // Meteor.user()?.username,
+      roleAdmin: sub6.ready() ? Roles.userIsInRole(Meteor.users.findOne({ username: profileEmail })._id, 'admin') : false,
     };
   }, []);
   // Create the form schema for uniforms. Need to determine all interests and projects for muliselect list.
@@ -67,7 +72,8 @@ const EditProfile = () => {
   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const profile = Profiles.collection.findOne({ email });
-  const roleAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
+  // const userId = Meteor.users.findOne({ username: profileEmail });
+  // const roleAdmin = Roles.userIsInRole(userId, 'admin');
   const model = _.extend({}, profile, { interests, projects, roleAdmin });
   return (ready ? (
     <Container id={PageIDs.editProfilePage} className="justify-content-center" style={pageStyle}>
@@ -79,4 +85,4 @@ const EditProfile = () => {
   ) : <LoadingSpinner />);
 };
 
-export default EditProfile;
+export default EditProfileAdmin;

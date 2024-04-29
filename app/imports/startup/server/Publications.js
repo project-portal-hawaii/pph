@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { Interests } from '../../api/interests/Interests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
@@ -44,7 +45,16 @@ Meteor.publish(ProjectsStatuses.userPublicationName, () => ProjectsStatuses.coll
 // Recommended code to publish roles for each user.
 Meteor.publish(null, function () {
   if (this.userId) {
-    return Meteor.roleAssignment.find({ 'user._id': this.userId });
+  // return Meteor.roleAssignment.find({ 'user._id': this.userId });
+    return Meteor.roleAssignment.find();
+  }
+  return this.ready();
+});
+
+// Publish all users for admin role
+Meteor.publish('allUsers', function () {
+  if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
+    return Meteor.users.find({}, { fields: { username: 1, emails: 1 } });
   }
   return this.ready();
 });

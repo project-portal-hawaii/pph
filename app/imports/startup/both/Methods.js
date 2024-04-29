@@ -49,7 +49,9 @@ Meteor.methods({
     const userId = Meteor.users.findOne({ username: email })._id;
     if (roleAdmin) {
       // TODO: Move to server-side method
-      Roles.addUsersToRoles(userId, 'admin');
+      if (Meteor.isServer) {
+        Roles.addUsersToRoles(userId, 'admin');
+      }
     } else {
       Roles.removeUsersFromRoles(userId, 'admin');
     }

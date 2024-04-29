@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, TextField, LongTextField, SubmitField, ErrorsField } from 'uniforms-bootstrap5';
+import { Col, Container, Row } from 'react-bootstrap';
+import { AutoForm } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -15,7 +15,7 @@ import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
-import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
 import ProjectForm from '../components/ProjectForm';
 // import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
@@ -31,8 +31,8 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   participants: { type: Array, label: 'Participants', optional: true },
   'participants.$': { type: String, allowedValues: allParticipants },
   // Added fields after this point
-  date: { type: String, optional: true },
-  students: { type: String, optional: true },
+  date: { type: String, optional: false },
+  students: { type: String, optional: false },
   video: { type: String, optional: true },
   testimonials: { type: String, optional: true },
   techStack: { type: String, optional: true },
@@ -40,7 +40,7 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status
-  status: { type: String, allowedValues: allStatuses, optional: false, autoValue: () => 'Proposed', defaultValue: 'Proposed' },
+  status: { type: String, allowedValues: allStatuses, optional: false, defaultValue: 'Proposed' },
 });
 /* Renders the Page for adding a project. */
 const AddProject = () => {

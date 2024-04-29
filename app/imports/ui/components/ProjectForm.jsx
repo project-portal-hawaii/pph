@@ -1,10 +1,9 @@
 import React from 'react';
-import Select from 'react-select';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import { Card, Col, Row } from 'react-bootstrap';
-import { ErrorsField, LongTextField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { ErrorsField, LongTextField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
 import { ComponentIDs } from '../utilities/ids';
 
 const statusOptions = [
@@ -22,7 +21,9 @@ const ProjectForm = () => {
   return (
     <Card>
       <Card.Body id={ComponentIDs.addProjectCardBody}>
-        {(currentUser && isAdmin) ? (<Select id={ComponentIDs.editProjectFormStatus} name="status" options={statusOptions} defaultValue="Proposed" />) : ''}
+        {(currentUser && isAdmin) ? (
+          <SelectField id={ComponentIDs.editProjectFormStatus} name="status" options={statusOptions} />
+        ) : ''}
         <Row>
           <Col xs={4}><TextField id={ComponentIDs.addProjectFormName} name="name" showInlineError placeholder="Project name" /></Col>
           <Col xs={4}><TextField id={ComponentIDs.addProjectFormPicture} name="picture" showInlineError placeholder="Project picture URL" /></Col>

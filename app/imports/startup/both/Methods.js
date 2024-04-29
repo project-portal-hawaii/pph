@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import { Projects } from '../../api/projects/Projects';
 import { Profiles } from '../../api/profiles/Profiles';
+import { Comments } from '../../api/comment/Comments';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
@@ -26,7 +28,7 @@ import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
  * even when prototyping. It turns out that we can remove insecure mode if we want, as we use Meteor methods to update
  * the database.
  *
- * Note that it would be even better if each method was wrapped in a transaction so that the database would be rolled
+ * Comment that it would be even better if each method was wrapped in a transaction so that the database would be rolled
  * back if any of the intermediate updates failed. Left as an exercise to the reader.
  */
 
@@ -38,12 +40,22 @@ const updateProfileMethod = 'Profiles.update';
  * updated situation specified by the user.
  */
 Meteor.methods({
-  'Profiles.update'({ email, firstName, lastName, bio, title, picture, interests, projects }) {
+  'Profiles.update'({ email, firstName, lastName, bio, title, picture, interests, projects, roleAdmin }) {
     Profiles.collection.update({ email }, { $set: { email, firstName, lastName, bio, title, picture } });
     ProfilesInterests.collection.remove({ profile: email });
     ProfilesProjects.collection.remove({ profile: email });
     interests.map((interest) => ProfilesInterests.collection.insert({ profile: email, interest }));
     projects.map((project) => ProfilesProjects.collection.insert({ profile: email, project }));
+    // Update the role if it has changed
+    const userId = Meteor.users.findOne({ username: email })._id;
+    if (roleAdmin) {
+      // TODO: Move to server-side method
+      if (Meteor.isServer) {
+        Roles.addUsersToRoles(userId, 'admin');
+      }
+    } else {
+      Roles.removeUsersFromRoles(userId, 'admin');
+    }
   },
 });
 
@@ -73,5 +85,39 @@ Meteor.methods({
     }
   },
 });
+const updateProjectMethod = 'Projects.update';
+/** Updates a project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
+Meteor.methods({
+  'Projects.update'({ name, description, picture, interests, participants, homepage, date, students, video, testimonials, techStack, instructor, image, poster, status }) {
+    Projects.collection.update({ name }, { $set: { name, description, picture, homepage, date, students, video, testimonials, techStack, instructor, image, poster } });
 
-export { updateProfileMethod, addProjectMethod };
+    // ProfilesProjects.collection.remove({ project: name });
+    // ProjectsInterests.collection.remove({ project: name });
+    if (interests) {
+      // interests.map((interest) => ProjectsInterests.collection.insert({ project: name, interest }));
+    } else {
+      //  throw new Meteor.Error('At least one interest is required.');
+    }
+    if (participants) {
+      // participants.map((participant) => ProfilesProjects.collection.insert({ project: name, profile: participant }));
+    }
+    // ProjectsStatuses.collection.remove({ project: name });
+    if (status) {
+      //  status.map((statusItem) => ProjectsStatuses.collection.insert({ project: name, statusItem }));
+      // ProjectsStatuses.collection.insert({ project: name, status });
+    } else {
+      //  throw new Meteor.Error('At least one project status is required.');
+      // ProjectsStatuses.collection.insert({ project: name, status: 'Proposed' });
+    }
+  },
+});
+const addCommentMethod = 'Comments.add';
+
+/** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
+Meteor.methods({
+  'Comments.add'({ name, comment, userId, createdAt }) {
+    Comments.collection.insert({ name, comment, userId, createdAt });
+  },
+});
+
+export { updateProfileMethod, addProjectMethod, updateProjectMethod, addCommentMethod };

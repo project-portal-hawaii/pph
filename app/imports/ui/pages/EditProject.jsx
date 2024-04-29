@@ -5,9 +5,10 @@ import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { Meteor } from 'meteor/meteor';
+import { useParams } from 'react-router';
 import { useTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
-import { addProjectMethod } from '../../startup/both/Methods';
+import { updateProjectMethod } from '../../startup/both/Methods';
 import { Interests } from '../../api/interests/Interests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
@@ -17,6 +18,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
+// import Project from '../components/Project';
 // import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* Create a schema to specify the structure of the data to appear in the form. */
@@ -44,14 +46,14 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
 
 /* Renders the Page for adding a project. */
 const EditProject = () => {
-
+  const { _id: projectId } = useParams();
   /* On submit, insert the data. */
-  const submit = (data, formRef) => {
-    Meteor.call(addProjectMethod, data, (error) => {
+  const submit = (data) => {
+    Meteor.call(updateProjectMethod, data, (error) => {
       if (error) {
         swal('Error', error.message, 'error');
       } else {
-        swal('Success', 'Project added successfully', 'success').then(() => formRef.reset());
+        swal('Success', 'Project updated successfully', 'success');
       }
     });
   };
@@ -72,12 +74,14 @@ const EditProject = () => {
     };
   }, []);
 
-  let fRef = null;
   const allInterests = _.pluck(interests, 'name');
   const allParticipants = _.pluck(profiles, 'email');
   const allStatuses = _.pluck(statuses, 'name');
   const formSchema = makeSchema(allInterests, allParticipants, allStatuses);
   const bridge = new SimpleSchema2Bridge(formSchema);
+  const project = Projects.collection.findOne({ _id: projectId });
+  const model = _.extend({}, project);
+
   // const transform = (label) => ` ${label}`;
   /* Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   return ready ? (
@@ -85,7 +89,7 @@ const EditProject = () => {
       <Row id={PageIDs.addProjectPage} className="justify-content-center">
         <Col xs={10}>
           <Col className="text-center"><h2>Edit Project</h2></Col>
-          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+          <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
             <Card>
               <Card.Body id={ComponentIDs.addProjectCardBody}>
                 <Row>
@@ -110,7 +114,7 @@ const EditProject = () => {
                   <Col xs={6} id={ComponentIDs.addProjectFormParticipants}>
                     <SelectField name="participants" showInlineError placeholder="Participants" multiple checkboxes transform={transform} />
                   </Col>
-                </Row> */}
+                </Row> */ }
                 <SubmitField id={ComponentIDs.addProjectFormSubmit} value="Submit" />
                 <ErrorsField />
               </Card.Body>

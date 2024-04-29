@@ -51,7 +51,7 @@ const App = () => {
           <Route path="/allprojects" element={<AdminProtectedRoute ready={ready}><ProjectsAdmin /></AdminProtectedRoute>} />
           <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
           <Route path="/editprofileadmin/:_id" element={<AdminProtectedRoute ready={ready}><EditProfileAdmin /></AdminProtectedRoute>} />
-          <Route path="/editproject" element={<ProtectedRoute><EditProject /></ProtectedRoute>} />
+          <Route path="/editproject/:_id" element={<AdminProtectedRoute ready={ready}><ProtectedRoute><EditProject /></ProtectedRoute></AdminProtectedRoute>} />
           <Route path="/filter" element={<ProtectedRoute><Filter /></ProtectedRoute>} />
           <Route path="/addproject" element={<ProtectedRoute><AddProject /></ProtectedRoute>} />
           <Route path="/notauthorized" element={<NotAuthorized />} />

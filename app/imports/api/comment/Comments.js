@@ -17,7 +17,7 @@ class CommentsCollection {
       comment: String,
       userId: String,
       createdAt: Date,
-    }, { tracker: Tracker });
+    });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
     // Define names for publications and subscriptions

@@ -33,6 +33,7 @@ Project.propTypes = {
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
     owner: PropTypes.string,
+    _id: PropTypes.string,
   }).isRequired,
   comments: PropTypes.arrayOf(PropTypes.shape({
     comment: PropTypes.string,

@@ -63,5 +63,6 @@ const AddComment = ({ name, projectId }) => {
 
 AddComment.propTypes = {
   name: PropTypes.string.isRequired,
+  projectId: PropTypes.string.isRequired,
 };
 export default AddComment;

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Projects } from '../../api/projects/Projects';
 import { Profiles } from '../../api/profiles/Profiles';
+import { Comments } from '../../api/comment/Comments';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
@@ -27,7 +28,7 @@ import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
  * even when prototyping. It turns out that we can remove insecure mode if we want, as we use Meteor methods to update
  * the database.
  *
- * Note that it would be even better if each method was wrapped in a transaction so that the database would be rolled
+ * Comment that it would be even better if each method was wrapped in a transaction so that the database would be rolled
  * back if any of the intermediate updates failed. Left as an exercise to the reader.
  */
 
@@ -85,4 +86,13 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addProjectMethod };
+const addCommentMethod = 'Comments.add';
+
+/** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
+Meteor.methods({
+  'Comments.add'({ name, comment, userId, createdAt }) {
+    Comments.collection.insert({ name, comment, userId, createdAt });
+  },
+});
+
+export { updateProfileMethod, addProjectMethod, addCommentMethod };

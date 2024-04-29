@@ -17,10 +17,8 @@ import EditProfile from '../pages/EditProfile';
 import Filter from '../pages/Filter';
 import AddProject from '../pages/AddProject';
 import AvailableProjects from '../pages/AvailableProjects';
-import ListProjects from '../pages/ListProjects';
 import SingleProject from '../pages/SingleProject';
 import ShowcaseProjectsPage from '../pages/ShowcaseProjects';
-import TestPage from '../pages/TestPage';
 import ProjectsAdmin from '../pages/ProjectsAdmin';
 import EditProject from '../pages/EditProject';
 import EditProfileAdmin from '../pages/EditProfileAdmin';
@@ -38,8 +36,6 @@ const App = () => (
         <Route path="/profiles" element={<Profiles />} />
         <Route path="/singleproject" element={<SingleProject />} />
         <Route path="/availableprojects" element={<AvailableProjects />} />
-        <Route path="/listprojects" element={<ListProjects />} />
-        <Route path="/testpage" element={<TestPage />} />
         <Route path="/showcaseprojects" element={<ShowcaseProjectsPage />} />
         <Route path="/allprojects" element={<AdminProtectedRoute><ProjectsAdmin /></AdminProtectedRoute>} />
         <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />

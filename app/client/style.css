@@ -55,6 +55,21 @@ body {
 }
 
 /* Sign Up and Sign In Pages CSS */
+.signup-card {
+  justify-content: center;
+  align-items: center;
+  height: 32rem;
+  width: 20rem;
+  border: 2px solid var(--pph-navbar-bg);
+  border-radius: 0.375rem;
+}
+
+.signup-main-image {
+  background-image: url('../public/images/signup-page-stock-image.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 #signUpFormSubmit input,
 #signInFormSubmit input,
 #addProjectFormSubmit input,

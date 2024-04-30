@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
-import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
+import { Alert, Card, Col, Container, Image, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
@@ -40,13 +40,17 @@ const SignUp = () => {
   return (
     <Container id={PageIDs.signUpPage}>
       <Row className="justify-content-center">
-        <Col xs={9}>
-          <Col className="text-center py-4">
-            <h2 style={{ color: '#376551' }}>Create a new account</h2>
-          </Col>
+        <Col xs={8} className="signup-main-image text-white py-5 d-flex flex-column justify-content-center">
+          <div className="text-center signup-main-image">
+            <h1 style={{ color: 'black' }}>Ready to create?</h1>
+            <h2>Sign up and find a new project</h2>
+          </div>
+        </Col>
+        <Col xs={4} className="d-flex flex-column justify-content-center align-items-center">
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
-            <Card>
-              <Card.Body id={ComponentIDs.signUpCardBody}>
+            <Card className="justify-content-center d-flex">
+              <Card.Body id={ComponentIDs.signUpCardBody} className="signup-card">
+                <h2 style={{ color: '#376551', textAlign: 'center' }}>Create a new account</h2>
                 <TextField id={ComponentIDs.signUpFormEmail} name="email" placeholder="E-mail address" />
                 <TextField id={ComponentIDs.signUpFormPassword} name="password" placeholder="Password" type="password" />
                 <ErrorsField />

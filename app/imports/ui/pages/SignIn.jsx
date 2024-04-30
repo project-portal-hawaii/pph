@@ -42,39 +42,44 @@ const SignIn = () => {
   }
   // Otherwise return the Login form.
   return (
-    <Container id={PageIDs.signInPage}>
-      <Row className="justify-content-center">
-        <Col xs={9}>
-          <Col className="text-center py-4">
-            <h2 style={{ color: '#376551' }}>Sign in to your account</h2>
-          </Col>
+    <Container id={PageIDs.signUpPage}>
+      <Row className="signup-main-image my-3 justify-content-center">
+        <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
+          <div className="text-center signup-text py-2 px-4">
+            <h1>Welcome Back</h1>
+            <hr />
+          </div>
+        </Col>
+        <Col xs={4} className="d-flex flex-column justify-content-center py-4">
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
-            <Card>
-              <Card.Body id={ComponentIDs.signInCardBody}>
-                <TextField id={ComponentIDs.signInFormEmail} name="email" placeholder="E-mail address" />
-                <TextField id={ComponentIDs.signInFormPassword} name="password" placeholder="Password" type="password" />
+            <Card className="justify-content-center signup-card">
+              <Card.Body id={ComponentIDs.signUpCardBody} className="signup-card-body mb-0">
+                <h4>Create a new account</h4>
+                <TextField id={ComponentIDs.signUpFormEmail} name="email" placeholder="E-mail address" className="pt-4" />
+                <TextField id={ComponentIDs.signUpFormPassword} name="password" placeholder="Password" type="password" className="pt-2" />
                 <ErrorsField />
-                <SubmitField id={ComponentIDs.signInFormSubmit} />
+                <SubmitField id={ComponentIDs.signUpFormSubmit} className="pt-4" />
+                <Alert id={ComponentIDs.signUpFormAlert} className="signup-alert-text">
+                  Already have an account? Login
+                  {' '}
+                  <Link to="/signin">here</Link>
+                </Alert>
+                {error === '' ? (
+                  ''
+                ) : (
+                  <Alert variant="danger">
+                    <Alert.Heading>Registration was not successful</Alert.Heading>
+                    {error}
+                  </Alert>
+                )}
               </Card.Body>
             </Card>
           </AutoForm>
-          <Alert id={ComponentIDs.signInFormAlert}>
-            Click {' '}
-            <Link to="/signup">here</Link>
-            {' '} to register.
-          </Alert>
-          {error === '' ? (
-            ''
-          ) : (
-            <Alert variant="danger">
-              <Alert.Heading>Login was not successful</Alert.Heading>
-              {error}
-            </Alert>
-          )}
         </Col>
       </Row>
     </Container>
   );
 };
+
 
 export default SignIn;

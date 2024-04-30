@@ -77,7 +77,7 @@ MakeCard.propTypes = {
 };
 
 /* Renders the Project Collection as a set of Cards. */
-const Landing = () => {
+const NewLanding = () => {
   const { ready } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
@@ -133,4 +133,4 @@ const Landing = () => {
   ) : <LoadingSpinner />;
 };
 
-export default Landing;
+export default NewLanding;

@@ -64,8 +64,22 @@ body {
   border-radius: 0.375rem;
 }
 
+.signup-text {
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: black;
+  margin-right: 20rem;
+  margin-bottom: 17rem;
+}
+
+.signup-text h1 {
+  font-size: 55px;
+}
+
 .signup-main-image {
-  background-image: url('../public/images/signup-page-stock-image.jpg');
+  background-image: url('/images/signup-page-stock-image.jpg');
   background-size: cover;
   background-position: center;
 }

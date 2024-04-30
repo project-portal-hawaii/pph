@@ -38,12 +38,13 @@ const SignUp = () => {
     return (<Navigate to="/editprofile" />);
   }
   return (
-    <Container id={PageIDs.signUpPage}>
+    <Container id={PageIDs.signUpPage} className="signup-main-image">
       <Row className="justify-content-center">
-        <Col xs={8} className="signup-main-image text-white py-5 d-flex flex-column justify-content-center">
-          <div className="text-center signup-main-image">
-            <h1 style={{ color: 'black' }}>Ready to create?</h1>
-            <h2>Sign up and find a new project</h2>
+        <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
+          <div className="text-center signup-text p-2">
+            <h1>Ready to create?</h1>
+            <hr />
+            <h5>Sign up and find a new project<br /> to build your skills</h5>
           </div>
         </Col>
         <Col xs={4} className="d-flex flex-column justify-content-center align-items-center">

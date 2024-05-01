@@ -24,6 +24,8 @@ class AddProjectPage {
     await testController.typeText(`#${ComponentIDs.addProjectFormPicture}`, picture);
     await testController.typeText(`#${ComponentIDs.addProjectFormHomePage}`, homepage);
     await testController.typeText(`#${ComponentIDs.addProjectFormDescription}`, description);
+    await testController.typeText(`#${ComponentIDs.addProjectFormDate}`, Date());
+    await testController.typeText(`#${ComponentIDs.addProjectFormStudents}`, 'John Doe, Jane Doe');
     /**
     // Select two interests.
     const interestsSelector = Selector(`#${ComponentIDs.addProjectFormInterests} div.form-check input`);

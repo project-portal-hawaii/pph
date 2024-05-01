@@ -8,6 +8,8 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { Sponsors } from '../../api/sponsors/Sponsors';
+import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
@@ -20,8 +22,9 @@ function getProjectData(name) {
   const interests = _.pluck(ProjectsInterests.collection.find({ project: name }).fetch(), 'interest');
   const statuses = _.pluck(ProjectsStatuses.collection.find({ project: name }).fetch(), 'status');
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
+  const sponsors = _.pluck(ProjectsSponsors.collection.find({ project: name }).fetch(), 'sponsor');
   const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile })?.picture);
-  return _.extend({}, data, { interests, statuses, participants: profilePictures });
+  return _.extend({}, data, { interests, statuses, sponsors, participants: profilePictures });
 }
 
 /* Component for layout out a Project Card. */
@@ -46,6 +49,9 @@ const MakeCard = ({ project }) => (
       </Card.Body>
       <Card.Body>
         {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
+      </Card.Body>
+      <Card.Body>
+        {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
       </Card.Body>
       <Card.Body>
         {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
@@ -75,6 +81,7 @@ MakeCard.propTypes = {
     image: PropTypes.string,
     poster: PropTypes.string,
     statuses: PropTypes.arrayOf(PropTypes.string),
+    sponsors: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 
@@ -88,8 +95,10 @@ const ProjectsAdminPage = () => {
     const sub4 = Meteor.subscribe(Profiles.userPublicationName);
     const sub5 = Meteor.subscribe(Statuses.userPublicationName);
     const sub6 = Meteor.subscribe(ProjectsStatuses.userPublicationName);
+    const sub7 = Meteor.subscribe(Sponsors.userPublicationName);
+    const sub8 = Meteor.subscribe(ProjectsSponsors.userPublicationName);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready() && sub7.ready() && sub8.ready(),
     };
   }, []);
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');

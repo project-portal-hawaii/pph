@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
+import { Alert, Card, Col, Container, Row, Image } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
@@ -42,33 +42,34 @@ const SignIn = () => {
   }
   // Otherwise return the Login form.
   return (
-    <Container id={PageIDs.signUpPage}>
-      <Row className="signup-main-image my-3 justify-content-center">
+    <Container id={PageIDs.signInPage} className="signin-main-image my-3">
+      <Row className="justify-content-center">
         <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
-          <div className="text-center signup-text py-2 px-4">
+          <div className="text-center signin-text">
             <h1>Welcome Back</h1>
-            <hr />
+            <hr className="my-4" />
+            <Image src="/images/logo.png" width={250} className="pt-4" />
           </div>
         </Col>
-        <Col xs={4} className="d-flex flex-column justify-content-center py-4">
+        <Col xs={4} className="d-flex flex-column justify-content-center">
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
-            <Card className="justify-content-center signup-card">
-              <Card.Body id={ComponentIDs.signUpCardBody} className="signup-card-body mb-0">
-                <h4>Create a new account</h4>
+            <Card className="justify-content-center signin-card my-5 py-5">
+              <Card.Body id={ComponentIDs.signUpCardBody} className="signin-card-body mb-0">
+                <h4>Login</h4>
                 <TextField id={ComponentIDs.signUpFormEmail} name="email" placeholder="E-mail address" className="pt-4" />
                 <TextField id={ComponentIDs.signUpFormPassword} name="password" placeholder="Password" type="password" className="pt-2" />
                 <ErrorsField />
-                <SubmitField id={ComponentIDs.signUpFormSubmit} className="pt-4" />
-                <Alert id={ComponentIDs.signUpFormAlert} className="signup-alert-text">
-                  Already have an account? Login
+                <SubmitField id={ComponentIDs.signUpFormSubmit} className="py-4" />
+                <Alert id={ComponentIDs.signUpFormAlert} className="signin-alert-text">
+                  Need an account? Sign up
                   {' '}
-                  <Link to="/signin">here</Link>
+                  <Link to="/signup">here</Link>
                 </Alert>
                 {error === '' ? (
                   ''
                 ) : (
                   <Alert variant="danger">
-                    <Alert.Heading>Registration was not successful</Alert.Heading>
+                    <Alert.Heading>Login was not successful</Alert.Heading>
                     {error}
                   </Alert>
                 )}
@@ -80,6 +81,5 @@ const SignIn = () => {
     </Container>
   );
 };
-
 
 export default SignIn;

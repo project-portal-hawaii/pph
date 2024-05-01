@@ -54,16 +54,16 @@ const SignIn = () => {
         <Col xs={4} className="d-flex flex-column justify-content-center">
           <AutoForm schema={bridge} onSubmit={data => submit(data)}>
             <Card className="justify-content-center signin-card my-5 py-5">
-              <Card.Body id={ComponentIDs.signUpCardBody} className="signin-card-body mb-0">
+              <Card.Body id={ComponentIDs.signInCardBody} className="signin-card-body mb-0">
                 <h4>Login</h4>
-                <TextField id={ComponentIDs.signUpFormEmail} name="email" placeholder="E-mail address" className="pt-4" />
-                <TextField id={ComponentIDs.signUpFormPassword} name="password" placeholder="Password" type="password" className="pt-2" />
+                <TextField id={ComponentIDs.signInFormEmail} name="email" placeholder="E-mail address" className="pt-4" />
+                <TextField id={ComponentIDs.signInFormPassword} name="password" placeholder="Password" type="password" className="pt-2" />
                 <ErrorsField />
-                <SubmitField id={ComponentIDs.signUpFormSubmit} className="py-4" />
-                <Alert id={ComponentIDs.signUpFormAlert} className="signin-alert-text">
+                <SubmitField id={ComponentIDs.signInFormSubmit} className="py-4" />
+                <Alert id={ComponentIDs.signInFormAlert} className="signin-alert-text">
                   Need an account? Sign up
                   {' '}
-                  <Link to="/signup">here</Link>
+                  <Link to="/signin">here</Link>
                 </Alert>
                 {error === '' ? (
                   ''

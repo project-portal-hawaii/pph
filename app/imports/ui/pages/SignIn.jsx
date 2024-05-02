@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { Alert, Card, Col, Container, Row, Image } from 'react-bootstrap';
+import { Alert, Card, Col, Row, Image } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
@@ -42,43 +42,41 @@ const SignIn = () => {
   }
   // Otherwise return the Login form.
   return (
-    <Container id={PageIDs.signInPage} className="signin-main-image my-3">
-      <Row className="justify-content-center">
-        <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
-          <div className="text-center signin-text">
-            <h1>Welcome Back</h1>
-            <hr className="my-4" />
-            <Image src="/images/logo.png" width={250} className="pt-4" />
-          </div>
-        </Col>
-        <Col xs={4} className="d-flex flex-column justify-content-center">
-          <AutoForm schema={bridge} onSubmit={data => submit(data)}>
-            <Card className="justify-content-center signin-card my-5 py-5">
-              <Card.Body id={ComponentIDs.signInCardBody} className="signin-card-body mb-0">
-                <h4>Login</h4>
-                <TextField id={ComponentIDs.signInFormEmail} name="email" placeholder="E-mail address" className="pt-4" />
-                <TextField id={ComponentIDs.signInFormPassword} name="password" placeholder="Password" type="password" className="pt-2" />
-                <ErrorsField />
-                <SubmitField id={ComponentIDs.signInFormSubmit} className="py-4" />
-                <Alert id={ComponentIDs.signInFormAlert} className="signin-alert-text">
-                  Need an account? Sign up
-                  {' '}
-                  <Link to="/signin">here</Link>
+    <Row id={PageIDs.signInPage} className="signin-main-image my-3 justify-content-center">
+      <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
+        <div className="text-center signin-text">
+          <h1>Welcome Back</h1>
+          <hr className="my-4" />
+          <Image src="/images/logo.png" width={250} className="pt-4" />
+        </div>
+      </Col>
+      <Col xs={4} className="d-flex flex-column justify-content-center">
+        <AutoForm schema={bridge} onSubmit={data => submit(data)}>
+          <Card className="justify-content-center signin-card my-5 py-5">
+            <Card.Body id={ComponentIDs.signInCardBody} className="signin-card-body mb-0">
+              <h4>Login</h4>
+              <TextField id={ComponentIDs.signInFormEmail} name="email" placeholder="E-mail address" className="pt-4" />
+              <TextField id={ComponentIDs.signInFormPassword} name="password" placeholder="Password" type="password" className="pt-2" />
+              <ErrorsField />
+              <SubmitField id={ComponentIDs.signInFormSubmit} className="py-4" />
+              <Alert id={ComponentIDs.signInFormAlert} className="signin-alert-text">
+                Need an account? Sign up
+                {' '}
+                <Link to="/signin">here</Link>
+              </Alert>
+              {error === '' ? (
+                ''
+              ) : (
+                <Alert variant="danger">
+                  <Alert.Heading>Login was not successful</Alert.Heading>
+                  {error}
                 </Alert>
-                {error === '' ? (
-                  ''
-                ) : (
-                  <Alert variant="danger">
-                    <Alert.Heading>Login was not successful</Alert.Heading>
-                    {error}
-                  </Alert>
-                )}
-              </Card.Body>
-            </Card>
-          </AutoForm>
-        </Col>
-      </Row>
-    </Container>
+              )}
+            </Card.Body>
+          </Card>
+        </AutoForm>
+      </Col>
+    </Row>
   );
 };
 

@@ -11,7 +11,7 @@ import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import { Sponsors } from '../../api/sponsors/Sponsors';
 import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
-import { pageStyle } from './pageStyles';
+// import { pageStyle } from './pageStyles';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -95,7 +95,7 @@ const NewLanding = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <Container id={PageIDs.projectsPage} style={pageStyle}>
+    <>
       <div id={PageIDs.landingPage}>
         <div className="landing-green-background border-dark-subtle">
           <Container className="text-center">
@@ -129,7 +129,7 @@ const NewLanding = () => {
           </Row>
         </Container>
       </div>
-    </Container>
+    </>
   ) : <LoadingSpinner />;
 };
 

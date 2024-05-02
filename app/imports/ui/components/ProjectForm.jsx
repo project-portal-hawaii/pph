@@ -2,31 +2,31 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Card, Col, Row } from 'react-bootstrap';
 import { ErrorsField, LongTextField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
 import { ComponentIDs } from '../utilities/ids';
 
-// const statusOptions = [
-//  { value: 'Proposed', label: 'Proposed' },
-//  { value: 'Published', label: 'Published' },
-//  { value: 'Showcase', label: 'Showcase' },
-// ];
+const statusOptions = [
+  { value: 'Proposed', label: 'Proposed' },
+  { value: 'Published', label: 'Published' },
+  { value: 'Showcase', label: 'Showcase' },
+];
 
-const ProjectForm = ({ statuses }) => {
+const ProjectForm = () => {
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { currentUser, isAdmin } = useTracker(() => ({
     currentUser: Meteor.user() ? Meteor.user().username : '',
     isAdmin: Roles.userIsInRole(Meteor.userId(), 'admin'),
   }), []);
-  const statusOptions = [];
-  statuses.map((status) => (statusOptions.push({ value: status.name, label: status.name })));
-  console.log(statusOptions);
+  // const statusOptions = [];
+  // statuses.map((status) => (statusOptions.push({ value: status.name, label: status.name })));
+  // console.log(statusOptions);
   return (
     <Card>
       <Card.Body id={ComponentIDs.addProjectCardBody}>
         {(currentUser && isAdmin) ? (
-          <SelectField id={ComponentIDs.editProjectFormStatus} name="status" options={statusOptions} defaultValue={statusOptions[3].value} />
+          <SelectField id={ComponentIDs.editProjectFormStatus} name="status" options={statusOptions} />
         ) : ''}
         <Row>
           <Col xs={4}><TextField id={ComponentIDs.addProjectFormName} name="name" showInlineError placeholder="Project name" /></Col>
@@ -58,8 +58,10 @@ const ProjectForm = ({ statuses }) => {
   );
 };
 
+/*
 ProjectForm.propTypes = {
-  statuses: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])).isRequired,
+  statuses: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]).isRequired),
 };
+*/
 
 export default ProjectForm;

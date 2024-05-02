@@ -95,29 +95,27 @@ const NewLanding = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <>
-      <div id={PageIDs.landingPage}>
-        <div className="landing-top-image my-2">
-          <Container className="text-center">
-            <h1>
-              Welcome to Project Portal Hawaii!
-            </h1>
-            <hr />
-            <h4>
-              Sign up or sign in to view projects posted by members of the community<br />or propose a project of your own!
-            </h4>
-          </Container>
-        </div>
-        <div className="landing-carousel">
-          <Container className="text-center">
-            <h2>
-              Available Pages
-            </h2>
-            <hr style={{ width: '50%' }} />
-            <LandingCarousel />
-            <hr style={{ width: '50%' }} />
-          </Container>
-        </div>
+    <div id={PageIDs.landingPage} className="landing">
+      <div className="landing-top-image">
+        <Container className="text-center">
+          <h1>
+            Welcome to Project Portal Hawaii!
+          </h1>
+          <hr />
+          <h4>
+            Sign up or sign in to view projects posted by members of the community or propose a project of your own!
+          </h4>
+        </Container>
+      </div>
+      <div className="landing-carousel">
+        <Container className="text-center">
+          <h2>
+            Available Pages
+          </h2>
+          <hr style={{ width: '50%' }} />
+          <LandingCarousel />
+          <hr style={{ width: '50%' }} />
+        </Container>
       </div>
       <div className="landing-green-background text-center">
         <h2 style={{ color: 'white', marginBottom: 0 }}>Featured Projects</h2>
@@ -135,7 +133,7 @@ const NewLanding = () => {
           </Row>
         </Container>
       </div>
-    </>
+    </div>
   ) : <LoadingSpinner />;
 };
 

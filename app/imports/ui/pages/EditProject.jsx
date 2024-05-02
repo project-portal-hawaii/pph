@@ -91,7 +91,7 @@ const EditProject = () => {
         <Col xs={10}>
           <Col className="text-center"><h2>Edit Project</h2></Col>
           <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
-            <ProjectForm />
+            <ProjectForm statuses={statuses} />
           </AutoForm>
         </Col>
       </Row>

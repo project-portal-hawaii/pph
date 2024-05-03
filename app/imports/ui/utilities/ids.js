@@ -16,6 +16,7 @@ export const ComponentIDs = {
   addProjectFormTechStack: 'addProjectFormTechStack',
   addProjectFormTestimonials: 'addProjectFormTestimonials',
   addProjectFormVideo: 'addProjectFormVideo',
+  addProjectFormStatuses: 'addProjectFormStatuses',
   basicNavbarNav: 'basicNavbarNav',
   currentUserDropdown: 'currentUserDropdown',
   currentUserDropdownSignOut: 'currentUserDropdownSignOut',

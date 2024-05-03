@@ -40,7 +40,8 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status
-  status: { type: String, allowedValues: allStatuses, optional: false, defaultValue: 'Proposed' },
+  statuses: { type: Array, label: 'Statuses', optional: true, defaultValue: ['Proposed'] },
+  'statuses.$': { type: String, allowedValues: allStatuses },
 });
 /* Renders the Page for adding a project. */
 const AddProject = () => {
@@ -56,7 +57,7 @@ const AddProject = () => {
     });
   };
 
-  const { ready, interests, profiles, statuses } = useTracker(() => {
+  const { ready, interests, profiles, statusesCollection } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(Interests.userPublicationName);
     const sub2 = Meteor.subscribe(Profiles.userPublicationName);
@@ -68,14 +69,14 @@ const AddProject = () => {
       ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && subStatuses.ready(),
       interests: Interests.collection.find().fetch(),
       profiles: Profiles.collection.find().fetch(),
-      statuses: Statuses.collection.find().fetch(),
+      statusesCollection: Statuses.collection.find().fetch(),
     };
   }, []);
 
   let fRef = null;
   const allInterests = _.pluck(interests, 'name');
   const allParticipants = _.pluck(profiles, 'email');
-  const allStatuses = _.pluck(statuses, 'name');
+  const allStatuses = _.pluck(statusesCollection, 'name');
   const formSchema = makeSchema(allInterests, allParticipants, allStatuses);
   const bridge = new SimpleSchema2Bridge(formSchema);
   // const transform = (label) => ` ${label}`;

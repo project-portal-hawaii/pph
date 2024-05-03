@@ -7,27 +7,18 @@ import { Card, Col, Row } from 'react-bootstrap';
 import { ErrorsField, LongTextField, SubmitField, TextField, SelectField } from 'uniforms-bootstrap5';
 import { ComponentIDs } from '../utilities/ids';
 
-const statusOptions = [
-  { value: 'Proposed', label: 'Proposed' },
-  { value: 'Published', label: 'Published' },
-  { value: 'Showcase', label: 'Showcase' },
-];
-
 const ProjectForm = () => {
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { currentUser, isAdmin } = useTracker(() => ({
     currentUser: Meteor.user() ? Meteor.user().username : '',
     isAdmin: Roles.userIsInRole(Meteor.userId(), 'admin'),
   }), []);
+  const transform = (label) => ` ${label}`;
   // const statusOptions = [];
   // statuses.map((status) => (statusOptions.push({ value: status.name, label: status.name })));
-  // console.log(statusOptions);
   return (
     <Card>
       <Card.Body id={ComponentIDs.addProjectCardBody}>
-        {(currentUser && isAdmin) ? (
-          <SelectField id={ComponentIDs.editProjectFormStatus} name="status" options={statusOptions} />
-        ) : ''}
         <Row>
           <Col xs={4}><TextField id={ComponentIDs.addProjectFormName} name="name" showInlineError placeholder="Project name" /></Col>
           <Col xs={4}><TextField id={ComponentIDs.addProjectFormPicture} name="picture" showInlineError placeholder="Project picture URL" /></Col>
@@ -51,6 +42,14 @@ const ProjectForm = () => {
                     <SelectField name="participants" showInlineError placeholder="Participants" multiple checkboxes transform={transform} />
                   </Col>
                 </Row> */}
+        {(currentUser && isAdmin) ? (
+        // <SelectField id={ComponentIDs.editProjectFormStatus} name="status" options={statusOptions} />
+          <Row>
+            <Col xs={6} id={ComponentIDs.addProjectFormStatuses}>
+              <SelectField name="statuses" multiple checkboxes showInlineError placeholder="Status" transform={transform} />
+            </Col>
+          </Row>
+        ) : ''}
         <SubmitField id={ComponentIDs.addProjectFormSubmit} value="Submit" />
         <ErrorsField />
       </Card.Body>

@@ -11,41 +11,41 @@ const LandingCarousel = () => {
 
   return (
     <div className="carousel-text">
-      <Carousel touch activeIndex={index} onSelect={handleSelect}>
+      <Carousel activeIndex={index} onSelect={handleSelect} className="carousel-dark">
         <Carousel.Item>
-          <Image src="/images/sign-up.png" fluid width={1000} style={{ border: '5px solid black' }} />
-          <Carousel.Caption>
+          <div>
             <h3>Registration:</h3>
             <p>Sign-up by inputting your username and password</p>
-          </Carousel.Caption>
+          </div>
+          <Image src="/images/sign-up.png" fluid />
         </Carousel.Item>
         <Carousel.Item>
-          <Image src="/images/sign-in.png" fluid width={1000} style={{ border: '5px solid black' }} />
-          <Carousel.Caption>
+          <div>
             <h3>Sign-In:</h3>
             <p>Using your username and password</p>
-          </Carousel.Caption>
+          </div>
+          <Image src="/images/sign-in.png" fluid />
         </Carousel.Item>
         <Carousel.Item>
-          <Image src="/images/edit-profile.png" fluid width={1000} style={{ border: '5px solid black' }} />
-          <Carousel.Caption>
+          <div>
             <h3>Edit Profile:</h3>
             <p>Edit your profile and make changes. </p>
-          </Carousel.Caption>
+          </div>
+          <Image src="/images/edit-profile.png" fluid />
         </Carousel.Item>
         <Carousel.Item>
-          <Image src="/images/add-project.png" fluid width={1000} style={{ border: '5px solid black' }} />
-          <Carousel.Caption>
+          <div>
             <h3>Propose A Project</h3>
             <p>Have a great idea for a potential project? Submit it here!</p>
-          </Carousel.Caption>
+          </div>
+          <Image src="/images/add-project.png" fluid />
         </Carousel.Item>
         <Carousel.Item>
-          <Image src="/images/single-project.png" fluid width={1000} style={{ border: '5px solid black' }} />
-          <Carousel.Caption>
+          <div>
             <h3>View Potential Projects</h3>
             <p>Want to work on a project, but need an idea? Check out the available projects!</p>
-          </Carousel.Caption>
+          </div>
+          <Image src="/images/single-project.png" fluid />
         </Carousel.Item>
       </Carousel>
     </div>

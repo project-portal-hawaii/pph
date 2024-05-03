@@ -31,7 +31,7 @@ function getProjectData(name) {
 /* Component for layout out a Project Card. */
 const MakeCard = ({ project }) => (
   <Col>
-    <Card className="h-100">
+    <Card className="h-100 py-5">
       <Card.Body>
         <Image src={project.picture} width={100} rounded center />
         <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
@@ -95,32 +95,36 @@ const NewLanding = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <>
-      <div id={PageIDs.landingPage}>
-        <div className="landing-green-background border-dark-subtle">
-          <Container className="text-center">
-            <h1 style={{ paddingTop: '20px', color: 'white', fontSize: '36pt' }}>
-              Welcome to Project Portal Hawaii!
-            </h1>
-            <h4 style={{ paddingBottom: '20px', color: 'white' }}>
-              Sign up or sign in to view projects posted by members of the community or propose a project of your own!
-            </h4>
-          </Container>
-        </div>
-        <div className="landing-green-background-2 ">
-          <Container className="text-center">
-            <LandingCarousel />
-          </Container>
-        </div>
+    <div id={PageIDs.landingPage} className="landing">
+      <div className="landing-top-image">
+        <Container className="text-center">
+          <h1>
+            Welcome to Project Portal Hawaii!
+          </h1>
+          <hr />
+          <h4>
+            Sign up or sign in to view projects posted by members of the community or propose a project of your own!
+          </h4>
+        </Container>
       </div>
-      <p />
+      <div className="landing-carousel">
+        <Container className="text-center">
+          <h2>
+            Available Pages
+          </h2>
+          <hr style={{ width: '50%' }} />
+          <LandingCarousel />
+          <hr style={{ width: '50%' }} />
+        </Container>
+      </div>
       <div className="landing-green-background text-center">
-        <h2>Featured Projects</h2>
+        <h2 style={{ color: 'white', marginBottom: 0 }}>Featured Projects</h2>
+        <hr style={{ width: '50%', color: 'white' }} />
         <Container>
           <Row xs={1} md={2} lg={4} className="g-2">
             {
               projectData.map((project, index) => {
-                if (project.statuses.includes('Published')) {
+                if (project.statuses.includes('Showcase')) {
                   return (<MakeCard key={index} project={project} />);
                 }
                 return false;
@@ -129,7 +133,7 @@ const NewLanding = () => {
           </Row>
         </Container>
       </div>
-    </>
+    </div>
   ) : <LoadingSpinner />;
 };
 

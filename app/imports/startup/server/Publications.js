@@ -11,6 +11,7 @@ import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 import { Comments } from '../../api/comment/Comments';
 import { Sponsors } from '../../api/sponsors/Sponsors';
 import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
+import { ProjectsSubscribers } from '../../api/projects/ProjectsSubscribers';
 
 /** Define a publication to publish all sponsors. */
 Meteor.publish(Sponsors.userPublicationName, () => Sponsors.collection.find());
@@ -35,6 +36,9 @@ Meteor.publish(Projects.userPublicationName, () => Projects.collection.find());
 
 /** Define a publication to publish this collection. */
 Meteor.publish(ProjectsInterests.userPublicationName, () => ProjectsInterests.collection.find());
+
+/** Define a publication to publish this collection. */
+Meteor.publish(ProjectsSubscribers.userPublicationName, () => ProjectsSubscribers.collection.find());
 
 /** Define a publication to publish all interests. */
 Meteor.publish(Statuses.userPublicationName, () => Statuses.collection.find());

@@ -54,7 +54,7 @@ Meteor.methods({
         Roles.addUsersToRoles(userId, 'admin');
       }
     } else {
-      Roles.removeUsersFromRoles(userId, 'admin');
+      // Roles.removeUsersFromRoles(userId, 'admin');
     }
   },
 });

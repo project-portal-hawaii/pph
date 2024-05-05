@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Link, Navigate } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Alert, Card, Col, Row } from 'react-bootstrap';
@@ -6,9 +7,11 @@ import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { addProfileMethod } from '../../startup/both/Methods';
 
+/** Defines a new user and associated profile. Error if user already exists. */
 /*
- * SignUp component is similar to signin component, but we create a new user instead.
+ * SignUp component is similar to sign-in component, but we create a new user instead.
  */
 const SignUp = () => {
   const [error, setError] = useState('');
@@ -29,6 +32,14 @@ const SignUp = () => {
       } else {
         setError('');
         setRedirectToRef(true);
+        Meteor.call(addProfileMethod, { email }, (err1) => {
+          if (err1) {
+            setError(err1.message);
+          } else {
+            setError('');
+            setRedirectToRef(true);
+          }
+        });
       }
     });
   };

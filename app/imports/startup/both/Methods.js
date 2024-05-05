@@ -32,6 +32,22 @@ import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
  * back if any of the intermediate updates failed. Left as an exercise to the reader.
  */
 
+/** Used for sign-up */
+const addProfileMethod = 'Profiles.add';
+
+Meteor.methods({
+  'Profiles.add'({ email }) {
+    // console.log(`Defining profile ${email}`);
+    // Define the user in the Meteor accounts package.
+    // createUser(email, role);
+    // Create the profile.
+    Profiles.collection.insert({ email });
+    // Add interests and projects.
+    // interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
+    // projects.map(project => ProfilesProjects.collection.insert({ profile: email, project }));
+  },
+});
+
 const updateProfileMethod = 'Profiles.update';
 
 /**
@@ -47,14 +63,17 @@ Meteor.methods({
     interests.map((interest) => ProfilesInterests.collection.insert({ profile: email, interest }));
     projects.map((project) => ProfilesProjects.collection.insert({ profile: email, project }));
     // Update the role if it has changed
-    const userId = Meteor.users.findOne({ username: email })._id;
-    if (roleAdmin) {
-      // TODO: Move to server-side method
-      if (Meteor.isServer) {
-        Roles.addUsersToRoles(userId, 'admin');
+    // Check if roleAdmin is defined, and if so, update the role.
+    if (roleAdmin !== undefined) {
+      const userId = Meteor.users.findOne({ username: email })._id;
+      if (roleAdmin) {
+        // TODO: Move to server-side method
+        if (Meteor.isServer) {
+          Roles.addUsersToRoles(userId, 'admin');
+        }
+      } else {
+        Roles.removeUsersFromRoles(userId, 'admin');
       }
-    } else {
-      // Roles.removeUsersFromRoles(userId, 'admin');
     }
   },
 });
@@ -123,4 +142,4 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addProjectMethod, updateProjectMethod, addCommentMethod };
+export { addProfileMethod, updateProfileMethod, addProjectMethod, updateProjectMethod, addCommentMethod };

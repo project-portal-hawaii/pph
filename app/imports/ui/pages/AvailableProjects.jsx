@@ -16,6 +16,7 @@ import { PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 import { ProjectsSubscribers } from '../../api/projects/ProjectsSubscribers';
+import { expressInterest } from '../utilities/projectUtils';
 
 /* Gets the Project data as well as Profiles and Interests associated with the passed Project name. */
 function getProjectData(name) {
@@ -29,27 +30,23 @@ function getProjectData(name) {
   return _.extend({}, data, { interests, statuses, sponsors, subscribers, participants: profilePictures });
 }
 
-const expressInterest = (projectName) => {
-  Meteor.call('expressInterest', projectName);
-};
-
 /* Component for layout out a Project Card. */
 const MakeCard = ({ project }) => {
   const [interestedCount, setInterestedCount] = useState(0);
 
   useTracker(() => {
-    const interestsHandle = Meteor.subscribe('projects.interests', project.name);
+    const interestsHandle = Meteor.subscribe(ProjectsSubscribers.userPublicationName);
     if (interestsHandle.ready()) {
       const count = ProjectsSubscribers.collection.find({ project: project.name }).count();
       setInterestedCount(count);
     }
-  }, []);
+  }, [project.name]);
 
   return (
     <Col>
       <Card className="h-100">
         <Card.Body>
-          <Image src={project.picture} width={100} rounded center />
+          <Image src={project.picture} width={100} rounded />
           <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
           <Card.Subtitle>
             <span className="date">{project.title}</span>
@@ -71,7 +68,7 @@ const MakeCard = ({ project }) => {
           <Card.Text>
             {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
           </Card.Text>
-          <button type="button" onClick={() => expressInterest('Project Name')}>Express Interest</button>
+          <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
         </Card.Body>
       </Card>
     </Col>

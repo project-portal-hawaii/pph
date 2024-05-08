@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Badge, Container, Card, Row, Col, Button } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
@@ -13,6 +13,8 @@ import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { ProjectsSubscribers } from '../../api/projects/ProjectsSubscribers';
+import { expressInterest } from '../utilities/projectUtils';
 
 /* Gets the Project data as well as Profiles and Interests associated with the passed Project name. */
 function getProjectData(name) {
@@ -20,34 +22,53 @@ function getProjectData(name) {
   const interests = _.pluck(ProjectsInterests.collection.find({ project: name }).fetch(), 'interest');
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
   const sponsors = _.pluck(ProjectsSponsors.collection.find({ project: name }).fetch(), 'sponsor');
+  const subscribers = _.pluck(ProjectsSubscribers.collection.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile })?.picture);
-  return _.extend({}, data, { interests, sponsors, participants: profilePictures });
+  return _.extend({}, data, { interests, sponsors, subscribers, participants: profilePictures });
 }
 
 /* Component for layout out a Project Card. */
-const MakeCard = ({ project }) => (
-  <Col>
-    <Card className="my-2">
-      <Card.Body>
-        <Card.Img src={project.picture} style={{ width: '450px', height: '450px' }} />
-        <Card.Title tag="h5" style={{ marginTop: '0px' }}>{project.name}</Card.Title>
-        <p><i>FULL DESCRIPTION:</i></p>
-        <Card.Subtitle>
-          <span className="date">{project.title}</span>
-        </Card.Subtitle>
-        <Card.Text>
-          {project.description}
-        </Card.Text>
-      </Card.Body>
-      <Card.Body>
-        {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
-      </Card.Body>
-      <Card.Body>
-        {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
-      </Card.Body>
-    </Card>
-  </Col>
-);
+const MakeCard = ({ project }) => {
+  const [interestedCount, setInterestedCount] = useState(0);
+
+  useTracker(() => {
+    const interestsHandle = Meteor.subscribe(ProjectsSubscribers.userPublicationName);
+    if (interestsHandle.ready()) {
+      const count = ProjectsSubscribers.collection.find({ project: project.name }).count();
+      setInterestedCount(count);
+    }
+  }, [project.name]);
+
+  return (
+    <Col>
+      <Card className="my-2">
+        <Card.Body>
+          <Card.Img src={project.picture} style={{ width: '450px', height: '450px' }} />
+          <Card.Title tag="h5" style={{ marginTop: '0px' }}>{project.name}</Card.Title>
+          <p><i>FULL DESCRIPTION:</i></p>
+          <Card.Subtitle>
+            <span className="date">{project.title}</span>
+          </Card.Subtitle>
+          <Card.Text>
+            {project.description}
+          </Card.Text>
+        </Card.Body>
+        <Card.Body>
+          {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
+        </Card.Body>
+        <Card.Body>
+          {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
+        </Card.Body>
+        <Card.Body>
+          <Card.Text>
+            {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
+          </Card.Text>
+          <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
+        </Card.Body>
+      </Card>
+    </Col>
+  );
+};
 
 MakeCard.propTypes = {
   project: PropTypes.shape({
@@ -58,6 +79,7 @@ MakeCard.propTypes = {
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
     sponsors: PropTypes.arrayOf(PropTypes.string),
+    subscribers: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 

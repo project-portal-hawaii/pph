@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
@@ -18,6 +19,14 @@ class ProjectsSubscribersCollection {
     // Define names for publications and subscriptions
     this.userPublicationName = `${this.name}.publication.user`;
     this.adminPublicationName = `${this.name}.publication.admin`;
+
+    if (!Meteor.isServer) { return; }
+    this.collection.allow({
+      // eslint-disable-next-line no-unused-vars
+      insert(userId, _doc) {
+        return userId;
+      },
+    });
   }
 }
 

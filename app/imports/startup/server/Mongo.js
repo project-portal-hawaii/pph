@@ -12,7 +12,6 @@ import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 import { Comments } from '../../api/comment/Comments';
-import { ProjectsSubscribers } from '../../api/projects/ProjectsSubscribers';
 
 /* eslint-disable no-console */
 
@@ -70,19 +69,6 @@ function addProject({ name, homepage, description, interests, picture, status, s
 
 function addComment({ name, comment, userId, createdAt }) {
   Comments.collection.insert({ name, comment, userId, createdAt });
-}
-
-function expressInterest(projectName) {
-  // Check if user is logged in.
-  if (!Meteor.userId()) {
-    throw new Meteor.Error('not-authorized', 'You must be logged in to express interest in a project.');
-  }
-  // Check if user has already expressed interest.
-  const existingSubscriber = ProjectsSubscribers.findOne({ project: projectName, profile: Meteor.userId() });
-  if (existingSubscriber) {
-    throw new Meteor.Error('already-expressed', 'You have already expressed interest in this project.');
-  }
-  ProjectsSubscribers.insert({ project: projectName, profile: Meteor.userId() });
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

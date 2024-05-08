@@ -62,7 +62,7 @@ const SignIn = () => {
               <Alert id={ComponentIDs.signInFormAlert} className="signin-alert-text">
                 Need an account? Sign up
                 {' '}
-                <Link to="/signin">here</Link>
+                <Link to="/signup">here</Link>
               </Alert>
               {error === '' ? (
                 ''

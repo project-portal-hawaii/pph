@@ -49,7 +49,7 @@ const SignUp = () => {
     return (<Navigate to="/editprofile" />);
   }
   return (
-    <Row id={PageIDs.signUpPage} className="signup-main-image my-3 justify-content-center">
+    <Row id={PageIDs.signUpPage} className="signup-main-image justify-content-center">
       <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
         <div className="text-center signup-text py-2 px-4">
           <h1>Ready to Create?</h1>

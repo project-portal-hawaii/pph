@@ -100,7 +100,7 @@ const Landing = () => {
         <div className="landing-green-background border-dark-subtle">
           <Container className="text-center">
             <h1 style={{ paddingTop: '20px', color: 'white', fontSize: '36pt' }}>
-              Welcome to Project Portal Hawaii!
+              Welcome to Project Portal Hawaiʻi!
             </h1>
             <h4 style={{ paddingBottom: '20px', color: 'white' }}>
               Sign up or sign in to view projects posted by members of the community or propose a project of your own!

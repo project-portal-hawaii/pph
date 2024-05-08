@@ -99,7 +99,7 @@ const NewLanding = () => {
       <div className="landing-top-image">
         <Container className="text-center">
           <h1>
-            Welcome to Project Portal Hawaii!
+            Welcome to Project Portal Hawaiʻi!
           </h1>
           <hr />
           <h4>

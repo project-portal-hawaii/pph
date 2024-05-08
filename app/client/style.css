@@ -38,9 +38,9 @@ body {
 
 /* Landing Page CSS */
 .landing {
-  border-top: var(--pph-navbar-bg) 10px solid;
-  border-left: var(--pph-navbar-bg) 10px solid;
-  border-right: var(--pph-navbar-bg) 10px solid;
+  border-top: var(--pph-navbar-bg) 0px solid;
+  border-left: var(--pph-navbar-bg) 0px solid;
+  border-right: var(--pph-navbar-bg) 0px solid;
 }
 
 .landing-green-background {

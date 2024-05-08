@@ -142,4 +142,15 @@ Meteor.methods({
   },
 });
 
-export { addProfileMethod, updateProfileMethod, addProjectMethod, updateProjectMethod, addCommentMethod };
+const uploadProfilePictureMethod = 'Profiles.uploadPicture';
+
+Meteor.methods({
+  'Profiles.uploadPicture'({ email, picture }) {
+    if (Meteor.isServer) {
+
+      Profiles.collection.update({ email }, { $set: { picture } });
+    }
+  },
+});
+
+export { addProfileMethod, updateProfileMethod, uploadProfilePictureMethod, addProjectMethod, updateProjectMethod, addCommentMethod };

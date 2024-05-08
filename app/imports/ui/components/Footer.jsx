@@ -6,12 +6,10 @@ const Footer = () => (
   <footer className="footer mt-auto py-3 bg-dark">
     <Container>
       <Col className="text-center" style={{ color: 'white' }}>
-        Project Portal Hawaii
+        Project Portal Hawaiʻi
         {' '}
         <br />
-        University of Hawaii
-        <br />
-        Honolulu, HI 96822
+        University of Hawaiʻi at Mānoa
         {' '}
         <br />
         <a style={{ color: 'white' }} href="https://project-portal-hawaii.github.io">https://project-portal-hawaii.github.io</a>

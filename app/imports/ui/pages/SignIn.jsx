@@ -42,7 +42,7 @@ const SignIn = () => {
   }
   // Otherwise return the Login form.
   return (
-    <Row id={PageIDs.signInPage} className="signin-main-image my-3 justify-content-center">
+    <Row id={PageIDs.signInPage} className="signin-main-image justify-content-center">
       <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
         <div className="text-center signin-text">
           <h1>Welcome Back</h1>
@@ -62,7 +62,7 @@ const SignIn = () => {
               <Alert id={ComponentIDs.signInFormAlert} className="signin-alert-text">
                 Need an account? Sign up
                 {' '}
-                <Link to="/signin">here</Link>
+                <Link to="/signup">here</Link>
               </Alert>
               {error === '' ? (
                 ''

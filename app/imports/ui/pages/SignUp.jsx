@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Link, Navigate } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
-import { Alert, Card, Col, Container, Row } from 'react-bootstrap';
+import { Alert, Card, Col, Row } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-bootstrap5';
 import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { addProfileMethod } from '../../startup/both/Methods';
 
+/** Defines a new user and associated profile. Error if user already exists. */
 /*
- * SignUp component is similar to signin component, but we create a new user instead.
+ * SignUp component is similar to sign-in component, but we create a new user instead.
  */
 const SignUp = () => {
   const [error, setError] = useState('');
@@ -29,6 +32,14 @@ const SignUp = () => {
       } else {
         setError('');
         setRedirectToRef(true);
+        Meteor.call(addProfileMethod, { email }, (err1) => {
+          if (err1) {
+            setError(err1.message);
+          } else {
+            setError('');
+            setRedirectToRef(true);
+          }
+        });
       }
     });
   };
@@ -38,38 +49,41 @@ const SignUp = () => {
     return (<Navigate to="/editprofile" />);
   }
   return (
-    <Container id={PageIDs.signUpPage}>
-      <Row className="justify-content-center">
-        <Col xs={9}>
-          <Col className="text-center py-4">
-            <h2 style={{ color: '#376551' }}>Create a new account</h2>
-          </Col>
-          <AutoForm schema={bridge} onSubmit={data => submit(data)}>
-            <Card>
-              <Card.Body id={ComponentIDs.signUpCardBody}>
-                <TextField id={ComponentIDs.signUpFormEmail} name="email" placeholder="E-mail address" />
-                <TextField id={ComponentIDs.signUpFormPassword} name="password" placeholder="Password" type="password" />
-                <ErrorsField />
-                <SubmitField id={ComponentIDs.signUpFormSubmit} />
-              </Card.Body>
-            </Card>
-          </AutoForm>
-          <Alert id={ComponentIDs.signUpFormAlert}>
-            Already have an account? Login
-            {' '}
-            <Link to="/signin">here</Link>
-          </Alert>
-          {error === '' ? (
-            ''
-          ) : (
-            <Alert variant="danger">
-              <Alert.Heading>Registration was not successful</Alert.Heading>
-              {error}
-            </Alert>
-          )}
-        </Col>
-      </Row>
-    </Container>
+    <Row id={PageIDs.signUpPage} className="signup-main-image justify-content-center">
+      <Col xs={8} className="text-white py-5 d-flex flex-column justify-content-center">
+        <div className="text-center signup-text py-2 px-4">
+          <h1>Ready to Create?</h1>
+          <hr />
+          <h5>Sign up and find a new project<br /> to build upon your skills</h5>
+        </div>
+      </Col>
+      <Col xs={4} className="d-flex flex-column justify-content-center py-4">
+        <AutoForm schema={bridge} onSubmit={data => submit(data)}>
+          <Card className="justify-content-center signup-card">
+            <Card.Body id={ComponentIDs.signUpCardBody} className="signup-card-body mb-0">
+              <h4>Register</h4>
+              <TextField id={ComponentIDs.signUpFormEmail} name="email" placeholder="E-mail address" className="pt-4" />
+              <TextField id={ComponentIDs.signUpFormPassword} name="password" placeholder="Password" type="password" className="pt-2" />
+              <ErrorsField />
+              <SubmitField id={ComponentIDs.signUpFormSubmit} className="pt-4" />
+              <Alert id={ComponentIDs.signUpFormAlert} className="signup-alert-text">
+                Already have an account? Login
+                {' '}
+                <Link to="/signin">here</Link>
+              </Alert>
+              {error === '' ? (
+                ''
+              ) : (
+                <Alert variant="danger">
+                  <Alert.Heading>Registration was not successful</Alert.Heading>
+                  {error}
+                </Alert>
+              )}
+            </Card.Body>
+          </Card>
+        </AutoForm>
+      </Col>
+    </Row>
   );
 };
 

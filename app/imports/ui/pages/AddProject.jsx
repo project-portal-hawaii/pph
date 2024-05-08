@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, TextField, LongTextField, SubmitField, ErrorsField } from 'uniforms-bootstrap5';
+import { Col, Container, Row } from 'react-bootstrap';
+import { AutoForm } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -15,8 +15,9 @@ import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
-import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
+import ProjectForm from '../components/ProjectForm';
 // import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* Create a schema to specify the structure of the data to appear in the form. */
@@ -30,8 +31,8 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   participants: { type: Array, label: 'Participants', optional: true },
   'participants.$': { type: String, allowedValues: allParticipants },
   // Added fields after this point
-  date: { type: String, optional: true },
-  students: { type: String, optional: true },
+  date: { type: String, optional: false },
+  students: { type: String, optional: false },
   video: { type: String, optional: true },
   testimonials: { type: String, optional: true },
   techStack: { type: String, optional: true },
@@ -39,9 +40,9 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status
-  status: { type: String, allowedValues: allStatuses, optional: false, autoValue: () => 'Proposed' },
+  statuses: { type: Array, label: 'Statuses', optional: true, defaultValue: ['Proposed'] },
+  'statuses.$': { type: String, allowedValues: allStatuses },
 });
-
 /* Renders the Page for adding a project. */
 const AddProject = () => {
 
@@ -56,7 +57,7 @@ const AddProject = () => {
     });
   };
 
-  const { ready, interests, profiles, statuses } = useTracker(() => {
+  const { ready, interests, profiles, statusesCollection } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(Interests.userPublicationName);
     const sub2 = Meteor.subscribe(Profiles.userPublicationName);
@@ -68,14 +69,14 @@ const AddProject = () => {
       ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && subStatuses.ready(),
       interests: Interests.collection.find().fetch(),
       profiles: Profiles.collection.find().fetch(),
-      statuses: Statuses.collection.find().fetch(),
+      statusesCollection: Statuses.collection.find().fetch(),
     };
   }, []);
 
   let fRef = null;
   const allInterests = _.pluck(interests, 'name');
   const allParticipants = _.pluck(profiles, 'email');
-  const allStatuses = _.pluck(statuses, 'name');
+  const allStatuses = _.pluck(statusesCollection, 'name');
   const formSchema = makeSchema(allInterests, allParticipants, allStatuses);
   const bridge = new SimpleSchema2Bridge(formSchema);
   // const transform = (label) => ` ${label}`;
@@ -86,35 +87,7 @@ const AddProject = () => {
         <Col xs={10}>
           <Col className="text-center"><h2>Add Project</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
-            <Card>
-              <Card.Body id={ComponentIDs.addProjectCardBody}>
-                <Row>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormName} name="name" showInlineError placeholder="Project name" /></Col>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormPicture} name="picture" showInlineError placeholder="Project picture URL" /></Col>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormHomePage} name="homepage" showInlineError placeholder="Homepage URL" /></Col>
-                </Row>
-                <LongTextField id={ComponentIDs.addProjectFormDescription} name="description" placeholder="Describe the project here" />
-                <TextField id={ComponentIDs.addProjectFormDate} name="date" placeholder="Enter the semester and year" />
-                <TextField id={ComponentIDs.addProjectFormStudents} name="students" placeholder="Enter the names of the students" />
-                <TextField id={ComponentIDs.addProjectFormVideo} name="video" placeholder="Video URL" />
-                <TextField id={ComponentIDs.addProjectFormTestimonials} name="testimonials" placeholder="Enter testimonials" />
-                <TextField id={ComponentIDs.addProjectFormTechStack} name="techStack" placeholder="List tech stacks" />
-                <TextField id={ComponentIDs.addProjectFormInstructor} name="instructor" placeholder="Enter instructor name" />
-                <TextField id={ComponentIDs.addProjectFormImage} name="image" placeholder="Image URL" />
-                <TextField id={ComponentIDs.addProjectFormPoster} name="poster" placeholder="Poster URL" />
-                {/* // We will want to do something similar to this.
-                <Row>
-                  <Col xs={6} id={ComponentIDs.addProjectFormInterests}>
-                    <SelectField name="interests" showInlineError placeholder="Interests" multiple checkboxes transform={transform} />
-                  </Col>
-                  <Col xs={6} id={ComponentIDs.addProjectFormParticipants}>
-                    <SelectField name="participants" showInlineError placeholder="Participants" multiple checkboxes transform={transform} />
-                  </Col>
-                </Row> */}
-                <SubmitField id={ComponentIDs.addProjectFormSubmit} value="Submit" />
-                <ErrorsField />
-              </Card.Body>
-            </Card>
+            <ProjectForm />
           </AutoForm>
         </Col>
       </Row>

@@ -1,20 +1,21 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col, Button } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Col, Badge, Container, Card, Image, Row } from 'react-bootstrap';
 import { _ } from 'meteor/underscore';
+import { PageIDs } from '../utilities/ids';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 import { Sponsors } from '../../api/sponsors/Sponsors';
 import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
-import LoadingSpinner from '../components/LoadingSpinner';
-import { pageStyle } from './pageStyles';
-import { ComponentIDs, PageIDs } from '../utilities/ids';
+// import { pageStyle } from './pageStyles';
 import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
+import LoadingSpinner from '../components/LoadingSpinner';
+import LandingCarousel from '../components/LandingCarousel';
 
 /* Gets the Project data as well as Profiles and Interests associated with the passed Project name. */
 function getProjectData(name) {
@@ -30,7 +31,7 @@ function getProjectData(name) {
 /* Component for layout out a Project Card. */
 const MakeCard = ({ project }) => (
   <Col>
-    <Card className="h-100">
+    <Card className="h-100 py-5">
       <Card.Body>
         <Image src={project.picture} width={100} rounded center />
         <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
@@ -40,24 +41,15 @@ const MakeCard = ({ project }) => (
         <Card.Text>
           {`${project.description.slice(0, 100)}...`}
         </Card.Text>
-        <Card.Text>
-          {`status: ${project.statuses}`}
-        </Card.Text>
-        <Card.Text>
-          {`instructor: ${project.instructor}`}
-        </Card.Text>
-      </Card.Body>
-      <Card.Body>
-        {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
       </Card.Body>
       <Card.Body>
         {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
       </Card.Body>
       <Card.Body>
-        {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
+        {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
       </Card.Body>
       <Card.Body>
-        <Button href={`/editproject/${project._id}`} id={ComponentIDs.editProjectButton} variant="success">Edit</Button>
+        {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
       </Card.Body>
     </Card>
   </Col>
@@ -65,7 +57,6 @@ const MakeCard = ({ project }) => (
 
 MakeCard.propTypes = {
   project: PropTypes.shape({
-    _id: PropTypes.string,
     description: PropTypes.string,
     name: PropTypes.string,
     participants: PropTypes.arrayOf(PropTypes.string),
@@ -86,7 +77,7 @@ MakeCard.propTypes = {
 };
 
 /* Renders the Project Collection as a set of Cards. */
-const ProjectsAdminPage = () => {
+const NewLanding = () => {
   const { ready } = useTracker(() => {
     // Ensure that minimongo is populated with all collections prior to running render().
     const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
@@ -104,14 +95,46 @@ const ProjectsAdminPage = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <Container id={PageIDs.projectsPage} style={pageStyle}>
-      <Row xs={1} md={2} lg={3} className="g-2">
-        {
-          projectData.map((project, index) => (<MakeCard key={index} project={project} />))
-        }
-      </Row>
-    </Container>
+    <div id={PageIDs.landingPage} className="landing">
+      <div className="landing-top-image">
+        <Container className="text-center">
+          <h1>
+            Welcome to Project Portal Hawaiʻi!
+          </h1>
+          <hr />
+          <h4>
+            Sign up or sign in to view projects posted by members of the community or propose a project of your own!
+          </h4>
+        </Container>
+      </div>
+      <div className="landing-carousel">
+        <Container className="text-center">
+          <h2>
+            Available Pages
+          </h2>
+          <hr style={{ width: '50%' }} />
+          <LandingCarousel />
+          <hr style={{ width: '50%' }} />
+        </Container>
+      </div>
+      <div className="landing-green-background text-center">
+        <h2 style={{ color: 'white', marginBottom: 0 }}>Featured Projects</h2>
+        <hr style={{ width: '50%', color: 'white' }} />
+        <Container>
+          <Row xs={1} md={2} lg={4} className="g-2">
+            {
+              projectData.map((project, index) => {
+                if (project.statuses.includes('Showcase')) {
+                  return (<MakeCard key={index} project={project} />);
+                }
+                return false;
+              })
+            }
+          </Row>
+        </Container>
+      </div>
+    </div>
   ) : <LoadingSpinner />;
 };
 
-export default ProjectsAdminPage;
+export default NewLanding;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, TextField, LongTextField, SubmitField, ErrorsField } from 'uniforms-bootstrap5';
+import { Col, Container, Row } from 'react-bootstrap';
+import { AutoForm } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -14,15 +14,17 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
+import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
-import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { PageIDs } from '../utilities/ids';
 import { Statuses } from '../../api/statuses/Statuses';
+import ProjectForm from '../components/ProjectForm';
 // import Project from '../components/Project';
 // import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 
 /* Create a schema to specify the structure of the data to appear in the form. */
-const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSchema({
+const makeSchema = (allInterests, allParticipants, allStatuses, currentStatuses) => new SimpleSchema({
   name: String,
   description: String,
   homepage: String,
@@ -32,8 +34,8 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   participants: { type: Array, label: 'Participants', optional: true },
   'participants.$': { type: String, allowedValues: allParticipants },
   // Added fields after this point
-  date: { type: String, optional: true },
-  students: { type: String, optional: true },
+  date: { type: String, optional: false },
+  students: { type: String, optional: false },
   video: { type: String, optional: true },
   testimonials: { type: String, optional: true },
   techStack: { type: String, optional: true },
@@ -41,12 +43,14 @@ const makeSchema = (allInterests, allParticipants, allStatuses) => new SimpleSch
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status
-  status: { type: String, allowedValues: allStatuses, optional: false, autoValue: () => 'Proposed' },
+  statuses: { type: Array, label: 'Statuses', optional: true, defaultValue: currentStatuses },
+  'statuses.$': { type: String, allowedValues: allStatuses },
 });
 
 /* Renders the Page for adding a project. */
 const EditProject = () => {
   const { _id: projectId } = useParams();
+  // console.log(useParams());
   /* On submit, insert the data. */
   const submit = (data) => {
     Meteor.call(updateProjectMethod, data, (error) => {
@@ -66,8 +70,9 @@ const EditProject = () => {
     const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
     const sub5 = Meteor.subscribe(Projects.userPublicationName);
     const subStatuses = Meteor.subscribe(Statuses.userPublicationName);
+    const subCurrentStatuses = Meteor.subscribe(ProjectsStatuses.userPublicationName);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && subStatuses.ready(),
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && subStatuses.ready() && subCurrentStatuses.ready(),
       interests: Interests.collection.find().fetch(),
       profiles: Profiles.collection.find().fetch(),
       statuses: Statuses.collection.find().fetch(),
@@ -77,7 +82,14 @@ const EditProject = () => {
   const allInterests = _.pluck(interests, 'name');
   const allParticipants = _.pluck(profiles, 'email');
   const allStatuses = _.pluck(statuses, 'name');
-  const formSchema = makeSchema(allInterests, allParticipants, allStatuses);
+
+  // const projectName = Projects.collection.findOne({ _id: projectId }).name;
+  const currentStatuses = []; // [ProjectsStatuses.collection.find({ project: projectName }).fetch()];
+  if (ready) {
+    const projectName = Projects.collection.findOne({ _id: projectId }).name;
+    ProjectsStatuses.collection.find({ project: projectName }).fetch().map((status) => currentStatuses.push(status.status));
+  }
+  const formSchema = makeSchema(allInterests, allParticipants, allStatuses, currentStatuses);
   const bridge = new SimpleSchema2Bridge(formSchema);
   const project = Projects.collection.findOne({ _id: projectId });
   const model = _.extend({}, project);
@@ -90,35 +102,7 @@ const EditProject = () => {
         <Col xs={10}>
           <Col className="text-center"><h2>Edit Project</h2></Col>
           <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
-            <Card>
-              <Card.Body id={ComponentIDs.addProjectCardBody}>
-                <Row>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormName} name="name" showInlineError placeholder="Project name" /></Col>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormPicture} name="picture" showInlineError placeholder="Project picture URL" /></Col>
-                  <Col xs={4}><TextField id={ComponentIDs.addProjectFormHomePage} name="homepage" showInlineError placeholder="Homepage URL" /></Col>
-                </Row>
-                <LongTextField id={ComponentIDs.addProjectFormDescription} name="description" placeholder="Describe the project here" />
-                <TextField id={ComponentIDs.addProjectFormDate} name="date" placeholder="Enter the semester and year" />
-                <TextField id={ComponentIDs.addProjectFormStudents} name="students" placeholder="Enter the names of the students" />
-                <TextField id={ComponentIDs.addProjectFormVideo} name="video" placeholder="Video URL" />
-                <TextField id={ComponentIDs.addProjectFormTestimonials} name="testimonials" placeholder="Enter testimonials" />
-                <TextField id={ComponentIDs.addProjectFormTechStack} name="techStack" placeholder="List tech stacks" />
-                <TextField id={ComponentIDs.addProjectFormInstructor} name="instructor" placeholder="Enter instructor name" />
-                <TextField id={ComponentIDs.addProjectFormImage} name="image" placeholder="Image URL" />
-                <TextField id={ComponentIDs.addProjectFormPoster} name="poster" placeholder="Poster URL" />
-                {/* // We will want to do something similar to this.
-                <Row>
-                  <Col xs={6} id={ComponentIDs.addProjectFormInterests}>
-                    <SelectField name="interests" showInlineError placeholder="Interests" multiple checkboxes transform={transform} />
-                  </Col>
-                  <Col xs={6} id={ComponentIDs.addProjectFormParticipants}>
-                    <SelectField name="participants" showInlineError placeholder="Participants" multiple checkboxes transform={transform} />
-                  </Col>
-                </Row> */ }
-                <SubmitField id={ComponentIDs.addProjectFormSubmit} value="Submit" />
-                <ErrorsField />
-              </Card.Body>
-            </Card>
+            <ProjectForm />
           </AutoForm>
         </Col>
       </Row>

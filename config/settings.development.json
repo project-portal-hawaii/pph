@@ -162,7 +162,7 @@
         "Software Engineering"
       ],
       "picture": "/images/logos/codewave.png",
-      "status": "Proposed",
+      "status": "Showcase",
       "sponsors": [
         "ICSatKCC",
         "ACM@MANOA"
@@ -190,7 +190,7 @@
         "Visualization"
       ],
       "picture": "/images/logos/unityvis.jpg",
-      "status": "Showcase",
+      "status": "Published",
       "sponsors": [
         "Daniel Port",
         "ICS Department, UH"
@@ -234,7 +234,7 @@
         "Visualization"
       ],
       "picture": "/images/logos/virtualtourhawaii.jpg",
-      "status": "Proposed",
+      "status": "Published",
       "sponsors": [
         "Daniel Port",
         "ICS Department, UH"

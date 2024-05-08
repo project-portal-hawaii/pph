@@ -44,10 +44,10 @@ const MakeCard = ({ project }) => {
 
   return (
     <Col>
-      <Card className="h-100">
-        <Card.Body>
-          <Image src={project.picture} width={100} rounded />
-          <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
+      <Card className="availableProjectCard h-100">
+        <Card.Body className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '350px' }}>
+          <Image src={project.picture} fluid style={{ maxHeight: '250px' }} />
+          <Card.Title className="mt-2">{project.name}</Card.Title>
           <Card.Subtitle>
             <span className="date">{project.title}</span>
           </Card.Subtitle>
@@ -66,7 +66,7 @@ const MakeCard = ({ project }) => {
         </Card.Body>
         <Card.Body>
           <Card.Text>
-            {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
+            {interestedCount <= 1 ? <i className="bi bi-person" /> : <i className="bi bi-people" /> } {interestedCount} {interestedCount === 1 ? 'person is ' : 'people are '}interested
           </Card.Text>
           <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
         </Card.Body>
@@ -117,18 +117,24 @@ const AvailableProjectsPage = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <Container id={PageIDs.projectsPage} style={pageStyle}>
-      <Row xs={1} md={2} lg={4} className="g-2">
-        {
-          projectData.map((project, index) => {
-            if (project.statuses.includes('Published')) {
-              return (<MakeCard key={index} project={project} />);
-            }
-            return false;
-          })
-        }
-      </Row>
-    </Container>
+    <Row id={PageIDs.projectsPage} style={{ paddingLeft: '200px', paddingRight: '200px', ...pageStyle }}>
+      <Col>
+        <Row xs={1} md={2} lg={4} className="g-2 availableProjectsRow">
+          {
+            projectData.map((project, index) => {
+              if (project.statuses.includes('Published')) {
+                return (
+                  <Col xs={12} md={6} lg={3} className="availableProject">
+                    <MakeCard key={index} project={project} />
+                  </Col>
+                );
+              }
+              return false;
+            })
+          }
+        </Row>
+      </Col>
+    </Row>
   ) : <LoadingSpinner />;
 };
 

@@ -48,7 +48,11 @@ body {
   color: var(--pph-navbar-text);
   padding: 20px;
 }
-
+.landing-gray-background {
+  background-color: lightgray;
+  color: var(--pph-navbar-text);
+  padding: 20px;
+}
 .landing h1, .landing h4, .landing h2 {
   font-family: "Poppins", sans-serif;
   color: black;

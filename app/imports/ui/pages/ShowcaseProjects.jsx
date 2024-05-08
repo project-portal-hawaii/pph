@@ -59,6 +59,10 @@ const MakeCard = ({ project }) => (
           <Image
             source={project.image}
           />
+          <h6>
+            Test
+            {project.testimonials}
+          </h6>
         </Collapsible>
       </Card.Body>
     </Card>
@@ -74,6 +78,14 @@ MakeCard.propTypes = {
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
     sponsors: PropTypes.arrayOf(PropTypes.string),
+    date: PropTypes.string,
+    students: PropTypes.string,
+    video: PropTypes.string,
+    testimonials: PropTypes.string,
+    techStack: PropTypes.string,
+    instructor: PropTypes.string,
+    image: PropTypes.string,
+    poster: PropTypes.string,
   }).isRequired,
 };
 

@@ -64,12 +64,14 @@ const MakeCard = ({ project }) => {
         <Card.Body>
           {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
         </Card.Body>
-        <Card.Footer style={{ backgroundColor: 'transparent' }}>
-          <Card.Text>
-            {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
-          </Card.Text>
-          <Button variant="success" onClick={() => expressInterest(project.name)}>Express Interest</Button>
-        </Card.Footer>
+        {Meteor.user() ? (
+          <Card.Footer style={{ backgroundColor: 'transparent' }}>
+            <Card.Text>
+              {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
+            </Card.Text>
+            <Button variant="success" onClick={() => expressInterest(project.name)}>Express Interest</Button>
+          </Card.Footer>
+        ) : '' }
       </Card>
     </Col>
   );

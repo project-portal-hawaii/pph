@@ -74,17 +74,20 @@ const ProfilesPage = () => {
       ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
     };
   }, []);
-  const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
-  // There is a potential race condition. We might not be ready at this point.
-  // Need to ensure that getProfileData doesn't throw an error on line 18.
-  const profileData = emails.map(email => getProfileData(email));
-  return ready ? (
-    <Container id={PageIDs.profilesPage} style={pageStyle}>
-      <Row xs={1} md={2} lg={4} className="g-2">
-        {profileData.map((profile, index) => <MakeCard key={index} profile={profile} />)}
-      </Row>
-    </Container>
-  ) : <LoadingSpinner />;
+  if (ready) {
+    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
+    // There is a potential race condition. We might not be ready at this point.
+    // Need to ensure that getProfileData doesn't throw an error on line 18.
+    const profileData = emails.map(email => getProfileData(email));
+    return (
+      <Container id={PageIDs.profilesPage} style={pageStyle}>
+        <Row xs={1} md={2} lg={4} className="g-2">
+          {profileData.map((profile, index) => <MakeCard key={index} profile={profile} />)}
+        </Row>
+      </Container>
+    );
+  }
+  return (<LoadingSpinner />);
 };
 
 export default ProfilesPage;

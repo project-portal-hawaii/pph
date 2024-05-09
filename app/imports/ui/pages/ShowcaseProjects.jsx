@@ -57,12 +57,12 @@ const MakeCard = ({ project }) => (
           title="Show all information"
         >
           <Image
-            source={project.image}
+            src={project.image}
           />
           <h6>
-            Test
             {project.testimonials}
           </h6>
+          <iframe src={project.video} width={1000} height={500} title={project.name} />
         </Collapsible>
       </Card.Body>
     </Card>
@@ -77,7 +77,6 @@ MakeCard.propTypes = {
     picture: PropTypes.string,
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
-    sponsors: PropTypes.arrayOf(PropTypes.string),
     date: PropTypes.string,
     students: PropTypes.string,
     video: PropTypes.string,
@@ -86,6 +85,9 @@ MakeCard.propTypes = {
     instructor: PropTypes.string,
     image: PropTypes.string,
     poster: PropTypes.string,
+    statuses: PropTypes.arrayOf(PropTypes.string),
+    sponsors: PropTypes.arrayOf(PropTypes.string),
+    subscribers: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 

@@ -38,6 +38,9 @@ const MakeCard = ({ project }) => (
         <Card.Subtitle>
           <span className="date">{project.title}</span>
         </Card.Subtitle>
+        <Card.Subtitle>
+          {project.date}
+        </Card.Subtitle>
         <Card.Text>
           {project.description}
         </Card.Text>
@@ -59,10 +62,13 @@ const MakeCard = ({ project }) => (
           <Image
             src={project.image}
           />
-          <h6>
+          <h3 className="py-1">Instructor: {project.instructor}</h3>
+          <h6>Students: {project.students}</h6>
+          <p className="py-4">
             {project.testimonials}
-          </h6>
-          <iframe src={project.video} width={1000} height={500} title={project.name} />
+          </p>
+          <iframe src={project.video} width={1000} height={500} title={project.name}/>
+          <Image src={project.poster} />
         </Collapsible>
       </Card.Body>
     </Card>

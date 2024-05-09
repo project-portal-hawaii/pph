@@ -126,7 +126,7 @@ const NewLanding = () => {
           <Row xs={1} md={2} lg={4} className="g-2">
             {
               shuffledProjects.slice(0, 4).map((project, index) => (
-                <MakeCard key={index} project={project} /> ))
+                <MakeCard key={index} project={project} />))
             }
           </Row>
         </Container>

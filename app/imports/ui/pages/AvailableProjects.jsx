@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Row, Col, Button } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -68,7 +68,7 @@ const MakeCard = ({ project }) => {
           <Card.Text>
             {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
           </Card.Text>
-          <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
+          <Button variant="success" className="interestButton" onClick={() => expressInterest({ project })} />
         </Card.Body>
       </Card>
     </Col>

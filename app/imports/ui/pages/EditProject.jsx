@@ -104,7 +104,8 @@ const EditProject = () => {
         </Row>
       </Container>
     );
-  } <LoadingSpinner />;
+  }
+  return <LoadingSpinner />;
 };
 
 export default EditProject;

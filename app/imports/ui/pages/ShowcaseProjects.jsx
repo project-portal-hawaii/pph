@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Row } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -29,29 +29,28 @@ function getProjectData(name) {
 
 /* Need to modify to be showcase version */
 const MakeCard = ({ project }) => (
-  <Col>
-    <Card className="h-100">
-      <Card.Body>
-        <Image src={project.picture} width={100} rounded center />
-        <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
-        <Card.Subtitle>
-          <span className="date">{project.title}</span>
-        </Card.Subtitle>
-        <Card.Text>
-          {project.description}
-        </Card.Text>
-      </Card.Body>
-      <Card.Body>
-        {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
-      </Card.Body>
-      <Card.Body>
-        {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
-      </Card.Body>
-      <Card.Body>
-        {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
-      </Card.Body>
-    </Card>
-  </Col>
+  <Card className="h-100">
+    <Card.Body>
+      <Image fluid src={project.picture} width={1500} center />
+      <Image fluid src={project.poster} width={1500} center />
+      <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
+      <Card.Subtitle>
+        <span className="date">{project.title}</span>
+      </Card.Subtitle>
+      <Card.Text>
+        {project.description}
+      </Card.Text>
+    </Card.Body>
+    <Card.Body>
+      {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
+    </Card.Body>
+    <Card.Body>
+      {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
+    </Card.Body>
+    <Card.Body>
+      {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
+    </Card.Body>
+  </Card>
 );
 
 MakeCard.propTypes = {
@@ -62,6 +61,7 @@ MakeCard.propTypes = {
     picture: PropTypes.string,
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
+    poster: PropTypes.string,
     sponsors: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };

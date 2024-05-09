@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col, Button } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Row, Col } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -64,12 +64,12 @@ const MakeCard = ({ project }) => {
         <Card.Body>
           {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
         </Card.Body>
-        <Card.Footer style={{ backgroundColor: 'transparent' }}>
+        <Card.Body>
           <Card.Text>
             {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
           </Card.Text>
-          <Button variant="success" onClick={() => expressInterest(project.name)}>Express Interest</Button>
-        </Card.Footer>
+          <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
+        </Card.Body>
       </Card>
     </Col>
   );

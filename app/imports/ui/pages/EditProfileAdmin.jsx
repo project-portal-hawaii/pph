@@ -1,6 +1,6 @@
 import React from 'react';
-import { AutoForm } from 'uniforms-bootstrap5';
-import { Container, Col } from 'react-bootstrap';
+import { AutoForm, AutoFields } from 'uniforms-bootstrap5';
+import { Container, Col, Image } from 'react-bootstrap';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -79,7 +79,12 @@ const EditProfileAdmin = () => {
     <Container id={PageIDs.editProfilePage} className="justify-content-center" style={pageStyle}>
       <Col>
         <Col className="justify-content-center text-center"><h2>Profile</h2></Col>
-        <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)} />
+        <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
+          <Container className="justify-content-center text-center">
+            <Image src={profile.picture} roundedCircle width={200} height={200} hidden={!profile.picture} />
+          </Container>
+          <AutoFields />
+        </AutoForm>
       </Col>
     </Container>
   ) : <LoadingSpinner />);

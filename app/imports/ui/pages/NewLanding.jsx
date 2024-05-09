@@ -94,6 +94,8 @@ const NewLanding = () => {
   }, []);
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
+  const showcaseProjects = projectData.filter(project => project.statuses.includes('Showcase'));
+  const shuffledProjects = showcaseProjects.sort(() => Math.random() - 0.5);
   return ready ? (
     <div id={PageIDs.landingPage} className="landing">
       <div className="landing-top-image">
@@ -117,22 +119,19 @@ const NewLanding = () => {
           <hr style={{ width: '50%' }} />
         </Container>
       </div>
-      <div className="landing-green-background text-center">
+      <div className="landing-gray-background text-center">
         <h2 style={{ color: 'white', marginBottom: 0 }}>Featured Projects</h2>
         <hr style={{ width: '50%', color: 'white' }} />
         <Container>
           <Row xs={1} md={2} lg={4} className="g-2">
             {
-              projectData.map((project, index) => {
-                if (project.statuses.includes('Showcase')) {
-                  return (<MakeCard key={index} project={project} />);
-                }
-                return false;
-              })
+              shuffledProjects.slice(0, 4).map((project, index) => (
+                <MakeCard key={index} project={project} />))
             }
           </Row>
         </Container>
       </div>
+      <br />
     </div>
   ) : <LoadingSpinner />;
 };

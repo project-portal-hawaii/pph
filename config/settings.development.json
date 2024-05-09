@@ -97,6 +97,84 @@
   ],
   "defaultProjects": [
     {
+      "name": "Hawaiian Airlines Web Modernization",
+      "homepage": "https://hawaiianairlines.com",
+      "description": "With over 90 years of continuous service, Hawaiian Airlines is the largest operator of commercial flights to and from the U.S. state of Hawaii and is Hawaii's biggest and longest-serving airline. • The Hawaiian Airlines website provides guests with the ability to book and manage their flights and view details about the state of Hawaii • The majority of tickets are booked through the website • A large number of guests perform check-ins using the website HawaiianAirlines.com The purpose of the project is to replace the legacy website. Issues include: • Deprecated technologies increasing the risk of security vulnerabilities and lack of experienced developers • Complex design leading to issues, such as low reusability, testing, etc. • PSS change means touching the code Motivation Web Modernization.",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "https://i.ibb.co/wNS96Xy/496-Hawaiian.png" ,
+      "sponsors": [
+        "Hawaiian Airlines",
+        "University of Hawaii"
+      ],
+      "status": "Showcase"
+    },
+    {
+      "name": "NLP for Aircraft Maintenance",
+      "homepage": "",
+      "description": "BUSINESS PROBLEM\nNeed for increasing accuracy and specificity of maintenance data input by engineers as well as mitigating barrier to entry. Currently, Work Unit Codes (“WUCs”) must be manually chosen by traversing a large tree, making some inputs erroneous or too broad. Existing processes are time-consuming to acclimate to and regularly use. SOLUTION\nA Python web application using natural language processing on historical data and provided WUC trees to convert user inputs into WUCs. ● Takes in user input description\n● Predicts possible matching WUCs\n● Displays the likelihood percentage along with the\ndescription of each WUC",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "https://i.ibb.co/WnP29nj/496-NLP.png" ,
+      "sponsors": [
+        "US Marine Corps",
+        "University of Hawaii"
+      ],
+      "status": "Showcase"
+    },{
+      "name": "Phase Maintenance Inspection (PMI) Software for Rotary Wing Aircraft",
+      "homepage": "https://hawaiianairlines.com",
+      "description": "Purpose: This project was to develop a basic interface PMI\nScheduler which could help organize and keep track of\nmilitary aircraft as it goes through its maintenance inspection\nBackground Information: After visiting on base and\nlearning about their systems regarding Phase Maintenance\nInspection we decided together that the best software we\ncould develop would be a scheduler. Eliminating confusion in\nscheduling since they currently use a variety of ways to track\ntheir maintenance from paper to excel which heavily rely on\nworkers to track. Features:\n● Simplified Design\n○ Our sponsor wanted a software that was visually easy to\nuse where you could just click and add a PMI event\n● Scheduler listed time\n○ With this feature you can adjust how you see the\nscheduler based on your time frame(day, month,\nquarter, year)\n● Adjustability of PMI Events\n○ Adjustability was an important feature as our sponsor\nwanted the ability to drag and move PMI events as the\ntotal days increase\n● Change Phase Lane Names\n○ This feature gives the user the ability to change how\neach phase lane is titled\n● Add Phase Lanes\n○ Phase lanes are no longer stagnant and can be added to\nthe bottom of the scheduler\n● Displays Basic PMI Information\n○ Hovering over the PMI events will show basic\ninformation needed to keep track of the PMI Schedules\n● Begin Non-Working Days Page\n○ As seen in the navbar we have begun work on a page\nwhere a user could input new holidays or other non-\nworking days which would in the future connect to be\nseen on the main scheduler page",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "https://i.ibb.co/z8RDpCB/496-PMI.png" ,
+      "sponsors": [
+        "US Army",
+        "University of Hawaii"
+      ],
+      "status": "Showcase"
+    },{
+      "name": "Fairy Dust Fighter Logistics Wargame",
+      "homepage": "https://hawaiianairlines.com",
+      "description": "Create a homegrown logistics simulation based on\nexecutable, sustainable, and real-world constraints.\nBe able to simulate concepts such as running out of\nfuel, water, ammunition, or medical supplies, critical\ncargo shipments needed to fix a downed transport\naircraft, enemy engagement, medivacs, etc.",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "https://i.ibb.co/gj6fWx1/496-Wargame.png" ,
+      "sponsors": [
+        "US Marine Corps",
+        "University of Hawaii"
+      ],
+      "status": "Showcase"
+    },{
+      "name": "tsDetect Enhancement Reporting",
+      "homepage": "https://hawaiianairlines.com",
+      "description": "With over 90 years of continuous service, Hawaiian Airlines is the largest operator of commercial flights to and from the U.S. state of Hawaii and is Hawaii's biggest and longest-serving airline. • The Hawaiian Airlines website provides guests with the ability to book and manage their flights and view details about the state of Hawaii • The majority of tickets are booked through the website • A large number of guests perform check-ins using the website HawaiianAirlines.com The purpose of the project is to replace the legacy website. Issues include: • Deprecated technologies increasing the risk of security vulnerabilities and lack of experienced developers • Complex design leading to issues, such as low reusability, testing, etc. • PSS change means touching the code Motivation Web Modernization.",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "https://i.ibb.co/4Zr6YTw/496-ts-Detect.png" ,
+      "sponsors": [
+        "University of Hawaii"
+      ],
+      "status": "Showcase"
+    },{
+      "name": "NutriSnap",
+      "homepage": "",
+      "description": "NutriSnap is an app that lets you take a picture of your meal, the app identifies the food, calculates how much is on the plate, and provides nutritional information. The process involves building a machine learning model that processes these images and uses APIs to give detailed calorie counts and food quality ratings based on the NOVA classification. The main goal of NutriSnap is to create an enjoyable and easy- to-use tool that helps people maintain healthy eating habits.",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "https://i.ibb.co/CHsJtKz/s24-496-01.png" ,
+      "sponsors": [
+        "University of Hawaii"
+      ],
+      "status": "Showcase"
+    },
+    {
       "name": "Open Power Quality",
       "homepage": "https://openpowerquality.org",
       "description": "Open source hardware and software for distributed power quality data collection, analysis, and visualization.",
@@ -157,33 +235,6 @@
       "status": "Proposed"
     },
     {
-      "name": "CodeWave Hawaii",
-      "homepage": "https://codewavehawaii.org",
-      "description": "A program focused on providing intensive training in software engineering and web development for Hawaii's aspiring developers through the development of full-stack web applications.",
-      "interests": [
-        "Software Engineering"
-      ],
-      "picture": "/images/logos/codewave.png",
-      "status": "Proposed",
-      "sponsors": [
-        "ICSatKCC",
-        "ACM@MANOA"
-      ]
-    },
-    {
-      "name": "EcoTech Innovators",
-      "homepage": "https://ecotechinnovators.com",
-      "description": "A startup incubator program supporting entrepreneurs in developing renewable energy and environmentally sustainable technologies in Hawaii.",
-      "interests": [
-        "Renewable Energy"
-      ],
-      "picture": "/images/logos/ecotech.png",
-      "status": "Showcase",
-      "sponsors": [
-        "ACM@MANOA"
-      ]
-    },
-    {
       "name": "UnityVis Hawaii",
       "homepage": "https://unityvishawaii.org",
       "description": "A research project exploring the use of Unity for data visualization applications, with a focus on showcasing Hawaii's unique landscapes and cultural heritage.",
@@ -192,7 +243,7 @@
         "Visualization"
       ],
       "picture": "/images/logos/unityvis.jpg",
-      "status": "Showcase",
+      "status": "Published",
       "sponsors": [
         "Daniel Port",
         "ICS Department, UH"
@@ -213,21 +264,6 @@
       ]
     },
     {
-      "name": "RenewGrid: Renewable Energy Grid Simulation",
-      "homepage": "https://renewgrid.org",
-      "description": "RenewGrid is a project focused on developing simulation software for analyzing and optimizing Hawaii's renewable energy grid infrastructure.",
-      "interests": [
-        "Renewable Energy",
-        "Distributed computing"
-      ],
-      "picture": "/images/logos/renewgrid.jpg",
-      "status": "Showcase",
-      "sponsors": [
-        "ACM@MANOA",
-        "ICS Department, UH"
-      ]
-    },
-    {
       "name": "VirtualTourHawaii: VR Exploration",
       "homepage": "https://virtualtourhawaii.com",
       "description": "VirtualTourHawaii is a virtual reality project offering immersive tours of Hawaii's iconic landmarks and natural wonders, developed using Unity.",
@@ -236,7 +272,7 @@
         "Visualization"
       ],
       "picture": "/images/logos/virtualtourhawaii.jpg",
-      "status": "Proposed",
+      "status": "Published",
       "sponsors": [
         "Daniel Port",
         "ICS Department, UH"

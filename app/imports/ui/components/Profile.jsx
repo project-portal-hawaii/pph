@@ -13,7 +13,12 @@ const ImageProcessor = (onChange) => (
         id="file-input"
         onChange={({ target: { files } }) => {
           if (files && files[0]) {
-            onChange?.onChange(URL.createObjectURL(files[0]));
+            // onChange?.onChange(URL.createObjectURL(files[0]));
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              onChange?.onChange(e.target.result);
+            };
+            reader.readAsDataURL(files[0]);
           }
         }}
         style={{ display: 'none' }}

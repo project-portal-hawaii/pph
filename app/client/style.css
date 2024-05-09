@@ -139,7 +139,12 @@ body {
 }
 
 /* Available Projects Page CSS */
-
+.availableProjects h1, .singleProject h1 {
+  padding-top: 2rem;
+  color: var(--pph-navbar-bg);
+  font-size: 54px;
+  font-weight: 600;
+}
 
 /* Sign Up and Sign In Pages CSS */
 .signup-card, .signin-card {
@@ -229,7 +234,17 @@ body {
   background-color: #f0f0f0;
 }
 
-#addProjectCardBody, #editProfileCardBody {
-  border: 2px solid var(--pph-navbar-bg);
-  border-radius: 0.375rem;
+#addProjectCardBody, #editProfileCardBody, .singleProjectCardBody {
+  border: 2px solid var(--pph-navbar-bg) !important;
+  border-radius: 0.375rem !important;
+}
+
+/* Express Interest Button CSS */
+.interestButton {
+  background-color: var(--pph-navbar-bg) !important;
+  border: 2px solid white !important;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
 }

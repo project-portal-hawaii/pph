@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Col } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -46,13 +46,13 @@ const MakeCard = ({ project }) => {
     <Col>
       <Card className="h-100">
         <Card.Body>
-          <Image src={project.picture} width={100} rounded />
+          <Image fluid src={project.picture} width={1500} rounded />
           <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
           <Card.Subtitle>
             <span className="date">{project.title}</span>
           </Card.Subtitle>
           <Card.Text>
-            {`${project.description.slice(0, 100)}...`}
+            {project.description}
           </Card.Text>
         </Card.Body>
         <Card.Body>
@@ -117,17 +117,15 @@ const AvailableProjectsPage = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <Container id={PageIDs.projectsPage} style={pageStyle}>
-      <Row xs={1} md={2} lg={4} className="g-2">
-        {
-          projectData.map((project, index) => {
-            if (project.statuses.includes('Published')) {
-              return (<MakeCard key={index} project={project} />);
-            }
-            return false;
-          })
-        }
-      </Row>
+    <Container id={PageIDs.projectsPage} className="text-center" style={pageStyle}>
+      {
+        projectData.map((project, index) => {
+          if (project.statuses.includes('Published')) {
+            return (<MakeCard key={index} project={project} />);
+          }
+          return false;
+        })
+      }
     </Container>
   ) : <LoadingSpinner />;
 };

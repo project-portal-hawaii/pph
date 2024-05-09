@@ -67,7 +67,7 @@ const MakeCard = ({ project }) => {
         {Meteor.user() ? (
           <Card.Footer style={{ backgroundColor: 'transparent' }}>
             <Card.Text>
-              {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
+              {interestedCount} {interestedCount === 1 ? 'person is' : 'people are'} interested
             </Card.Text>
             <Button variant="success" onClick={() => expressInterest(project.name)}>Express Interest</Button>
           </Card.Footer>

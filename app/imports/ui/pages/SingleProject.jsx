@@ -59,9 +59,11 @@ const MakeCard = ({ project }) => {
           <Card.Text>
             {interestedCount <= 1 ? <i className="bi bi-person" /> : <i className="bi bi-people" /> } {interestedCount} {interestedCount === 1 ? 'person is ' : 'people are '}interested
           </Card.Text>
-          <Card.Text>
-            <Button className="interestButton" onClick={() => expressInterest(project.name)}>Express Interest</Button>
-          </Card.Text>
+          {Meteor.user() ? (
+            <Card.Text>
+              <Button className="interestButton" onClick={() => expressInterest(project.name)}>Express Interest</Button>
+            </Card.Text>
+          ) : '' }
         </Card.Body>
       </Card>
     </Col>

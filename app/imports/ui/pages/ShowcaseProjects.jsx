@@ -131,7 +131,7 @@ const ShowcaseProjectsPage = () => {
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
     <Container id={PageIDs.showcaseProjectsPage} style={pageStyle}>
-      <Row xs={1} md={2} lg={1} className="g-2">
+      <Row xs={1} md={1} lg={1} className="g-2">
         {
           projectData.map((project, index) => {
             if (project.statuses.includes('Showcase')) {

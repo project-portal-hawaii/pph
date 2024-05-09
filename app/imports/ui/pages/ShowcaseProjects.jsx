@@ -59,16 +59,30 @@ const MakeCard = ({ project }) => (
           open={false}
           title="Show all information"
         >
-          <Image
-            src={project.image}
-          />
-          <h3 className="py-1">Instructor: {project.instructor}</h3>
-          <h6>Students: {project.students}</h6>
+          {(typeof project.instructor === 'undefined' && typeof project.image === 'undefined' && typeof project.students === 'undefined' && typeof project.testimonials === 'undefined') &&
+            (typeof project.video === 'undefined' && typeof project.poster === 'undefined') ? (
+              <h3 className="py-1">No Additional Information Available</h3>
+            ) : ''}
+          <Image src={project.poster} width={1000} />
+          {(typeof project.instructor !== 'undefined') ? (
+            <h3 className="py-1">Instructor: {project.instructor}</h3>
+          ) : ''}
+          {(typeof project.students !== 'undefined') ? (
+            <h6>Students: {project.students}</h6>
+          ) : ''}
           <p className="py-4">
             {project.testimonials}
           </p>
-          <iframe src={project.video} width={1000} height={500} title={project.name}/>
-          <Image src={project.poster} />
+          {(typeof project.video !== 'undefined') ? (
+            <iframe src={project.video} width={1000} height={500} title={project.name} />
+          ) : ''}
+          <Container>
+            <Image
+              className="img-fluid"
+              src={project.image}
+              width={200}
+            />
+          </Container>
         </Collapsible>
       </Card.Body>
     </Card>

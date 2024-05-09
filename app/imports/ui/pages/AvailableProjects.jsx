@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image } from 'react-bootstrap';
+import { Badge, Card, Image, Row, Col } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -41,35 +41,39 @@ const MakeCard = ({ project }) => {
       setInterestedCount(count);
     }
   }, [project.name]);
-
   return (
-    <Card className="h-100 text-center">
-      <Card.Body>
-        <Image fluid src={project.picture} width={1000} />
-        <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
-        <Card.Subtitle>
-          <span className="date">{project.title}</span>
-        </Card.Subtitle>
-        <Card.Text>
-          {project.description}
-        </Card.Text>
-      </Card.Body>
-      <Card.Body>
-        {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
-      </Card.Body>
-      <Card.Body>
-        {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
-      </Card.Body>
-      <Card.Body>
-        {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
-      </Card.Body>
-      <Card.Body>
-        <Card.Text>
-          {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
-        </Card.Text>
-        <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
-      </Card.Body>
-    </Card>
+    <Col style={{ height: '100%' }}>
+      <Card className="availableProjectCard h-100">
+        <Card.Body className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '350px' }}>
+          <Image src={project.picture} fluid style={{ maxHeight: '250px' }} />
+          <Card.Title className="mt-2">{project.name}</Card.Title>
+          <Card.Subtitle>
+            <span className="date">{project.title}</span>
+          </Card.Subtitle>
+          <Card.Text>
+            {project.description}
+          </Card.Text>
+        </Card.Body>
+        <Card.Body>
+          {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
+        </Card.Body>
+        <Card.Body>
+          {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
+        </Card.Body>
+        <Card.Body>
+          {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
+        </Card.Body>
+        <Card.Body>
+          <Card.Text>
+            {interestedCount <= 1 ? <i className="bi bi-person" /> : <i className="bi bi-people" /> } {interestedCount} {interestedCount === 1 ? 'person is ' : 'people are '}interested
+          </Card.Text>
+          <button type="button" className="interestButton" onClick={() => expressInterest({ project })}>
+            Express Interest
+          </button>
+        </Card.Body>
+      </Card>
+    </Col>
+        
   );
 };
 
@@ -115,16 +119,26 @@ const AvailableProjectsPage = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <Container id={PageIDs.projectsPage} style={pageStyle}>
-      {
-        projectData.map((project, index) => {
-          if (project.statuses.includes('Published')) {
-            return (<MakeCard key={index} project={project} />);
+    <Col id={PageIDs.projectsPage} className="availableProjects" style={pageStyle}>
+      <Row className="px-lg-5">
+        <h1 className="text-center pb-4">Browse available projects from the community</h1>
+        <hr style={{ maxWidth: '70%', margin: 'auto' }} />
+        <Row xs={1} md={2} lg={4} className="g-2 pt-3 justify-content-center">
+          {
+            projectData.map((project, index) => {
+              if (project.statuses.includes('Published')) {
+                return (
+                  <Col xs={5} md={3} lg={3} className="availableProject mb-4">
+                    <MakeCard key={index} project={project} />
+                  </Col>
+                );
+              }
+              return false;
+            })
           }
-          return false;
-        })
-      }
-    </Container>
+        </Row>
+      </Row>
+    </Col>
   ) : <LoadingSpinner />;
 };
 

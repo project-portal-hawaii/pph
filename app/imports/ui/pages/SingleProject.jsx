@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Row, Col, Button } from 'react-bootstrap';
+import { Badge, Container, Card, Row, Col, Button, Image } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -12,7 +12,7 @@ import { Sponsors } from '../../api/sponsors/Sponsors';
 import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { pageStyle } from './pageStyles';
-import { ComponentIDs, PageIDs } from '../utilities/ids';
+import { PageIDs } from '../utilities/ids';
 import { ProjectsSubscribers } from '../../api/projects/ProjectsSubscribers';
 import { expressInterest } from '../utilities/projectUtils';
 
@@ -41,29 +41,27 @@ const MakeCard = ({ project }) => {
 
   return (
     <Col>
-      <Card className="my-2">
-        <Card.Body>
-          <Card.Img src={project.picture} style={{ width: '450px', height: '450px' }} />
+      <Card className="my-2 singleProjectCardBody">
+        <Card.Body className="d-flex flex-column align-items-center justify-content-center">
+          <Image src={project.picture} fluid style={{ maxHeight: '450px' }} />
           <Card.Title tag="h5" style={{ marginTop: '0px' }}>{project.name}</Card.Title>
           <p><i>FULL DESCRIPTION:</i></p>
           <Card.Subtitle>
             <span className="date">{project.title}</span>
           </Card.Subtitle>
-          <Card.Text>
+          <Card.Text style={{ maxWidth: '50%', textAlign: 'center' }}>
             {project.description}
           </Card.Text>
-        </Card.Body>
-        <Card.Body>
-          {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
-        </Card.Body>
-        <Card.Body>
-          {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
-        </Card.Body>
-        <Card.Body>
           <Card.Text>
-            {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
+            {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
+            {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
           </Card.Text>
-          <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
+          <Card.Text>
+            {interestedCount <= 1 ? <i className="bi bi-person" /> : <i className="bi bi-people" /> } {interestedCount} {interestedCount === 1 ? 'person is ' : 'people are '}interested
+          </Card.Text>
+          <Card.Text>
+            <Button className="interestButton" onClick={() => expressInterest(project.name)}>Express Interest</Button>
+          </Card.Text>
         </Card.Body>
       </Card>
     </Col>
@@ -101,12 +99,26 @@ const SingleProjectPage = () => {
   const projectData = projects.map(project => getProjectData(project));
   const singleProject = _.sample(projectData);
   return ready ? (
-    <Container id={PageIDs.projectsPage} style={pageStyle}>
-      <Row className="g-2">
-        <MakeCard project={singleProject} />
+    <Row id={PageIDs.projectsPage} className="singleProject" style={pageStyle}>
+      <Row classname="justify-content-center">
+        <h1 className="text-center pb-4">Explore projects one at a time</h1>
+        <hr style={{ maxWidth: '50%', margin: 'auto' }} />
       </Row>
-      <Button id={ComponentIDs.singleProjectAddButton}>Add Project</Button>
-    </Container>
+      <Container style={{ width: '70%', ...pageStyle }}>
+        <Row className="pt-3 mb-4">
+          <MakeCard project={singleProject} />
+        </Row>
+        <hr style={{ width: '70%', margin: 'auto' }} />
+        <Row className="justify-content-center">
+          <div className="text-center">
+            {/* eslint-disable-next-line no-restricted-globals */}
+            <Button className="interestButton my-4" onClick={() => location.reload()}>
+              View another project
+            </Button>
+          </div>
+        </Row>
+      </Container>
+    </Row>
   ) : <LoadingSpinner />;
 };
 

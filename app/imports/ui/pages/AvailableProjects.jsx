@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Row } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -43,35 +43,33 @@ const MakeCard = ({ project }) => {
   }, [project.name]);
 
   return (
-    <Col>
-      <Card className="h-100">
-        <Card.Body>
-          <Image src={project.picture} width={100} rounded />
-          <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
-          <Card.Subtitle>
-            <span className="date">{project.title}</span>
-          </Card.Subtitle>
-          <Card.Text>
-            {`${project.description.slice(0, 100)}...`}
-          </Card.Text>
-        </Card.Body>
-        <Card.Body>
-          {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
-        </Card.Body>
-        <Card.Body>
-          {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
-        </Card.Body>
-        <Card.Body>
-          {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
-        </Card.Body>
-        <Card.Body>
-          <Card.Text>
-            {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
-          </Card.Text>
-          <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
-        </Card.Body>
-      </Card>
-    </Col>
+    <Card className="h-100 text-center">
+      <Card.Body>
+        <Image fluid src={project.picture} width={1000} />
+        <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
+        <Card.Subtitle>
+          <span className="date">{project.title}</span>
+        </Card.Subtitle>
+        <Card.Text>
+          {project.description}
+        </Card.Text>
+      </Card.Body>
+      <Card.Body>
+        {project.sponsors.map((sponsor, index) => <Badge key={index}>{sponsor}</Badge>)}
+      </Card.Body>
+      <Card.Body>
+        {project.interests.map((interest, index) => <Badge key={index} bg="info">{interest}</Badge>)}
+      </Card.Body>
+      <Card.Body>
+        {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
+      </Card.Body>
+      <Card.Body>
+        <Card.Text>
+          {interestedCount} {interestedCount === 1 ? 'person' : 'people'} are interested
+        </Card.Text>
+        <button type="button" onClick={() => expressInterest(project.name)}>Express Interest</button>
+      </Card.Body>
+    </Card>
   );
 };
 
@@ -118,16 +116,14 @@ const AvailableProjectsPage = () => {
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
     <Container id={PageIDs.projectsPage} style={pageStyle}>
-      <Row xs={1} md={2} lg={4} className="g-2">
-        {
-          projectData.map((project, index) => {
-            if (project.statuses.includes('Published')) {
-              return (<MakeCard key={index} project={project} />);
-            }
-            return false;
-          })
-        }
-      </Row>
+      {
+        projectData.map((project, index) => {
+          if (project.statuses.includes('Published')) {
+            return (<MakeCard key={index} project={project} />);
+          }
+          return false;
+        })
+      }
     </Container>
   ) : <LoadingSpinner />;
 };

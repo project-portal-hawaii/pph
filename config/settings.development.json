@@ -97,6 +97,20 @@
   ],
   "defaultProjects": [
     {
+      "name": "Hawaiian Airlines Web Modernization",
+      "homepage": "https://hawaiianairlines.com",
+      "description": "With over 90 years of continuous service, Hawaiian Airlines is the largest operator of commercial flights to and from the U.S. state of Hawaii and is Hawaii's biggest and longest-serving airline. • The Hawaiian Airlines website provides guests with the ability to book and manage their flights and view details about the state of Hawaii • The majority of tickets are booked through the website • A large number of guests perform check-ins using the website HawaiianAirlines.com The purpose of the project is to replace the legacy website. Issues include: • Deprecated technologies increasing the risk of security vulnerabilities and lack of experienced developers • Complex design leading to issues, such as low reusability, testing, etc. • PSS change means touching the code Motivation Web Modernization.",
+      "interests": [
+        "Software Engineering"
+      ],
+      "picture": "https://github.com/project-portal-hawaii/pph/blob/main/app/public/images/2022_Fall/496_Hawaiian.pdf",
+      "sponsors": [
+        "ICSatKCC",
+        "ACM@MANOA"
+      ],
+      "status": "Showcase"
+    },
+    {
       "name": "Open Power Quality",
       "homepage": "https://openpowerquality.org",
       "description": "Open source hardware and software for distributed power quality data collection, analysis, and visualization.",

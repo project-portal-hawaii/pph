@@ -32,6 +32,7 @@ const MakeCard = ({ project }) => (
   <Card className="h-100">
     <Card.Body>
       <Image fluid src={project.picture} width={1500} center />
+      <Image fluid src={project.poster} width={1500} center />
       <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
       <Card.Subtitle>
         <span className="date">{project.title}</span>
@@ -60,6 +61,7 @@ MakeCard.propTypes = {
     picture: PropTypes.string,
     title: PropTypes.string,
     interests: PropTypes.arrayOf(PropTypes.string),
+    poster: PropTypes.string,
     sponsors: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };

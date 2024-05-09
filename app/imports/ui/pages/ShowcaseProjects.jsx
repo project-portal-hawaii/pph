@@ -33,7 +33,7 @@ const MakeCard = ({ project }) => (
   <Col>
     <Card className="h-100">
       <Card.Body>
-        <Image src={project.picture} width={100} rounded center />
+        <Image fluid src={project.picture} width={1500} center />
         <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
         <Card.Subtitle>
           <span className="date">{project.title}</span>

@@ -73,7 +73,6 @@ const MakeCard = ({ project }) => {
         </Card.Footer>
       </Card>
     </Col>
-        
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Row } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -31,7 +31,7 @@ function getProjectData(name) {
 const MakeCard = ({ project }) => (
   <Card className="h-100">
     <Card.Body>
-      <Image fluid src={project.picture} width={1500}  center />
+      <Image fluid src={project.picture} width={1500} center />
       <Card.Title style={{ marginTop: '0px' }}>{project.name}</Card.Title>
       <Card.Subtitle>
         <span className="date">{project.title}</span>
@@ -49,7 +49,8 @@ const MakeCard = ({ project }) => (
     <Card.Body>
       {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
     </Card.Body>
-  </Card>);
+  </Card>
+);
 
 MakeCard.propTypes = {
   project: PropTypes.shape({

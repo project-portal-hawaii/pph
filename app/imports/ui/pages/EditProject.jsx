@@ -43,7 +43,7 @@ const makeSchema = (allInterests, allParticipants, allStatuses, currentStatuses)
   image: { type: String, optional: true },
   poster: { type: String, optional: true },
   // Status
-  statuses: { type: Array, label: 'Statuses', optional: true, defaultValue: currentStatuses },
+  statuses: { type: Array, label: 'Statuses', optional: false, defaultValue: currentStatuses },
   'statuses.$': { type: String, allowedValues: allStatuses },
 });
 
@@ -78,36 +78,33 @@ const EditProject = () => {
       statuses: Statuses.collection.find().fetch(),
     };
   }, []);
-
-  const allInterests = _.pluck(interests, 'name');
-  const allParticipants = _.pluck(profiles, 'email');
-  const allStatuses = _.pluck(statuses, 'name');
-
-  // const projectName = Projects.collection.findOne({ _id: projectId }).name;
-  const currentStatuses = []; // [ProjectsStatuses.collection.find({ project: projectName }).fetch()];
   if (ready) {
+    const allInterests = _.pluck(interests, 'name');
+    const allParticipants = _.pluck(profiles, 'email');
+    const allStatuses = _.pluck(statuses, 'name');
+    // const projectName = Projects.collection.findOne({ _id: projectId }).name;
+    const currentStatuses = []; // [ProjectsStatuses.collection.find({ project: projectName }).fetch()];
     const projectName = Projects.collection.findOne({ _id: projectId }).name;
     ProjectsStatuses.collection.find({ project: projectName }).fetch().map((status) => currentStatuses.push(status.status));
-  }
-  const formSchema = makeSchema(allInterests, allParticipants, allStatuses, currentStatuses);
-  const bridge = new SimpleSchema2Bridge(formSchema);
-  const project = Projects.collection.findOne({ _id: projectId });
-  const model = _.extend({}, project);
-
-  // const transform = (label) => ` ${label}`;
-  /* Render the form. Use Uniforms: https://github.com/vazco/uniforms */
-  return ready ? (
-    <Container style={pageStyle}>
-      <Row id={PageIDs.addProjectPage} className="justify-content-center">
-        <Col xs={10}>
-          <Col className="text-center"><h2>Edit Project</h2></Col>
-          <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
-            <ProjectForm />
-          </AutoForm>
-        </Col>
-      </Row>
-    </Container>
-  ) : <LoadingSpinner />;
+    const formSchema = makeSchema(allInterests, allParticipants, allStatuses, currentStatuses);
+    const bridge = new SimpleSchema2Bridge(formSchema);
+    const project = Projects.collection.findOne({ _id: projectId });
+    const model = _.extend({}, project);
+    // const transform = (label) => ` ${label}`;
+    /* Render the form. Use Uniforms: https://github.com/vazco/uniforms */
+    return (
+      <Container style={pageStyle}>
+        <Row id={PageIDs.addProjectPage} className="justify-content-center">
+          <Col xs={10}>
+            <Col className="text-center"><h2>Edit Project</h2></Col>
+            <AutoForm model={model} schema={bridge} onSubmit={data => submit(data)}>
+              <ProjectForm />
+            </AutoForm>
+          </Col>
+        </Row>
+      </Container>
+    );
+  } <LoadingSpinner />;
 };
 
 export default EditProject;

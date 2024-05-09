@@ -114,7 +114,7 @@ Meteor.methods({
 
     // ProfilesProjects.collection.remove({ project: name });
     // ProjectsInterests.collection.remove({ project: name });
-    ProjectsStatuses.collection.remove({ project: name });
+    // ProjectsStatuses.collection.remove({ project: name });
     if (interests) {
       // interests.map((interest) => ProjectsInterests.collection.insert({ project: name, interest }));
     } else {

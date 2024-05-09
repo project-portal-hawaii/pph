@@ -119,7 +119,9 @@ const AvailableProjectsPage = () => {
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
   return ready ? (
-    <Container id={PageIDs.projectsPage} style={pageStyle}>
+    <Container id={PageIDs.projectsPage} style={pageStyle} className="availableProjects">
+      <h1 className="text-center pb-4">Browse available projects from the community</h1>
+      <hr style={{ maxWidth: '70%', margin: 'auto' }} />
       <Row xs={1} md={2} lg={4} className="g-2">
         {
           projectData.map((project, index) => {

@@ -102,7 +102,7 @@ const SingleProjectPage = () => {
   const singleProject = _.sample(projectData);
   return ready ? (
     <Row id={PageIDs.projectsPage} className="singleProject" style={pageStyle}>
-      <Row classname="justify-content-center">
+      <Row className="justify-content-center">
         <h1 className="text-center pb-4">Explore projects one at a time</h1>
         <hr style={{ maxWidth: '50%', margin: 'auto' }} />
       </Row>

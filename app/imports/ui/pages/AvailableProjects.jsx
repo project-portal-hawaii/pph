@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Badge, Container, Card, Image, Row, Col, Button } from 'react-bootstrap';
+import { Badge, Container, Card, Image, Row, Col, Button, Form } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -17,6 +17,7 @@ import { Statuses } from '../../api/statuses/Statuses';
 import { ProjectsStatuses } from '../../api/projects/ProjectsStatuses';
 import { ProjectsSubscribers } from '../../api/projects/ProjectsSubscribers';
 import { expressInterest } from '../utilities/projectUtils';
+import { ProjectsComments } from '../../api/projects/ProjectsComments';
 
 /* Gets the Project data as well as Profiles and Interests associated with the passed Project name. */
 function getProjectData(name) {
@@ -26,13 +27,15 @@ function getProjectData(name) {
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
   const sponsors = _.pluck(ProjectsSponsors.collection.find({ project: name }).fetch(), 'sponsor');
   const subscribers = _.pluck(ProjectsSubscribers.collection.find({ project: name }).fetch(), 'profile');
+  const comments = ProjectsComments.collection.find({ projectId: data._id }).fetch();
   const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile })?.picture);
-  return _.extend({}, data, { interests, statuses, sponsors, subscribers, participants: profilePictures });
+  return _.extend({}, data, { interests, statuses, sponsors, subscribers, comments, participants: profilePictures });
 }
 
 /* Component for layout out a Project Card. */
-const MakeCard = ({ project }) => {
+const MakeCard = ({ project, handleCommentSubmit }) => {
   const [interestedCount, setInterestedCount] = useState(0);
+  const [comment, setComments] = useState([]);
 
   useTracker(() => {
     const interestsHandle = Meteor.subscribe(ProjectsSubscribers.userPublicationName);
@@ -41,7 +44,13 @@ const MakeCard = ({ project }) => {
       setInterestedCount(count);
     }
   }, [project.name]);
-
+  useTracker(() => {
+    const commentsHandle = Meteor.subscribe(ProjectsComments.userPublicationName, project._id);
+    if (commentsHandle.ready()) {
+      const commentsData = ProjectsComments.collection.find({ project: project._id }).fetch();
+      setComments(commentsData);
+    }
+  }, [project._id]);
   return (
     <Col>
       <Card className="h-100">
@@ -64,7 +73,27 @@ const MakeCard = ({ project }) => {
         <Card.Body>
           {project.participants.map((p, index) => <Image key={index} roundedCircle src={p} width={50} />)}
         </Card.Body>
-        {Meteor.user() ? (
+        <Card.Body>
+          {project.comments.map((c, index) => (
+            <div key={index}>
+              <p>{c.name}</p>
+              <p>{c.createdAt.toLocaleString()}</p>
+              <p>{c.comment}</p>
+            </div>
+          ))}
+        </Card.Body>
+        <Card.Body>
+          <Form.Group className="mb-3">
+            <Form.Control
+              as="textarea"
+              rows={3}
+              placeholder="Leave a comment here..."
+              value={comment}
+              onChange={(e) => setComments(e.target.value)}
+            />
+          </Form.Group>
+          <Button variant="success" onClick={() => handleCommentSubmit(project, comment)}>Post Comment</Button>
+        </Card.Body>{Meteor.user() ? (
           <Card.Footer style={{ backgroundColor: 'transparent' }}>
             <Card.Text>
               {interestedCount} {interestedCount === 1 ? 'person is' : 'people are'} interested
@@ -79,6 +108,7 @@ const MakeCard = ({ project }) => {
 
 MakeCard.propTypes = {
   project: PropTypes.shape({
+    _id: PropTypes.string,
     description: PropTypes.string,
     name: PropTypes.string,
     participants: PropTypes.arrayOf(PropTypes.string),
@@ -96,7 +126,13 @@ MakeCard.propTypes = {
     statuses: PropTypes.arrayOf(PropTypes.string),
     sponsors: PropTypes.arrayOf(PropTypes.string),
     subscribers: PropTypes.arrayOf(PropTypes.string),
+    comments: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      createdAt: PropTypes.instanceOf(Date),
+      comment: PropTypes.string,
+    })),
   }).isRequired,
+  handleCommentSubmit: PropTypes.func.isRequired,
 };
 
 /* Renders the Project Collection as a set of Cards. */
@@ -112,12 +148,42 @@ const AvailableProjectsPage = () => {
     const sub7 = Meteor.subscribe(Sponsors.userPublicationName);
     const sub8 = Meteor.subscribe(ProjectsSponsors.userPublicationName);
     const sub9 = Meteor.subscribe(ProjectsSubscribers.userPublicationName);
+    const sub10 = Meteor.subscribe(ProjectsComments.userPublicationName);
     return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready() && sub7.ready() && sub8.ready() && sub9.ready(),
+      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready() && sub7.ready() && sub8.ready() && sub9.ready() && sub10.ready(),
     };
   }, []);
+
   const projects = _.pluck(Projects.collection.find().fetch(), 'name');
   const projectData = projects.map(project => getProjectData(project));
+
+  const handleCommentSubmit = (project, comment) => {
+    if (comment.trim() !== '' && Meteor.userId()) {
+      const user = Meteor.user();
+      const userEmail = user.emails[0].address;
+      const profile = Profiles.collection.findOne({ email: userEmail });
+      if (profile) {
+        const userName = `${profile.firstName} ${profile.lastName}`;
+        const newComment = {
+          projectId: project._id,
+          userId: Meteor.userId(),
+          name: userName,
+          comment: comment.trim(),
+          createdAt: new Date(),
+        };
+        console.error('newComment = ', newComment);
+        try {
+          ProjectsComments.schema.validate(newComment);
+          ProjectsComments.collection.insert(newComment);
+          console.log('Comment insertion passed for newComment:', newComment);
+        } catch (e) {
+          console.error('Comment insertion error:', e.message);
+        }
+      } else {
+        console.error('User profile not found for email: ', userEmail);
+      }
+    }
+  };
   return ready ? (
     <Container id={PageIDs.projectsPage} style={pageStyle} className="availableProjects">
       <h1 className="text-center pb-4">Browse available projects from the community</h1>
@@ -126,7 +192,14 @@ const AvailableProjectsPage = () => {
         {
           projectData.map((project, index) => {
             if (project.statuses.includes('Published')) {
-              return (<MakeCard key={index} project={project} />);
+              return (
+                <MakeCard
+                  key={index}
+                  project={project}
+                  /* eslint-disable-next-line no-shadow */
+                  handleCommentSubmit={(project, comment) => handleCommentSubmit(project, comment)}
+                />
+              );
             }
             return false;
           })

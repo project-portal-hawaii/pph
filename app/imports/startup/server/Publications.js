@@ -12,6 +12,7 @@ import { Comments } from '../../api/comment/Comments';
 import { Sponsors } from '../../api/sponsors/Sponsors';
 import { ProjectsSponsors } from '../../api/projects/ProjectsSponsors';
 import { ProjectsSubscribers } from '../../api/projects/ProjectsSubscribers';
+import { ProjectsComments } from '../../api/projects/ProjectsComments';
 
 /** Define a publication to publish all sponsors. */
 Meteor.publish(Sponsors.userPublicationName, () => Sponsors.collection.find());
@@ -45,6 +46,9 @@ Meteor.publish(Statuses.userPublicationName, () => Statuses.collection.find());
 
 /** Define a publication to publish this collection. */
 Meteor.publish(ProjectsStatuses.userPublicationName, () => ProjectsStatuses.collection.find());
+
+/** Define a publication to publish this collection. */
+Meteor.publish(ProjectsComments.userPublicationName, () => ProjectsComments.collection.find());
 
 // alanning:roles publication
 // Recommended code to publish roles for each user.
